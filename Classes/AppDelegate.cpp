@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include "LoadingScene.h"
+#include "LoginScene.h"
 
 USING_NS_CC;
 
@@ -16,7 +17,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLView::create("My Game");
+        glview = GLView::create("Dice");
         director->setOpenGLView(glview);
     }
 
@@ -25,10 +26,38 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
+    
+    auto screenSize = glview->getFrameSize();
+    
+    auto designSize = Size(320, 480);
+    
+    auto fileUtils = FileUtils::getInstance();
+    std::vector<std::string> searchPaths;
+    Size resourceSize;
+    if (screenSize.height > 320)
+    {
+        resourceSize = Size(640, 960);
+        searchPaths.push_back("hd");
+    }
+    else
+    {
+        resourceSize = Size(320, 480);
+        searchPaths.push_back("normal");
+    }
+    
+    director->setContentScaleFactor(resourceSize.width/designSize.width);
+    fileUtils->setSearchPaths(searchPaths);
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+    // a bug in DirectX 11 level9-x on the device prevents ResolutionPolicy::NO_BORDER from working correctly
+    glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::SHOW_ALL);
+#else
+    glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_WIDTH);
+#endif
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
-
+    auto scene = LoadingScene::create();
+//    auto scene = LoginScene::create();
     // run
     director->runWithScene(scene);
 
