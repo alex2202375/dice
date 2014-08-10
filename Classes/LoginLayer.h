@@ -14,7 +14,7 @@
 #include "cocos-ext.h"
 #include "deprecated/CCDeprecated.h"
 using namespace cocos2d;
-using namespace cocos2d::extension;
+USING_NS_CC_EXT;
 
 class LoginLayer: public Layer{
 public:
