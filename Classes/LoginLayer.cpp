@@ -14,6 +14,9 @@
 #include "CCMenu.h"
 
 
+//using namespace cocos2d::extension;
+USING_NS_CC;
+
 //void LoginLayer::menuCloseCallback(Ref* pSender)
 //{
 //    Director::getInstance()->end();
@@ -73,5 +76,33 @@ bool LoginLayer::init() {
     login->addChild(menu);
     addChild(login);
     
+    
+    /* 输入用户名，输入框 */
+    Size size = Director::getInstance()->getWinSize();
+    Scale9Sprite * sacel9SprY=Scale9Sprite::create("blunk.png");
+    EditBox * m_InputBox = EditBox::create(CCSizeMake(130,20), sacel9SprY);
+    
+    m_InputBox->setText("");
+    m_InputBox->setFontColor(ccc3(0, 0, 0));
+    m_InputBox->setPlaceHolder("请输入帐号");
+    m_InputBox->setMaxLength(12);
+    // TODO:
+//    m_InputBox->setInputFlag(kEditBoxInputFlagSensitive);
+//    m_InputBox->setReturnType(kKeyboardReturnTypeDone);
+    m_InputBox->setPosition(ccp(size.width*0.5 + 16, 175));
+    addChild(m_InputBox);
+    
+    /* 输入密码，输入框 */
+    Scale9Sprite  * scale9SprG =Scale9Sprite::create("blunk.png");
+    EditBox * m_PwdBox = EditBox::create(CCSizeMake(130, 20), scale9SprG);
+    m_PwdBox->setPosition(ccp(size.width* 0.5 + 16, 140));
+    m_PwdBox->setFontColor(ccc3(0, 0, 0));
+    m_PwdBox->setPlaceHolder("输入密码");
+    m_PwdBox->setMaxLength(12);
+    // TODO:
+//    m_PwdBox->setInputFlag(kEditBoxInputFlagPassword);
+//    m_PwdBox->setReturnType(kKeyboardReturnTypeGo);
+    addChild(m_PwdBox);
+   
     return true;
 }

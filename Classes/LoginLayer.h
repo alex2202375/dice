@@ -11,10 +11,12 @@
 
 #include <iostream>
 #include "CCLayer.h"
-
+#include "cocos-ext.h"
+#include "deprecated/CCDeprecated.h"
 using namespace cocos2d;
+USING_NS_CC_EXT;
 
-class LoginLayer: public Layer {
+class LoginLayer: public Layer{
 public:
     CREATE_FUNC(LoginLayer);
     virtual bool init() override;
