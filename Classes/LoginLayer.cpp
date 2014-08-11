@@ -40,6 +40,7 @@ void LoginLayer::onEnter() {
 
 void LoginLayer::onLoginClicked(Ref* caller) {
     log(__FUNCTION__);
+    
 }
 
 void LoginLayer::onRegisterClicked(Ref * caller) {

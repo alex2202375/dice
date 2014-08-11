@@ -19,6 +19,8 @@ public:
     virtual void onEnter() override;
     
 private:
+
+
 };
 
 #endif /* defined(__dice__LoadingScene__) */

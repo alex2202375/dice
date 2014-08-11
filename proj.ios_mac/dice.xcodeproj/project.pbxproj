@@ -74,6 +74,11 @@
 		C3DE3DE719965B2400EB0A2A /* Login.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3DE419965B2400EB0A2A /* Login.png */; };
 		C3DE3DE819965B2400EB0A2A /* LoginButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3DE519965B2400EB0A2A /* LoginButton.png */; };
 		C3DE3DE919965B2400EB0A2A /* RegisterButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3DE619965B2400EB0A2A /* RegisterButton.png */; };
+		C3DE3DED1997A0A600EB0A2A /* NetEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DEB1997A0A500EB0A2A /* NetEngine.cpp */; };
+		C3DE3DF01997ABAA00EB0A2A /* LogicalEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DEE1997ABAA00EB0A2A /* LogicalEngine.cpp */; };
+		C3DE3DF41997AF6600EB0A2A /* CommonUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DF21997AF6600EB0A2A /* CommonUtil.cpp */; };
+		C3DE3DF91997B34300EB0A2A /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DF71997B34300EB0A2A /* Player.cpp */; };
+		C3DE3DFC1997B35000EB0A2A /* Room.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DFA1997B35000EB0A2A /* Room.cpp */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
@@ -289,6 +294,16 @@
 		C3DE3DE419965B2400EB0A2A /* Login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login.png; sourceTree = "<group>"; };
 		C3DE3DE519965B2400EB0A2A /* LoginButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginButton.png; sourceTree = "<group>"; };
 		C3DE3DE619965B2400EB0A2A /* RegisterButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RegisterButton.png; sourceTree = "<group>"; };
+		C3DE3DEB1997A0A500EB0A2A /* NetEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetEngine.cpp; sourceTree = "<group>"; };
+		C3DE3DEC1997A0A500EB0A2A /* NetEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetEngine.h; sourceTree = "<group>"; };
+		C3DE3DEE1997ABAA00EB0A2A /* LogicalEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogicalEngine.cpp; sourceTree = "<group>"; };
+		C3DE3DEF1997ABAA00EB0A2A /* LogicalEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogicalEngine.h; sourceTree = "<group>"; };
+		C3DE3DF21997AF6600EB0A2A /* CommonUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CommonUtil.cpp; sourceTree = "<group>"; };
+		C3DE3DF31997AF6600EB0A2A /* CommonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtil.h; sourceTree = "<group>"; };
+		C3DE3DF71997B34300EB0A2A /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
+		C3DE3DF81997B34300EB0A2A /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		C3DE3DFA1997B35000EB0A2A /* Room.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Room.cpp; sourceTree = "<group>"; };
+		C3DE3DFB1997B35000EB0A2A /* Room.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Room.h; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -362,6 +377,9 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C3DE3DF61997B31A00EB0A2A /* Objs */,
+				C3DE3DF11997AF0E00EB0A2A /* Util */,
+				C3DE3DEA1997A06F00EB0A2A /* Engine */,
 				C3DE3DCA1995C68700EB0A2A /* Scene */,
 				C3DE3DB91995C52E00EB0A2A /* Layer */,
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
@@ -544,6 +562,37 @@
 				1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */,
 			);
 			path = normal;
+			sourceTree = "<group>";
+		};
+		C3DE3DEA1997A06F00EB0A2A /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				C3DE3DEB1997A0A500EB0A2A /* NetEngine.cpp */,
+				C3DE3DEC1997A0A500EB0A2A /* NetEngine.h */,
+				C3DE3DEE1997ABAA00EB0A2A /* LogicalEngine.cpp */,
+				C3DE3DEF1997ABAA00EB0A2A /* LogicalEngine.h */,
+			);
+			name = Engine;
+			sourceTree = "<group>";
+		};
+		C3DE3DF11997AF0E00EB0A2A /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				C3DE3DF21997AF6600EB0A2A /* CommonUtil.cpp */,
+				C3DE3DF31997AF6600EB0A2A /* CommonUtil.h */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		C3DE3DF61997B31A00EB0A2A /* Objs */ = {
+			isa = PBXGroup;
+			children = (
+				C3DE3DF71997B34300EB0A2A /* Player.cpp */,
+				C3DE3DF81997B34300EB0A2A /* Player.h */,
+				C3DE3DFA1997B35000EB0A2A /* Room.cpp */,
+				C3DE3DFB1997B35000EB0A2A /* Room.h */,
+			);
+			name = Objs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -757,14 +806,19 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
+				C3DE3DED1997A0A600EB0A2A /* NetEngine.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				C3DE3DD31995C6FB00EB0A2A /* LoginScene.cpp in Sources */,
+				C3DE3DFC1997B35000EB0A2A /* Room.cpp in Sources */,
+				C3DE3DF41997AF6600EB0A2A /* CommonUtil.cpp in Sources */,
 				C3DE3DD61995C72200EB0A2A /* RegisterScene.cpp in Sources */,
 				C3DE3DC41995C54D00EB0A2A /* LoginLayer.cpp in Sources */,
 				C3DE3DD01995C6D300EB0A2A /* LoadingScene.cpp in Sources */,
 				C3DE3DC31995C54D00EB0A2A /* InitBackgroundLayer.cpp in Sources */,
 				C3DE3DD91995C73200EB0A2A /* GameScene.cpp in Sources */,
 				C3DE3DC21995C54D00EB0A2A /* LoadingLayer.cpp in Sources */,
+				C3DE3DF01997ABAA00EB0A2A /* LogicalEngine.cpp in Sources */,
+				C3DE3DF91997B34300EB0A2A /* Player.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
