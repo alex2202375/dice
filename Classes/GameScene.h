@@ -10,5 +10,15 @@
 #define __dice__GameScene__
 
 #include <iostream>
+#include "CCScene.h"
+
+USING_NS_CC;
+
+class GameScene: public Scene {
+public:
+    CREATE_FUNC(GameScene);
+    
+    virtual bool init() override;
+};
 
 #endif /* defined(__dice__GameScene__) */

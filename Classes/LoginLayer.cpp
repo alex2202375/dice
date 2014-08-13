@@ -12,6 +12,7 @@
 #include "CCLabelTTF.h"
 #include "CCSprite.h"
 #include "CCMenu.h"
+#include "GameScene.h"
 
 
 //using namespace cocos2d::extension;
@@ -43,7 +44,8 @@ void LoginLayer::onEnter() {
 
 void LoginLayer::onLoginClicked(Ref* caller) {
     log(__FUNCTION__);
-    
+    GameScene * scene = GameScene::create();
+    Director::getInstance()->replaceScene(scene);
 }
 
 void LoginLayer::onRegisterClicked(Ref * caller) {
@@ -80,23 +82,23 @@ bool LoginLayer::init() {
     /* 输入用户名，输入框 */
     Size size = Director::getInstance()->getWinSize();
     Scale9Sprite * sacel9SprY=Scale9Sprite::create("blunk.png");
-    EditBox * m_InputBox = EditBox::create(CCSizeMake(130,20), sacel9SprY);
+    EditBox * m_InputBox = EditBox::create(Size(130,20), sacel9SprY);
     
     m_InputBox->setText("");
-    m_InputBox->setFontColor(ccc3(0, 0, 0));
+    m_InputBox->setFontColor(Color3B(0, 0, 0));
     m_InputBox->setPlaceHolder("请输入帐号");
     m_InputBox->setMaxLength(12);
     // TODO:
 //    m_InputBox->setInputFlag(kEditBoxInputFlagSensitive);
 //    m_InputBox->setReturnType(kKeyboardReturnTypeDone);
-    m_InputBox->setPosition(ccp(size.width*0.5 + 16, 175));
+    m_InputBox->setPosition(Vec2(size.width*0.5 + 16, 175));
     addChild(m_InputBox);
     
     /* 输入密码，输入框 */
     Scale9Sprite  * scale9SprG =Scale9Sprite::create("blunk.png");
-    EditBox * m_PwdBox = EditBox::create(CCSizeMake(130, 20), scale9SprG);
-    m_PwdBox->setPosition(ccp(size.width* 0.5 + 16, 140));
-    m_PwdBox->setFontColor(ccc3(0, 0, 0));
+    EditBox * m_PwdBox = EditBox::create(Size(130, 20), scale9SprG);
+    m_PwdBox->setPosition(Vec2(size.width* 0.5 + 16, 140));
+    m_PwdBox->setFontColor(Color3B(0, 0, 0));
     m_PwdBox->setPlaceHolder("输入密码");
     m_PwdBox->setMaxLength(12);
     // TODO:

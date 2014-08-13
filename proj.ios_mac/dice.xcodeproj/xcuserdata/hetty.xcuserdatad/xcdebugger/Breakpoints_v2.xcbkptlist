@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/LoginLayer.cpp"
-            timestampString = "429289560.347677"
+            timestampString = "429462368.303036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "LoginLayer::onLoginClicked(Ref* caller)"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "LoginLayer::onEnter()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/LoginLayer.cpp"
-            timestampString = "429289560.347677"
+            timestampString = "429462368.303036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "LoginLayer::onRegisterClicked(Ref * caller)"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "LoginLayer::onLoginClicked(Ref* caller)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
