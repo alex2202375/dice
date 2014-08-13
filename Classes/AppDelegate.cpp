@@ -29,21 +29,26 @@ bool AppDelegate::applicationDidFinishLaunching() {
     
     auto screenSize = glview->getFrameSize();
     
-    auto designSize = Size(320, 480);
+    auto designSize = Size(640, 1136);
     
     auto fileUtils = FileUtils::getInstance();
     std::vector<std::string> searchPaths;
     Size resourceSize;
-    if (screenSize.height > 320)
+#if 0 //Enable following lines when has multiple resources
+    if (screenSize.height > 1280)
     {
-        resourceSize = Size(640, 960);
-        searchPaths.push_back("hd");
+        resourceSize = Size(1080, 1920);
+        searchPaths.push_back("xxh");
     }
     else
     {
-        resourceSize = Size(320, 480);
-        searchPaths.push_back("normal");
+        resourceSize = Size(720, 1280);
+        searchPaths.push_back("xh");
     }
+#else 
+    resourceSize = Size(1080, 1920);
+    searchPaths.push_back("xxh");
+#endif
     
     director->setContentScaleFactor(resourceSize.width/designSize.width);
     fileUtils->setSearchPaths(searchPaths);

@@ -601,7 +601,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C3DE3E11199BA90B00EB0A2A /* xhd */,
+				C3DE3E11199BA90B00EB0A2A /* xxh */,
 				C3DE3DC61995C55F00EB0A2A /* fonts */,
 			);
 			name = Resources;
@@ -680,7 +680,7 @@
 			name = Objs;
 			sourceTree = "<group>";
 		};
-		C3DE3E11199BA90B00EB0A2A /* xhd */ = {
+		C3DE3E11199BA90B00EB0A2A /* xxh */ = {
 			isa = PBXGroup;
 			children = (
 				C3DE3E12199BA90B00EB0A2A /* bold.png */,
@@ -728,6 +728,7 @@
 				C3DE3E48199BA90B00EB0A2A /* trueWords.png */,
 				C3DE3E49199BA90B00EB0A2A /* winRate.png */,
 			);
+			name = xxh;
 			path = xhd;
 			sourceTree = "<group>";
 		};

@@ -26,7 +26,7 @@ bool GameBackgroundLayer::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     // add "DiceScene" splash screen"
-    auto sprite = Sprite::create("GameBackground.png");
+    auto sprite = Sprite::create("gameBackground.png");
     
     // position the sprite on the center of the screen
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));

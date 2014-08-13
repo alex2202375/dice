@@ -63,13 +63,13 @@ bool LoginLayer::init() {
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    Sprite *login = Sprite::create("Login.png");
-    login->setPosition(Vec2(visibleSize.width/2, login->getContentSize().height/2+60));
+    Sprite *login = Sprite::create("loginRectBack.png");
+    login->setPosition(Vec2(visibleSize.width/2, visibleSize.height/3));
     
-    auto loginButton = MenuItemImage::create("LoginButton.png", "RegisterButton.png", CC_CALLBACK_1(LoginLayer::onLoginClicked, this));
+    auto loginButton = MenuItemImage::create("loginButtonNormal.png", "loginButtonPressed.png", CC_CALLBACK_1(LoginLayer::onLoginClicked, this));
     loginButton->setPosition(Vec2(57, 0));
 
-    auto registerButton = MenuItemImage::create("RegisterButton.png", "LoginButton.png", CC_CALLBACK_1(LoginLayer::onRegisterClicked, this));
+    auto registerButton = MenuItemImage::create("registerButtonNormal.png", "registerButtonPressed.png", CC_CALLBACK_1(LoginLayer::onRegisterClicked, this));
     registerButton->setPosition(Vec2(155, 0));
     
     auto menu = Menu::create(loginButton, registerButton, nullptr);
@@ -81,7 +81,7 @@ bool LoginLayer::init() {
     
     /* 输入用户名，输入框 */
     Size size = Director::getInstance()->getWinSize();
-    Scale9Sprite * sacel9SprY=Scale9Sprite::create("blunk.png");
+    Scale9Sprite * sacel9SprY=Scale9Sprite::create("editRect.png");
     EditBox * m_InputBox = EditBox::create(Size(130,20), sacel9SprY);
     
     m_InputBox->setText("");
@@ -95,7 +95,7 @@ bool LoginLayer::init() {
     addChild(m_InputBox);
     
     /* 输入密码，输入框 */
-    Scale9Sprite  * scale9SprG =Scale9Sprite::create("blunk.png");
+    Scale9Sprite  * scale9SprG =Scale9Sprite::create("editRect.png");
     EditBox * m_PwdBox = EditBox::create(Size(130, 20), scale9SprG);
     m_PwdBox->setPosition(Vec2(size.width* 0.5 + 16, 140));
     m_PwdBox->setFontColor(Color3B(0, 0, 0));
