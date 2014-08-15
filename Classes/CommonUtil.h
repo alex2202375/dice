@@ -11,12 +11,17 @@
 
 using namespace std;
 #include <iostream>
+#include "CCNode.h"
+
+USING_NS_CC;
 
 class CommonUtil {
 public:
     static void showWaitDialog(string title);
     
     static bool isValidPhone(string phoneNum);
+    
+    static void setPosAccordSize(Node* node);
     
 };
 

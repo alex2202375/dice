@@ -7,3 +7,9 @@
 //
 
 #include "CommonUtil.h"
+#include "Vec2.h"
+
+void CommonUtil::setPosAccordSize(Node* node)
+{
+    node->setPosition(Vec2(node->getContentSize().width/2, node->getContentSize().height/2));
+}
