@@ -15,8 +15,11 @@
 #include "CCNode.h"
 #include "CCMenuItem.h"
 #include "CCSprite.h"
+#include <string>
 
 USING_NS_CC;
+using namespace std;
+
 
 class GameLayer : public Layer {
 public:
@@ -39,11 +42,16 @@ public:
     void hidePunishInfo();
     void showPunishInfo(PunishType selectedIndex);
     void setSelectedPunishType(PunishType type);
+    
+    void showSelfInfo(string & name, string& photo, float winRate);
+    void hideSelfInfo();
 
 private:
     GameLayer();
     Vec2 getPunishTypeMenuShowPos();
     Vec2 getPunishTypeMenuHidePos();
+    Vec2 getSelfInfoMenuShowPos();
+    Vec2 getSelfInfoMenuHidePos();
     
 private:
     Node* mSelfInfoMenu;
@@ -51,8 +59,13 @@ private:
     Node* mSelfInfoBox;
     Node* mPunishTypeMenu;
     bool mPunishTypeMenuShown;
+    bool mSelfInfoMenuShown;
     Vector<MenuItem *> mPunishTypeMenuItems;
     PunishType mSelectedPunishType;
+    
+    string mPlayerName;
+    string mPlayerPic;
+    float mPlayerWinRate;
  };
 
 

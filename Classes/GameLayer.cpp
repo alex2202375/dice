@@ -16,6 +16,8 @@
 #include "CCActionInterval.h"
 
 #include "CommonUtil.h"
+#include "Constants.h"
+#include "CCLabelTTF.h"
 
 using namespace std;
 
@@ -27,6 +29,11 @@ GameLayer::GameLayer()
     mSelfInfoBox= nullptr;
     mPunishTypeMenu= nullptr;
     mPunishTypeMenuShown = false;
+    mSelfInfoMenuShown = false;
+    
+    mPlayerName = "Hello World";
+    mPlayerPic = "";
+    mPlayerWinRate = 0;
 }
 
 GameLayer::~GameLayer() {
@@ -37,12 +44,69 @@ GameLayer::~GameLayer() {
     mPunishInfoMenu->release();
     mSelfInfoMenu->release();
     mPunishTypeMenu->release();
+    mSelfInfoBox->release();
 }
 
 void GameLayer::onSelfInfoClicked(Ref* sender){
     log(__FUNCTION__);
     //Show self info
+    if (mSelfInfoBox != nullptr && mSelfInfoMenuShown) {
+        hideSelfInfo();
+    }
+    else {
+        showSelfInfo(mPlayerName, mPlayerPic, mPlayerWinRate);
+    }
+}
+
+void GameLayer::hideSelfInfo()
+{
+    if (mSelfInfoBox && mSelfInfoMenuShown) {
+        mSelfInfoMenuShown = false;
+        MoveTo *action = MoveTo::create(0.5, getSelfInfoMenuHidePos());
+        mSelfInfoBox->stopAllActions();
+        mSelfInfoBox->runAction(action);
+    }
+}
+
+void GameLayer::showSelfInfo(string & name, string& photo, float winRate)
+{
+    if (mSelfInfoBox == nullptr) {
+        auto selfInfoBox = Sprite::create("infoBackground.png");
+        Size boxSize = selfInfoBox->getContentSize();
+        selfInfoBox->setPosition(getSelfInfoMenuHidePos());
+        
+        Size punishInfoSize = selfInfoBox->getContentSize();
+        Vec2 punishInfoPos = selfInfoBox->getPosition();
+        
+        mSelfInfoBox = selfInfoBox;
+        
+        auto picBox = Sprite::create(SelfPixBoxImg);
+        picBox->setPosition(Vec2(picBox->getContentSize().width/2 +10, boxSize.height- picBox->getContentSize().height/2 - 10));
+        
+        
+        char wr[30] = {0};
+        sprintf(wr, "%.2f%%", winRate);
+        auto winRateLabel = LabelTTF::create(SelfInfoWinRate+wr, SelfInfoFontName, SelfInfoFontSize);
+        winRateLabel->setPosition(Vec2(SelfInfoLineMarginLeft+winRateLabel->getContentSize().width/2, SelfInfoLineHeight*0.5));
+        winRateLabel->setColor(SelfInfoFontColor);
+        
+        auto nameLabel = LabelTTF::create(SelfInfoName+name, SelfInfoFontName, SelfInfoFontSize);
+        nameLabel->setColor(SelfInfoFontColor);
+        nameLabel->setPosition(Vec2(SelfInfoLineMarginLeft+nameLabel->getContentSize().width/2, SelfInfoLineHeight*(1+0.5)));
+        
+        mSelfInfoBox->addChild(picBox);
+        mSelfInfoBox->addChild(winRateLabel);
+        mSelfInfoBox->addChild(nameLabel);
+        mSelfInfoBox->retain();
+        
+        addChild(mSelfInfoBox);
+    }
     
+    mSelfInfoMenuShown = true;
+    MoveTo* action = MoveTo::create(0.5, getSelfInfoMenuShowPos());
+    mSelfInfoBox->stopAllActions();
+    mSelfInfoBox->runAction(action);
+    hidePunishInfo();
 }
 
 void GameLayer::onPunishInfoClicked(Ref* sender) {
@@ -76,6 +140,20 @@ void GameLayer::hidePunishInfo()
     }
 }
 
+Vec2 GameLayer::getSelfInfoMenuShowPos()
+{
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    auto boxSize = Sprite::create("infoBackground.png")->getContentSize();
+    return Vec2(boxSize.width/2, visibleSize.height-mSelfInfoMenu->getContentSize().height-boxSize.height/2);
+}
+
+Vec2 GameLayer::getSelfInfoMenuHidePos()
+{
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    auto boxSize = Sprite::create("infoBackground.png")->getContentSize();
+    return Vec2(boxSize.width/2, visibleSize.height-mSelfInfoMenu->getContentSize().height+boxSize.height/2+3);
+}
+
 Vec2 GameLayer::getPunishTypeMenuShowPos()
 {
     Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -101,18 +179,20 @@ void GameLayer::showPunishInfo(PunishType selectedIndex) {
         Size punishInfoSize = punishInfoBox->getContentSize();
         Vec2 punishInfoPos = punishInfoBox->getPosition();
         
-        const char* typeList[] = {"shy.png", "bold.png", "trueWords.png", "risky.png"};
+        const string typeList[] = {PunishTypeShyStr, PunishTypeBoldStr, PunishTypeTrueWordsStr, PunishTypeRiskyStr};
         
-        for (int i = 0; i < sizeof(typeList)/sizeof(const char*); i++) {
+        for (int i = 0; i < sizeof(typeList)/sizeof(string); i++) {
             
-            auto selectedSprite = Sprite::create("infoSelected.png");
-            auto selectedTop = Sprite::create(typeList[i]);
-            selectedTop->setPosition(Vec2(selectedTop->getContentSize().width, selectedSprite->getContentSize().height/2));
+            auto selectedSprite = Sprite::create(PunishTypeSelectedImg);
+            auto selectedTop = LabelTTF::create(typeList[i], PunishTypeFontName, PunishTypeFontSize);
+            selectedTop->setColor(PunishTypeFontColor);
+            selectedTop->setPosition(Vec2(selectedTop->getContentSize().width/2+PunishTypeLineMarginLeft, selectedSprite->getContentSize().height/2));
             selectedSprite->addChild(selectedTop);
             
-            auto normalSprite = Sprite::create("infoNormal.png");
-            auto normalTop = Sprite::create(typeList[i]);
-            normalTop->setPosition(Vec2(normalTop->getContentSize().width, normalSprite->getContentSize().height/2));
+            auto normalSprite = Sprite::create(PunishTypeNormalImg);
+            auto normalTop = LabelTTF::create(typeList[i], PunishTypeFontName, PunishTypeFontSize);
+            normalTop->setColor(PunishTypeFontColor);
+            normalTop->setPosition(Vec2(normalTop->getContentSize().width/2+PunishTypeLineMarginLeft, normalSprite->getContentSize().height/2));
             normalSprite->addChild(normalTop);
             
             auto menuItem = MenuItemSprite::create(normalSprite, selectedSprite, CC_CALLBACK_1(GameLayer::onPunishTypeSelected, this));
@@ -141,6 +221,7 @@ void GameLayer::showPunishInfo(PunishType selectedIndex) {
     MoveTo* action = MoveTo::create(0.5, getPunishTypeMenuShowPos());
     mPunishTypeMenu->stopAllActions();
     mPunishTypeMenu->runAction(action);
+    hideSelfInfo();
 }
 
 void GameLayer::setSelectedPunishType(PunishType type) {

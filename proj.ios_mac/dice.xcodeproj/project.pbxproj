@@ -129,6 +129,7 @@
 		C3DE3E7F199BA90B00EB0A2A /* trueWords.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E48199BA90B00EB0A2A /* trueWords.png */; };
 		C3DE3E80199BA90B00EB0A2A /* winRate.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E49199BA90B00EB0A2A /* winRate.png */; };
 		C3DE3E82199DF30C00EB0A2A /* infoNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E81199DF30C00EB0A2A /* infoNormal.png */; };
+		C3DE3E85199E394000EB0A2A /* HKYuanMini.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E84199E393F00EB0A2A /* HKYuanMini.ttf */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
@@ -408,6 +409,8 @@
 		C3DE3E48199BA90B00EB0A2A /* trueWords.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trueWords.png; sourceTree = "<group>"; };
 		C3DE3E49199BA90B00EB0A2A /* winRate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = winRate.png; sourceTree = "<group>"; };
 		C3DE3E81199DF30C00EB0A2A /* infoNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infoNormal.png; sourceTree = "<group>"; };
+		C3DE3E83199E2C6100EB0A2A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		C3DE3E84199E393F00EB0A2A /* HKYuanMini.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HKYuanMini.ttf; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -630,6 +633,7 @@
 		C3DE3DC61995C55F00EB0A2A /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				C3DE3E84199E393F00EB0A2A /* HKYuanMini.ttf */,
 				C3DE3DE2199617B100EB0A2A /* arial.ttf */,
 				C3DE3DC71995C55F00EB0A2A /* Marker Felt.ttf */,
 			);
@@ -667,6 +671,7 @@
 			children = (
 				C3DE3DF21997AF6600EB0A2A /* CommonUtil.cpp */,
 				C3DE3DF31997AF6600EB0A2A /* CommonUtil.h */,
+				C3DE3E83199E2C6100EB0A2A /* Constants.h */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -978,6 +983,7 @@
 				C3DE3E77199BA90B00EB0A2A /* registerPicNormal.png in Resources */,
 				C3DE3E6E199BA90B00EB0A2A /* punishType.png in Resources */,
 				C3DE3E71199BA90B00EB0A2A /* registerButton2Normal.png in Resources */,
+				C3DE3E85199E394000EB0A2A /* HKYuanMini.ttf in Resources */,
 				C3DE3E79199BA90B00EB0A2A /* risky.png in Resources */,
 				C3DE3E6A199BA90B00EB0A2A /* progress4.png in Resources */,
 				C3DE3E6C199BA90B00EB0A2A /* progress6.png in Resources */,
