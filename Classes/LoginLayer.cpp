@@ -13,6 +13,7 @@
 #include "CCSprite.h"
 #include "CCMenu.h"
 #include "GameScene.h"
+#include "RegisterScene.h"
 
 
 //using namespace cocos2d::extension;
@@ -51,6 +52,8 @@ void LoginLayer::onLoginClicked(Ref* caller) {
 
 void LoginLayer::onRegisterClicked(Ref * caller) {
     log(__FUNCTION__);
+    RegisterScene * scene = RegisterScene::create();
+    Director::getInstance()->replaceScene(scene);
 }
 
 bool LoginLayer::init() {
@@ -80,6 +83,9 @@ bool LoginLayer::init() {
     login->addChild(menu);
     addChild(login);
     
+    
+    
+    //Size backRectSize = login->getWinSize();
     
     /* 输入用户名，输入框 */
     Size size = Director::getInstance()->getWinSize();
