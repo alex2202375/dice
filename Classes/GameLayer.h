@@ -45,6 +45,10 @@ public:
     
     void showSelfInfo(string & name, string& photo, float winRate);
     void hideSelfInfo();
+    
+    void setDiceNumber(int num);
+    void onGetDiceNum(int num);
+    void onDiceAnimationFinish(float interval);
 
 private:
     GameLayer();
@@ -52,6 +56,8 @@ private:
     Vec2 getPunishTypeMenuHidePos();
     Vec2 getSelfInfoMenuShowPos();
     Vec2 getSelfInfoMenuHidePos();
+    void showDiceAnimation();
+    string getDiceImage(int num);
     
 private:
     Node* mSelfInfoMenu;
@@ -66,6 +72,8 @@ private:
     string mPlayerName;
     string mPlayerPic;
     float mPlayerWinRate;
+    
+    Sprite* mDice;
  };
 
 

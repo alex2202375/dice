@@ -18,6 +18,10 @@
 #include "CommonUtil.h"
 #include "Constants.h"
 #include "CCLabelTTF.h"
+#include "CCLabel.h"
+#include "CCAnimation.h"
+#include "CCAnimationCache.h"
+#include "CCEventListenerTouch.h"
 
 using namespace std;
 
@@ -62,7 +66,7 @@ void GameLayer::hideSelfInfo()
 {
     if (mSelfInfoBox && mSelfInfoMenuShown) {
         mSelfInfoMenuShown = false;
-        MoveTo *action = MoveTo::create(0.5, getSelfInfoMenuHidePos());
+        MoveTo *action = MoveTo::create(DefaultActionTime, getSelfInfoMenuHidePos());
         mSelfInfoBox->stopAllActions();
         mSelfInfoBox->runAction(action);
     }
@@ -103,7 +107,7 @@ void GameLayer::showSelfInfo(string & name, string& photo, float winRate)
     }
     
     mSelfInfoMenuShown = true;
-    MoveTo* action = MoveTo::create(0.5, getSelfInfoMenuShowPos());
+    MoveTo* action = MoveTo::create(DefaultActionTime, getSelfInfoMenuShowPos());
     mSelfInfoBox->stopAllActions();
     mSelfInfoBox->runAction(action);
     hidePunishInfo();
@@ -130,11 +134,31 @@ void GameLayer::onPunishTypeSelected(Ref* sender) {
     
 }
 
+void GameLayer::setDiceNumber(int num) {
+    mDice->setTexture(getDiceImage(num));
+}
+
+void GameLayer::showDiceAnimation() {
+    auto animation = Animation::create();
+    for( int i=1;i<=DiceRunAnimationSize;i++)
+    {
+        char szName[100] = {0};
+        sprintf(szName, DiceRunAnimationFileNameFormat, i);
+        animation->addSpriteFrameWithFile(szName);
+    }
+
+    animation->setDelayPerUnit(0.3f / 6.0f);
+    animation->setRestoreOriginalFrame(true);
+    
+    auto action = Animate::create(animation);
+    mDice->runAction(RepeatForever::create(Sequence::create(action, action->reverse(), nullptr)));
+}
+
 void GameLayer::hidePunishInfo()
 {
     if (mPunishTypeMenu && mPunishTypeMenuShown) {
         mPunishTypeMenuShown = false;
-        MoveTo *action = MoveTo::create(0.5, getPunishTypeMenuHidePos());
+        MoveTo *action = MoveTo::create(DefaultActionTime, getPunishTypeMenuHidePos());
         mPunishTypeMenu->stopAllActions();
         mPunishTypeMenu->runAction(action);
     }
@@ -218,7 +242,7 @@ void GameLayer::showPunishInfo(PunishType selectedIndex) {
     setSelectedPunishType(selectedIndex);
 
     mPunishTypeMenuShown = true;
-    MoveTo* action = MoveTo::create(0.5, getPunishTypeMenuShowPos());
+    MoveTo* action = MoveTo::create(DefaultActionTime, getPunishTypeMenuShowPos());
     mPunishTypeMenu->stopAllActions();
     mPunishTypeMenu->runAction(action);
     hideSelfInfo();
@@ -236,6 +260,25 @@ void GameLayer::setSelectedPunishType(PunishType type) {
     }
     
     mSelectedPunishType = type;
+}
+
+string GameLayer::getDiceImage(int num)
+{
+    num = num%DiceRunAnimationSize + 1;
+    char picName[100] = {0};
+    sprintf(picName, DiceImgFormat, num);
+    
+    return string(picName);
+}
+
+void GameLayer::onGetDiceNum(int num) {
+    mDice->stopAllActions();
+    setDiceNumber(num);
+}
+
+void GameLayer::onDiceAnimationFinish(float interval)
+{
+    onGetDiceNum(rand()/DiceRunAnimationSize + 1);
 }
 
 bool GameLayer::init()
@@ -271,9 +314,26 @@ bool GameLayer::init()
     // add the sprite as a child to this layer
     this->addChild(menu, 1);
     
-    Sprite *diceCup = Sprite::create("diceCup.png");
+    Sprite *diceCup = Sprite::create(DiceCupImg);
     diceCup->setPosition(Vec2(visibleSize.width/2, (visibleSize.height-punishTypeMenuItem->getContentSize().height)/2));
     this->addChild(diceCup);
+    
+    mDice = Sprite::create(getDiceImage(6));
+    mDice->retain();
+    mDice->setPosition(Vec2(visibleSize.width/2, (visibleSize.height-punishTypeMenuItem->getContentSize().height)/2));
+    addChild(mDice);
+    
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    listener->onTouchBegan = [&](Touch*, Event*)->bool {
+        return true;
+    };
+    
+    listener->onTouchEnded = [&](Touch*, Event*) {
+        this->showDiceAnimation();
+        this->schedule(schedule_selector(GameLayer::onDiceAnimationFinish), 0, 0, 4);
+    };
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, mDice);
     
     return true;
 }

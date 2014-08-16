@@ -60,12 +60,10 @@
 		C3DE3DC21995C54D00EB0A2A /* LoadingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DBC1995C54D00EB0A2A /* LoadingLayer.cpp */; };
 		C3DE3DC31995C54D00EB0A2A /* InitBackgroundLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DBE1995C54D00EB0A2A /* InitBackgroundLayer.cpp */; };
 		C3DE3DC41995C54D00EB0A2A /* LoginLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DC01995C54D00EB0A2A /* LoginLayer.cpp */; };
-		C3DE3DC91995C55F00EB0A2A /* Marker Felt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3DC71995C55F00EB0A2A /* Marker Felt.ttf */; };
 		C3DE3DD01995C6D300EB0A2A /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DCE1995C6D300EB0A2A /* LoadingScene.cpp */; };
 		C3DE3DD31995C6FB00EB0A2A /* LoginScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DD11995C6FB00EB0A2A /* LoginScene.cpp */; };
 		C3DE3DD61995C72200EB0A2A /* RegisterScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DD41995C72200EB0A2A /* RegisterScene.cpp */; };
 		C3DE3DD91995C73200EB0A2A /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DD71995C73200EB0A2A /* GameScene.cpp */; };
-		C3DE3DE3199617B100EB0A2A /* arial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3DE2199617B100EB0A2A /* arial.ttf */; };
 		C3DE3DED1997A0A600EB0A2A /* NetEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DEB1997A0A500EB0A2A /* NetEngine.cpp */; };
 		C3DE3DF01997ABAA00EB0A2A /* LogicalEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DEE1997ABAA00EB0A2A /* LogicalEngine.cpp */; };
 		C3DE3DF41997AF6600EB0A2A /* CommonUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DF21997AF6600EB0A2A /* CommonUtil.cpp */; };
@@ -73,63 +71,8 @@
 		C3DE3DFC1997B35000EB0A2A /* Room.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DFA1997B35000EB0A2A /* Room.cpp */; };
 		C3DE3E0119990C5B00EB0A2A /* GameBackgroundLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DFF19990C5B00EB0A2A /* GameBackgroundLayer.cpp */; };
 		C3DE3E101999140B00EB0A2A /* GameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3E0E1999140B00EB0A2A /* GameLayer.cpp */; };
-		C3DE3E4A199BA90B00EB0A2A /* bold.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E12199BA90B00EB0A2A /* bold.png */; };
-		C3DE3E4B199BA90B00EB0A2A /* checkBox.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E13199BA90B00EB0A2A /* checkBox.png */; };
-		C3DE3E4C199BA90B00EB0A2A /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E14199BA90B00EB0A2A /* checked.png */; };
-		C3DE3E4D199BA90B00EB0A2A /* dice1.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E16199BA90B00EB0A2A /* dice1.png */; };
-		C3DE3E4E199BA90B00EB0A2A /* dice2.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E17199BA90B00EB0A2A /* dice2.png */; };
-		C3DE3E4F199BA90B00EB0A2A /* dice3.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E18199BA90B00EB0A2A /* dice3.png */; };
-		C3DE3E50199BA90B00EB0A2A /* dice4.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E19199BA90B00EB0A2A /* dice4.png */; };
-		C3DE3E51199BA90B00EB0A2A /* dice5.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E1A199BA90B00EB0A2A /* dice5.png */; };
-		C3DE3E52199BA90B00EB0A2A /* dice6.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E1B199BA90B00EB0A2A /* dice6.png */; };
-		C3DE3E53199BA90B00EB0A2A /* diceChange1.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E1C199BA90B00EB0A2A /* diceChange1.png */; };
-		C3DE3E54199BA90B00EB0A2A /* diceChange2.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E1D199BA90B00EB0A2A /* diceChange2.png */; };
-		C3DE3E55199BA90B00EB0A2A /* diceChange3.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E1E199BA90B00EB0A2A /* diceChange3.png */; };
-		C3DE3E56199BA90B00EB0A2A /* diceChange4.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E1F199BA90B00EB0A2A /* diceChange4.png */; };
-		C3DE3E57199BA90B00EB0A2A /* diceChange5.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E20199BA90B00EB0A2A /* diceChange5.png */; };
-		C3DE3E58199BA90B00EB0A2A /* diceChange6.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E21199BA90B00EB0A2A /* diceChange6.png */; };
-		C3DE3E59199BA90B00EB0A2A /* diceCup.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E22199BA90B00EB0A2A /* diceCup.png */; };
-		C3DE3E5A199BA90B00EB0A2A /* editRect.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E23199BA90B00EB0A2A /* editRect.png */; };
-		C3DE3E5B199BA90B00EB0A2A /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E24199BA90B00EB0A2A /* error.png */; };
-		C3DE3E5C199BA90B00EB0A2A /* gameBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E25199BA90B00EB0A2A /* gameBackground.png */; };
-		C3DE3E5D199BA90B00EB0A2A /* infoBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E26199BA90B00EB0A2A /* infoBackground.png */; };
-		C3DE3E5E199BA90B00EB0A2A /* infoSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E27199BA90B00EB0A2A /* infoSelected.png */; };
-		C3DE3E5F199BA90B00EB0A2A /* loginButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E28199BA90B00EB0A2A /* loginButtonNormal.png */; };
-		C3DE3E60199BA90B00EB0A2A /* loginButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E29199BA90B00EB0A2A /* loginButtonPressed.png */; };
-		C3DE3E61199BA90B00EB0A2A /* loginClose.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E2A199BA90B00EB0A2A /* loginClose.png */; };
-		C3DE3E62199BA90B00EB0A2A /* loginRectBack.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E2B199BA90B00EB0A2A /* loginRectBack.png */; };
-		C3DE3E63199BA90B00EB0A2A /* multiPlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E2C199BA90B00EB0A2A /* multiPlayer.png */; };
-		C3DE3E64199BA90B00EB0A2A /* nickyName.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E2D199BA90B00EB0A2A /* nickyName.png */; };
-		C3DE3E65199BA90B00EB0A2A /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E2E199BA90B00EB0A2A /* ok.png */; };
-		C3DE3E66199BA90B00EB0A2A /* playerPicBox.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E2F199BA90B00EB0A2A /* playerPicBox.png */; };
-		C3DE3E67199BA90B00EB0A2A /* progress1.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E30199BA90B00EB0A2A /* progress1.png */; };
-		C3DE3E68199BA90B00EB0A2A /* progress2.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E31199BA90B00EB0A2A /* progress2.png */; };
-		C3DE3E69199BA90B00EB0A2A /* progress3.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E32199BA90B00EB0A2A /* progress3.png */; };
-		C3DE3E6A199BA90B00EB0A2A /* progress4.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E33199BA90B00EB0A2A /* progress4.png */; };
-		C3DE3E6B199BA90B00EB0A2A /* progress5.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E34199BA90B00EB0A2A /* progress5.png */; };
-		C3DE3E6C199BA90B00EB0A2A /* progress6.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E35199BA90B00EB0A2A /* progress6.png */; };
-		C3DE3E6D199BA90B00EB0A2A /* punish.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E36199BA90B00EB0A2A /* punish.png */; };
-		C3DE3E6E199BA90B00EB0A2A /* punishType.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E37199BA90B00EB0A2A /* punishType.png */; };
-		C3DE3E6F199BA90B00EB0A2A /* registerAgreeBox.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E38199BA90B00EB0A2A /* registerAgreeBox.png */; };
-		C3DE3E70199BA90B00EB0A2A /* registerBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E39199BA90B00EB0A2A /* registerBackground.png */; };
-		C3DE3E71199BA90B00EB0A2A /* registerButton2Normal.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E3A199BA90B00EB0A2A /* registerButton2Normal.png */; };
-		C3DE3E72199BA90B00EB0A2A /* registerButton2Pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E3B199BA90B00EB0A2A /* registerButton2Pressed.png */; };
-		C3DE3E73199BA90B00EB0A2A /* registerButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E3C199BA90B00EB0A2A /* registerButtonNormal.png */; };
-		C3DE3E74199BA90B00EB0A2A /* registerButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E3D199BA90B00EB0A2A /* registerButtonPressed.png */; };
-		C3DE3E75199BA90B00EB0A2A /* registerEditBox.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E3E199BA90B00EB0A2A /* registerEditBox.png */; };
-		C3DE3E76199BA90B00EB0A2A /* registerErrorBox.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E3F199BA90B00EB0A2A /* registerErrorBox.png */; };
-		C3DE3E77199BA90B00EB0A2A /* registerPicNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E40199BA90B00EB0A2A /* registerPicNormal.png */; };
-		C3DE3E78199BA90B00EB0A2A /* registerPicPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E41199BA90B00EB0A2A /* registerPicPressed.png */; };
-		C3DE3E79199BA90B00EB0A2A /* risky.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E42199BA90B00EB0A2A /* risky.png */; };
-		C3DE3E7A199BA90B00EB0A2A /* selfInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E43199BA90B00EB0A2A /* selfInfo.png */; };
-		C3DE3E7B199BA90B00EB0A2A /* selfPicBox.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E44199BA90B00EB0A2A /* selfPicBox.png */; };
-		C3DE3E7C199BA90B00EB0A2A /* shy.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E45199BA90B00EB0A2A /* shy.png */; };
-		C3DE3E7D199BA90B00EB0A2A /* singlePlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E46199BA90B00EB0A2A /* singlePlayer.png */; };
-		C3DE3E7E199BA90B00EB0A2A /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E47199BA90B00EB0A2A /* splash.png */; };
-		C3DE3E7F199BA90B00EB0A2A /* trueWords.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E48199BA90B00EB0A2A /* trueWords.png */; };
-		C3DE3E80199BA90B00EB0A2A /* winRate.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E49199BA90B00EB0A2A /* winRate.png */; };
-		C3DE3E82199DF30C00EB0A2A /* infoNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E81199DF30C00EB0A2A /* infoNormal.png */; };
-		C3DE3E85199E394000EB0A2A /* HKYuanMini.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3DE3E84199E393F00EB0A2A /* HKYuanMini.ttf */; };
+		C3E776C1199E6A9B0009F0C3 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = C3E776BF199E6A9B0009F0C3 /* fonts */; };
+		C3E776C2199E6A9B0009F0C3 /* xhd in Resources */ = {isa = PBXBuildFile; fileRef = C3E776C0199E6A9B0009F0C3 /* xhd */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
@@ -329,7 +272,6 @@
 		C3DE3DBF1995C54D00EB0A2A /* InitBackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InitBackgroundLayer.h; path = ../Classes/InitBackgroundLayer.h; sourceTree = "<group>"; };
 		C3DE3DC01995C54D00EB0A2A /* LoginLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LoginLayer.cpp; path = ../Classes/LoginLayer.cpp; sourceTree = "<group>"; };
 		C3DE3DC11995C54D00EB0A2A /* LoginLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginLayer.h; path = ../Classes/LoginLayer.h; sourceTree = "<group>"; };
-		C3DE3DC71995C55F00EB0A2A /* Marker Felt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Marker Felt.ttf"; sourceTree = "<group>"; };
 		C3DE3DCE1995C6D300EB0A2A /* LoadingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingScene.cpp; sourceTree = "<group>"; };
 		C3DE3DCF1995C6D300EB0A2A /* LoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingScene.h; sourceTree = "<group>"; };
 		C3DE3DD11995C6FB00EB0A2A /* LoginScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoginScene.cpp; sourceTree = "<group>"; };
@@ -338,7 +280,6 @@
 		C3DE3DD51995C72200EB0A2A /* RegisterScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterScene.h; sourceTree = "<group>"; };
 		C3DE3DD71995C73200EB0A2A /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		C3DE3DD81995C73200EB0A2A /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
-		C3DE3DE2199617B100EB0A2A /* arial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = arial.ttf; sourceTree = "<group>"; };
 		C3DE3DEB1997A0A500EB0A2A /* NetEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetEngine.cpp; sourceTree = "<group>"; };
 		C3DE3DEC1997A0A500EB0A2A /* NetEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetEngine.h; sourceTree = "<group>"; };
 		C3DE3DEE1997ABAA00EB0A2A /* LogicalEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogicalEngine.cpp; sourceTree = "<group>"; };
@@ -353,64 +294,9 @@
 		C3DE3E0019990C5B00EB0A2A /* GameBackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBackgroundLayer.h; sourceTree = "<group>"; };
 		C3DE3E0E1999140B00EB0A2A /* GameLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameLayer.cpp; sourceTree = "<group>"; };
 		C3DE3E0F1999140B00EB0A2A /* GameLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLayer.h; sourceTree = "<group>"; };
-		C3DE3E12199BA90B00EB0A2A /* bold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bold.png; sourceTree = "<group>"; };
-		C3DE3E13199BA90B00EB0A2A /* checkBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBox.png; sourceTree = "<group>"; };
-		C3DE3E14199BA90B00EB0A2A /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
-		C3DE3E16199BA90B00EB0A2A /* dice1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dice1.png; sourceTree = "<group>"; };
-		C3DE3E17199BA90B00EB0A2A /* dice2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dice2.png; sourceTree = "<group>"; };
-		C3DE3E18199BA90B00EB0A2A /* dice3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dice3.png; sourceTree = "<group>"; };
-		C3DE3E19199BA90B00EB0A2A /* dice4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dice4.png; sourceTree = "<group>"; };
-		C3DE3E1A199BA90B00EB0A2A /* dice5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dice5.png; sourceTree = "<group>"; };
-		C3DE3E1B199BA90B00EB0A2A /* dice6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dice6.png; sourceTree = "<group>"; };
-		C3DE3E1C199BA90B00EB0A2A /* diceChange1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diceChange1.png; sourceTree = "<group>"; };
-		C3DE3E1D199BA90B00EB0A2A /* diceChange2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diceChange2.png; sourceTree = "<group>"; };
-		C3DE3E1E199BA90B00EB0A2A /* diceChange3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diceChange3.png; sourceTree = "<group>"; };
-		C3DE3E1F199BA90B00EB0A2A /* diceChange4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diceChange4.png; sourceTree = "<group>"; };
-		C3DE3E20199BA90B00EB0A2A /* diceChange5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diceChange5.png; sourceTree = "<group>"; };
-		C3DE3E21199BA90B00EB0A2A /* diceChange6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diceChange6.png; sourceTree = "<group>"; };
-		C3DE3E22199BA90B00EB0A2A /* diceCup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diceCup.png; sourceTree = "<group>"; };
-		C3DE3E23199BA90B00EB0A2A /* editRect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = editRect.png; sourceTree = "<group>"; };
-		C3DE3E24199BA90B00EB0A2A /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = "<group>"; };
-		C3DE3E25199BA90B00EB0A2A /* gameBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gameBackground.png; sourceTree = "<group>"; };
-		C3DE3E26199BA90B00EB0A2A /* infoBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infoBackground.png; sourceTree = "<group>"; };
-		C3DE3E27199BA90B00EB0A2A /* infoSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infoSelected.png; sourceTree = "<group>"; };
-		C3DE3E28199BA90B00EB0A2A /* loginButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginButtonNormal.png; sourceTree = "<group>"; };
-		C3DE3E29199BA90B00EB0A2A /* loginButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginButtonPressed.png; sourceTree = "<group>"; };
-		C3DE3E2A199BA90B00EB0A2A /* loginClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginClose.png; sourceTree = "<group>"; };
-		C3DE3E2B199BA90B00EB0A2A /* loginRectBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginRectBack.png; sourceTree = "<group>"; };
-		C3DE3E2C199BA90B00EB0A2A /* multiPlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = multiPlayer.png; sourceTree = "<group>"; };
-		C3DE3E2D199BA90B00EB0A2A /* nickyName.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nickyName.png; sourceTree = "<group>"; };
-		C3DE3E2E199BA90B00EB0A2A /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
-		C3DE3E2F199BA90B00EB0A2A /* playerPicBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerPicBox.png; sourceTree = "<group>"; };
-		C3DE3E30199BA90B00EB0A2A /* progress1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = progress1.png; sourceTree = "<group>"; };
-		C3DE3E31199BA90B00EB0A2A /* progress2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = progress2.png; sourceTree = "<group>"; };
-		C3DE3E32199BA90B00EB0A2A /* progress3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = progress3.png; sourceTree = "<group>"; };
-		C3DE3E33199BA90B00EB0A2A /* progress4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = progress4.png; sourceTree = "<group>"; };
-		C3DE3E34199BA90B00EB0A2A /* progress5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = progress5.png; sourceTree = "<group>"; };
-		C3DE3E35199BA90B00EB0A2A /* progress6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = progress6.png; sourceTree = "<group>"; };
-		C3DE3E36199BA90B00EB0A2A /* punish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = punish.png; sourceTree = "<group>"; };
-		C3DE3E37199BA90B00EB0A2A /* punishType.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = punishType.png; sourceTree = "<group>"; };
-		C3DE3E38199BA90B00EB0A2A /* registerAgreeBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerAgreeBox.png; sourceTree = "<group>"; };
-		C3DE3E39199BA90B00EB0A2A /* registerBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerBackground.png; sourceTree = "<group>"; };
-		C3DE3E3A199BA90B00EB0A2A /* registerButton2Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerButton2Normal.png; sourceTree = "<group>"; };
-		C3DE3E3B199BA90B00EB0A2A /* registerButton2Pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerButton2Pressed.png; sourceTree = "<group>"; };
-		C3DE3E3C199BA90B00EB0A2A /* registerButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerButtonNormal.png; sourceTree = "<group>"; };
-		C3DE3E3D199BA90B00EB0A2A /* registerButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerButtonPressed.png; sourceTree = "<group>"; };
-		C3DE3E3E199BA90B00EB0A2A /* registerEditBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerEditBox.png; sourceTree = "<group>"; };
-		C3DE3E3F199BA90B00EB0A2A /* registerErrorBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerErrorBox.png; sourceTree = "<group>"; };
-		C3DE3E40199BA90B00EB0A2A /* registerPicNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerPicNormal.png; sourceTree = "<group>"; };
-		C3DE3E41199BA90B00EB0A2A /* registerPicPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerPicPressed.png; sourceTree = "<group>"; };
-		C3DE3E42199BA90B00EB0A2A /* risky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = risky.png; sourceTree = "<group>"; };
-		C3DE3E43199BA90B00EB0A2A /* selfInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selfInfo.png; sourceTree = "<group>"; };
-		C3DE3E44199BA90B00EB0A2A /* selfPicBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selfPicBox.png; sourceTree = "<group>"; };
-		C3DE3E45199BA90B00EB0A2A /* shy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shy.png; sourceTree = "<group>"; };
-		C3DE3E46199BA90B00EB0A2A /* singlePlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = singlePlayer.png; sourceTree = "<group>"; };
-		C3DE3E47199BA90B00EB0A2A /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
-		C3DE3E48199BA90B00EB0A2A /* trueWords.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trueWords.png; sourceTree = "<group>"; };
-		C3DE3E49199BA90B00EB0A2A /* winRate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = winRate.png; sourceTree = "<group>"; };
-		C3DE3E81199DF30C00EB0A2A /* infoNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infoNormal.png; sourceTree = "<group>"; };
 		C3DE3E83199E2C6100EB0A2A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		C3DE3E84199E393F00EB0A2A /* HKYuanMini.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HKYuanMini.ttf; sourceTree = "<group>"; };
+		C3E776BF199E6A9B0009F0C3 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		C3E776C0199E6A9B0009F0C3 /* xhd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = xhd; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -606,8 +492,8 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C3DE3E11199BA90B00EB0A2A /* xxh */,
-				C3DE3DC61995C55F00EB0A2A /* fonts */,
+				C3E776BF199E6A9B0009F0C3 /* fonts */,
+				C3E776C0199E6A9B0009F0C3 /* xhd */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -628,16 +514,6 @@
 				C3DE3E0F1999140B00EB0A2A /* GameLayer.h */,
 			);
 			name = Layer;
-			sourceTree = "<group>";
-		};
-		C3DE3DC61995C55F00EB0A2A /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-				C3DE3E84199E393F00EB0A2A /* HKYuanMini.ttf */,
-				C3DE3DE2199617B100EB0A2A /* arial.ttf */,
-				C3DE3DC71995C55F00EB0A2A /* Marker Felt.ttf */,
-			);
-			path = fonts;
 			sourceTree = "<group>";
 		};
 		C3DE3DCA1995C68700EB0A2A /* Scene */ = {
@@ -685,78 +561,6 @@
 				C3DE3DFB1997B35000EB0A2A /* Room.h */,
 			);
 			name = Objs;
-			sourceTree = "<group>";
-		};
-		C3DE3E11199BA90B00EB0A2A /* xxh */ = {
-			isa = PBXGroup;
-			children = (
-				C3DE3E81199DF30C00EB0A2A /* infoNormal.png */,
-				C3DE3E12199BA90B00EB0A2A /* bold.png */,
-				C3DE3E13199BA90B00EB0A2A /* checkBox.png */,
-				C3DE3E14199BA90B00EB0A2A /* checked.png */,
-				C3DE3E15199BA90B00EB0A2A /* dice */,
-				C3DE3E22199BA90B00EB0A2A /* diceCup.png */,
-				C3DE3E23199BA90B00EB0A2A /* editRect.png */,
-				C3DE3E24199BA90B00EB0A2A /* error.png */,
-				C3DE3E25199BA90B00EB0A2A /* gameBackground.png */,
-				C3DE3E26199BA90B00EB0A2A /* infoBackground.png */,
-				C3DE3E27199BA90B00EB0A2A /* infoSelected.png */,
-				C3DE3E28199BA90B00EB0A2A /* loginButtonNormal.png */,
-				C3DE3E29199BA90B00EB0A2A /* loginButtonPressed.png */,
-				C3DE3E2A199BA90B00EB0A2A /* loginClose.png */,
-				C3DE3E2B199BA90B00EB0A2A /* loginRectBack.png */,
-				C3DE3E2C199BA90B00EB0A2A /* multiPlayer.png */,
-				C3DE3E2D199BA90B00EB0A2A /* nickyName.png */,
-				C3DE3E2E199BA90B00EB0A2A /* ok.png */,
-				C3DE3E2F199BA90B00EB0A2A /* playerPicBox.png */,
-				C3DE3E30199BA90B00EB0A2A /* progress1.png */,
-				C3DE3E31199BA90B00EB0A2A /* progress2.png */,
-				C3DE3E32199BA90B00EB0A2A /* progress3.png */,
-				C3DE3E33199BA90B00EB0A2A /* progress4.png */,
-				C3DE3E34199BA90B00EB0A2A /* progress5.png */,
-				C3DE3E35199BA90B00EB0A2A /* progress6.png */,
-				C3DE3E36199BA90B00EB0A2A /* punish.png */,
-				C3DE3E37199BA90B00EB0A2A /* punishType.png */,
-				C3DE3E38199BA90B00EB0A2A /* registerAgreeBox.png */,
-				C3DE3E39199BA90B00EB0A2A /* registerBackground.png */,
-				C3DE3E3A199BA90B00EB0A2A /* registerButton2Normal.png */,
-				C3DE3E3B199BA90B00EB0A2A /* registerButton2Pressed.png */,
-				C3DE3E3C199BA90B00EB0A2A /* registerButtonNormal.png */,
-				C3DE3E3D199BA90B00EB0A2A /* registerButtonPressed.png */,
-				C3DE3E3E199BA90B00EB0A2A /* registerEditBox.png */,
-				C3DE3E3F199BA90B00EB0A2A /* registerErrorBox.png */,
-				C3DE3E40199BA90B00EB0A2A /* registerPicNormal.png */,
-				C3DE3E41199BA90B00EB0A2A /* registerPicPressed.png */,
-				C3DE3E42199BA90B00EB0A2A /* risky.png */,
-				C3DE3E43199BA90B00EB0A2A /* selfInfo.png */,
-				C3DE3E44199BA90B00EB0A2A /* selfPicBox.png */,
-				C3DE3E45199BA90B00EB0A2A /* shy.png */,
-				C3DE3E46199BA90B00EB0A2A /* singlePlayer.png */,
-				C3DE3E47199BA90B00EB0A2A /* splash.png */,
-				C3DE3E48199BA90B00EB0A2A /* trueWords.png */,
-				C3DE3E49199BA90B00EB0A2A /* winRate.png */,
-			);
-			name = xxh;
-			path = xhd;
-			sourceTree = "<group>";
-		};
-		C3DE3E15199BA90B00EB0A2A /* dice */ = {
-			isa = PBXGroup;
-			children = (
-				C3DE3E16199BA90B00EB0A2A /* dice1.png */,
-				C3DE3E17199BA90B00EB0A2A /* dice2.png */,
-				C3DE3E18199BA90B00EB0A2A /* dice3.png */,
-				C3DE3E19199BA90B00EB0A2A /* dice4.png */,
-				C3DE3E1A199BA90B00EB0A2A /* dice5.png */,
-				C3DE3E1B199BA90B00EB0A2A /* dice6.png */,
-				C3DE3E1C199BA90B00EB0A2A /* diceChange1.png */,
-				C3DE3E1D199BA90B00EB0A2A /* diceChange2.png */,
-				C3DE3E1E199BA90B00EB0A2A /* diceChange3.png */,
-				C3DE3E1F199BA90B00EB0A2A /* diceChange4.png */,
-				C3DE3E20199BA90B00EB0A2A /* diceChange5.png */,
-				C3DE3E21199BA90B00EB0A2A /* diceChange6.png */,
-			);
-			path = dice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -923,80 +727,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3DE3E80199BA90B00EB0A2A /* winRate.png in Resources */,
-				C3DE3E7B199BA90B00EB0A2A /* selfPicBox.png in Resources */,
-				C3DE3E76199BA90B00EB0A2A /* registerErrorBox.png in Resources */,
-				C3DE3E75199BA90B00EB0A2A /* registerEditBox.png in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
-				C3DE3E58199BA90B00EB0A2A /* diceChange6.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
-				C3DE3E4F199BA90B00EB0A2A /* dice3.png in Resources */,
-				C3DE3E5A199BA90B00EB0A2A /* editRect.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
-				C3DE3E59199BA90B00EB0A2A /* diceCup.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
-				C3DE3E7C199BA90B00EB0A2A /* shy.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
+				C3E776C2199E6A9B0009F0C3 /* xhd in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
-				C3DE3E5F199BA90B00EB0A2A /* loginButtonNormal.png in Resources */,
-				C3DE3E5B199BA90B00EB0A2A /* error.png in Resources */,
-				C3DE3E7D199BA90B00EB0A2A /* singlePlayer.png in Resources */,
-				C3DE3E78199BA90B00EB0A2A /* registerPicPressed.png in Resources */,
-				C3DE3E4B199BA90B00EB0A2A /* checkBox.png in Resources */,
-				C3DE3E60199BA90B00EB0A2A /* loginButtonPressed.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
-				C3DE3E50199BA90B00EB0A2A /* dice4.png in Resources */,
-				C3DE3E64199BA90B00EB0A2A /* nickyName.png in Resources */,
-				C3DE3E5E199BA90B00EB0A2A /* infoSelected.png in Resources */,
-				C3DE3E67199BA90B00EB0A2A /* progress1.png in Resources */,
-				C3DE3E54199BA90B00EB0A2A /* diceChange2.png in Resources */,
+				C3E776C1199E6A9B0009F0C3 /* fonts in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
-				C3DE3E74199BA90B00EB0A2A /* registerButtonPressed.png in Resources */,
-				C3DE3E7E199BA90B00EB0A2A /* splash.png in Resources */,
-				C3DE3E4A199BA90B00EB0A2A /* bold.png in Resources */,
-				C3DE3E52199BA90B00EB0A2A /* dice6.png in Resources */,
-				C3DE3E57199BA90B00EB0A2A /* diceChange5.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
-				C3DE3E73199BA90B00EB0A2A /* registerButtonNormal.png in Resources */,
-				C3DE3E53199BA90B00EB0A2A /* diceChange1.png in Resources */,
-				C3DE3E5D199BA90B00EB0A2A /* infoBackground.png in Resources */,
-				C3DE3DC91995C55F00EB0A2A /* Marker Felt.ttf in Resources */,
-				C3DE3E66199BA90B00EB0A2A /* playerPicBox.png in Resources */,
-				C3DE3E6F199BA90B00EB0A2A /* registerAgreeBox.png in Resources */,
-				C3DE3E51199BA90B00EB0A2A /* dice5.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
-				C3DE3E4D199BA90B00EB0A2A /* dice1.png in Resources */,
-				C3DE3E7F199BA90B00EB0A2A /* trueWords.png in Resources */,
-				C3DE3E4E199BA90B00EB0A2A /* dice2.png in Resources */,
-				C3DE3E62199BA90B00EB0A2A /* loginRectBack.png in Resources */,
-				C3DE3E55199BA90B00EB0A2A /* diceChange3.png in Resources */,
-				C3DE3E6D199BA90B00EB0A2A /* punish.png in Resources */,
-				C3DE3E61199BA90B00EB0A2A /* loginClose.png in Resources */,
-				C3DE3E65199BA90B00EB0A2A /* ok.png in Resources */,
-				C3DE3E72199BA90B00EB0A2A /* registerButton2Pressed.png in Resources */,
-				C3DE3E63199BA90B00EB0A2A /* multiPlayer.png in Resources */,
-				C3DE3E77199BA90B00EB0A2A /* registerPicNormal.png in Resources */,
-				C3DE3E6E199BA90B00EB0A2A /* punishType.png in Resources */,
-				C3DE3E71199BA90B00EB0A2A /* registerButton2Normal.png in Resources */,
-				C3DE3E85199E394000EB0A2A /* HKYuanMini.ttf in Resources */,
-				C3DE3E79199BA90B00EB0A2A /* risky.png in Resources */,
-				C3DE3E6A199BA90B00EB0A2A /* progress4.png in Resources */,
-				C3DE3E6C199BA90B00EB0A2A /* progress6.png in Resources */,
-				C3DE3E68199BA90B00EB0A2A /* progress2.png in Resources */,
-				C3DE3E70199BA90B00EB0A2A /* registerBackground.png in Resources */,
-				C3DE3E4C199BA90B00EB0A2A /* checked.png in Resources */,
-				C3DE3E56199BA90B00EB0A2A /* diceChange4.png in Resources */,
-				C3DE3E7A199BA90B00EB0A2A /* selfInfo.png in Resources */,
-				C3DE3E82199DF30C00EB0A2A /* infoNormal.png in Resources */,
-				C3DE3DE3199617B100EB0A2A /* arial.ttf in Resources */,
-				C3DE3E5C199BA90B00EB0A2A /* gameBackground.png in Resources */,
-				C3DE3E69199BA90B00EB0A2A /* progress3.png in Resources */,
-				C3DE3E6B199BA90B00EB0A2A /* progress5.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

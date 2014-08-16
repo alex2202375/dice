@@ -38,7 +38,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     if (screenSize.height > 1280)
     {
         resourceSize = Size(1080, 1920);
-        searchPaths.push_back("xxh");
+        searchPaths.push_back("xhd");
     }
     else
     {
@@ -47,7 +47,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 #else 
     resourceSize = Size(1080, 1920);
-    searchPaths.push_back("xxh");
+    searchPaths.push_back("xhd");
+    searchPaths.push_back("xhd/dice");
 #endif
     
     director->setContentScaleFactor(resourceSize.width/designSize.width);

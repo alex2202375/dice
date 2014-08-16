@@ -15,8 +15,15 @@
 const string DefaultFontName = "fonts/HKYuanMini.ttf";
 const int DefaultFontSize = 35;
 const Color3B DefaultFontColor = Color3B::BLACK;
+const float DefaultActionTime = 0.2;
 
-const string DicCupImg ="diceCup.png";
+const string DiceCupImg ="diceCup.png";
+const char* DiceImgFormat ="dice/dice%d.png";
+
+const string DiceRunAnimationName = "diceRunAnimation";
+const int DiceRunAnimationSize = 6;
+const char* DiceRunAnimationFileNameFormat = "dice/diceChange%d.png";
+const int DiceRunAnimationDuration = 1;
 
 const string PunishTypeSelectedImg = "infoSelected.png";
 const string PunishTypeNormalImg = "infoNormal.png";
