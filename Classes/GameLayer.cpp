@@ -22,6 +22,8 @@
 #include "CCAnimation.h"
 #include "CCAnimationCache.h"
 #include "CCEventListenerTouch.h"
+#include "CCEventListenerAcceleration.h"
+#include "time.h"
 
 using namespace std;
 
@@ -38,6 +40,8 @@ GameLayer::GameLayer()
     mPlayerName = "Hello World";
     mPlayerPic = "";
     mPlayerWinRate = 0;
+    
+    mDiceRunning = false;
 }
 
 GameLayer::~GameLayer() {
@@ -139,19 +143,24 @@ void GameLayer::setDiceNumber(int num) {
 }
 
 void GameLayer::showDiceAnimation() {
-    auto animation = Animation::create();
-    for( int i=1;i<=DiceRunAnimationSize;i++)
-    {
-        char szName[100] = {0};
-        sprintf(szName, DiceRunAnimationFileNameFormat, i);
-        animation->addSpriteFrameWithFile(szName);
-    }
-
-    animation->setDelayPerUnit(0.3f / 6.0f);
-    animation->setRestoreOriginalFrame(true);
     
-    auto action = Animate::create(animation);
-    mDice->runAction(RepeatForever::create(Sequence::create(action, action->reverse(), nullptr)));
+    if (!mDiceRunning)
+    {
+        auto animation = Animation::create();
+        for( int i=1;i<=DiceRunAnimationSize;i++)
+        {
+            char szName[100] = {0};
+            sprintf(szName, DiceRunAnimationFileNameFormat, i);
+            animation->addSpriteFrameWithFile(szName);
+        }
+        
+        animation->setDelayPerUnit(0.3f / 6.0f);
+        animation->setRestoreOriginalFrame(true);
+        
+        auto action = Animate::create(animation);
+        mDice->runAction(RepeatForever::create(Sequence::create(action, action->reverse(), nullptr)));
+        mDiceRunning = true;
+    }
 }
 
 void GameLayer::hidePunishInfo()
@@ -197,7 +206,6 @@ void GameLayer::showPunishInfo(PunishType selectedIndex) {
         mPunishTypeMenuItems.clear();
         auto punishInfoBox = Sprite::create("infoBackground.png");
         Size boxSize = punishInfoBox->getContentSize();
-//        punishInfoBox->setPosition(Vec2(visibleSize.width-boxSize.width/2, visibleSize.height-mPunishInfoMenu->getContentSize().height-boxSize.height/2));
         punishInfoBox->setPosition(getPunishTypeMenuHidePos());
         
         Size punishInfoSize = punishInfoBox->getContentSize();
@@ -272,8 +280,15 @@ string GameLayer::getDiceImage(int num)
 }
 
 void GameLayer::onGetDiceNum(int num) {
-    mDice->stopAllActions();
+    stopDiceAnimation();
     setDiceNumber(num);
+}
+
+void GameLayer::stopDiceAnimation() {
+    if (mDiceRunning) {
+        mDice->stopAllActions();
+        mDiceRunning = false;
+    }
 }
 
 void GameLayer::onDiceAnimationFinish(float interval)
@@ -323,17 +338,44 @@ bool GameLayer::init()
     mDice->setPosition(Vec2(visibleSize.width/2, (visibleSize.height-punishTypeMenuItem->getContentSize().height)/2));
     addChild(mDice);
     
-    auto listener = EventListenerTouchOneByOne::create();
-    listener->setSwallowTouches(true);
-    listener->onTouchBegan = [&](Touch*, Event*)->bool {
-        return true;
-    };
+//    auto listener = EventListenerTouchOneByOne::create();
+//    listener->setSwallowTouches(true);
+//    listener->onTouchBegan = [&](Touch*, Event*)->bool {
+//        return true;
+//    };
+//    
+//    listener->onTouchEnded = [&](Touch*, Event*) {
+//        this->showDiceAnimation();
+//        this->schedule(schedule_selector(GameLayer::onDiceAnimationFinish), 0, 0, 4);
+//    };
+//    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, mDice);
     
-    listener->onTouchEnded = [&](Touch*, Event*) {
-        this->showDiceAnimation();
-        this->schedule(schedule_selector(GameLayer::onDiceAnimationFinish), 0, 0, 4);
-    };
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, mDice);
-    
+    //For Shake detect
+    setAccelerometerEnabled(true);
     return true;
 }
+
+void GameLayer::onAcceleration(Acceleration* pAccelerationValue, Event* event)  {
+    static Acceleration lastAcc = *pAccelerationValue;
+    const double dCurTimeStamp = pAccelerationValue->timestamp;
+    double dX=pAccelerationValue->x - lastAcc.x;
+    double dY=pAccelerationValue->y - lastAcc.y;
+    double dZ=pAccelerationValue->z - lastAcc.z;
+    
+    const double dLengthSq = dX*dX + dY*dY + dZ*dZ;
+    
+    if( dLengthSq > 0.8 ){
+        struct timeval now;  // 秒，毫秒
+        gettimeofday(&now, NULL);
+        static long lLastTime = 0;
+        if( now.tv_sec - lLastTime > 0.5 ){
+            log("晃动了 %lf , len %lf" , dCurTimeStamp , dLengthSq );
+            lLastTime = now.tv_sec;
+            this->showDiceAnimation();
+            this->schedule(schedule_selector(GameLayer::onDiceAnimationFinish), 0, 0, 4);
+        }
+    }
+    
+    lastAcc = *pAccelerationValue;
+}
+

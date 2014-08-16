@@ -50,6 +50,9 @@ public:
     void onGetDiceNum(int num);
     void onDiceAnimationFinish(float interval);
 
+protected:
+    virtual void onAcceleration(Acceleration* acc, Event* unused_event) override;
+    
 private:
     GameLayer();
     Vec2 getPunishTypeMenuShowPos();
@@ -58,6 +61,8 @@ private:
     Vec2 getSelfInfoMenuHidePos();
     void showDiceAnimation();
     string getDiceImage(int num);
+    void shakeHandler(Acceleration* pAccelerationValue, Event*);
+    void stopDiceAnimation();
     
 private:
     Node* mSelfInfoMenu;
@@ -74,6 +79,7 @@ private:
     float mPlayerWinRate;
     
     Sprite* mDice;
+    bool mDiceRunning;
  };
 
 
