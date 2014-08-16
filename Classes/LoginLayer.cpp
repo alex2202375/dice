@@ -14,11 +14,14 @@
 #include "CCMenu.h"
 #include "GameScene.h"
 #include "RegisterScene.h"
+#include <UITextField.h>
+#include "GUI/CCEditBox/CCEditBox.h"
 
 
-//using namespace cocos2d::extension;
+using namespace cocos2d::extension;
 USING_NS_CC;
 using namespace CocosDenshion;
+using namespace cocos2d::ui;
 
 //void LoginLayer::menuCloseCallback(Ref* pSender)
 //{
@@ -110,7 +113,7 @@ bool LoginLayer::init() {
     m_PwdBox->setPlaceHolder("输入密码");
     m_PwdBox->setMaxLength(12);
     // TODO:
-//    m_PwdBox->setInputFlag(kEditBoxInputFlagPassword);
+    m_PwdBox->setInputFlag(cocos2d::extension::EditBox::InputFlag::PASSWORD);
 //    m_PwdBox->setReturnType(kKeyboardReturnTypeGo);
     login->addChild(m_PwdBox);
    
