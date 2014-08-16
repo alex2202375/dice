@@ -24,6 +24,7 @@
 #include "CCEventListenerTouch.h"
 #include "CCEventListenerAcceleration.h"
 #include "time.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -45,14 +46,21 @@ GameLayer::GameLayer()
 }
 
 GameLayer::~GameLayer() {
-    for (Vector<MenuItem*>::iterator it; it != mPunishTypeMenuItems.end(); it++) {
+    for (Vector<MenuItem*>::iterator it = mPunishTypeMenuItems.begin(); it != mPunishTypeMenuItems.end(); it++) {
         (*it)->release();
     }
+    mPunishTypeMenuItems.clear();
+    
+    for (Vector<PlayerSprite*>::iterator it = mPlayers.begin(); it != mPlayers.end(); it++) {
+        (*it)->release();
+    }
+    mPlayers.clear();
     
     mPunishInfoMenu->release();
     mSelfInfoMenu->release();
     mPunishTypeMenu->release();
     mSelfInfoBox->release();
+    mDiceCup->release();
 }
 
 void GameLayer::onSelfInfoClicked(Ref* sender){
@@ -107,7 +115,7 @@ void GameLayer::showSelfInfo(string & name, string& photo, float winRate)
         mSelfInfoBox->addChild(nameLabel);
         mSelfInfoBox->retain();
         
-        addChild(mSelfInfoBox);
+        addChild(mSelfInfoBox, 1);
     }
     
     mSelfInfoMenuShown = true;
@@ -139,7 +147,7 @@ void GameLayer::onPunishTypeSelected(Ref* sender) {
 }
 
 void GameLayer::setDiceNumber(int num) {
-    mDice->setTexture(getDiceImage(num));
+    mDice->setTexture(CommonUtil::getDiceImage(num));
 }
 
 void GameLayer::showDiceAnimation() {
@@ -150,7 +158,7 @@ void GameLayer::showDiceAnimation() {
         for( int i=1;i<=DiceRunAnimationSize;i++)
         {
             char szName[100] = {0};
-            sprintf(szName, DiceRunAnimationFileNameFormat, i);
+            sprintf(szName, DiceRunAnimationFileNameFormat.c_str(), i);
             animation->addSpriteFrameWithFile(szName);
         }
         
@@ -242,9 +250,7 @@ void GameLayer::showPunishInfo(PunishType selectedIndex) {
         mPunishTypeMenu->addChild(punishTypeMenu);
         mPunishTypeMenu->retain();
 
-        addChild(punishInfoBox);
-
-//        addChild(punishTypeMenu);
+        addChild(punishInfoBox, 1);
     }
     
     setSelectedPunishType(selectedIndex);
@@ -270,14 +276,6 @@ void GameLayer::setSelectedPunishType(PunishType type) {
     mSelectedPunishType = type;
 }
 
-string GameLayer::getDiceImage(int num)
-{
-    num = num%DiceRunAnimationSize + 1;
-    char picName[100] = {0};
-    sprintf(picName, DiceImgFormat, num);
-    
-    return string(picName);
-}
 
 void GameLayer::onGetDiceNum(int num) {
     stopDiceAnimation();
@@ -327,28 +325,36 @@ bool GameLayer::init()
     menu->setPosition(Vec2::ZERO);
     
     // add the sprite as a child to this layer
-    this->addChild(menu, 1);
+    this->addChild(menu, 2);
     
-    Sprite *diceCup = Sprite::create(DiceCupImg);
-    diceCup->setPosition(Vec2(visibleSize.width/2, (visibleSize.height-punishTypeMenuItem->getContentSize().height)/2));
-    this->addChild(diceCup);
+    mDiceCup = Sprite::create(DiceCupImg);
+    mDiceCup->setPosition(Vec2(visibleSize.width/2, (visibleSize.height-punishTypeMenuItem->getContentSize().height)/2));
+    mDiceCup->retain();
+    this->addChild(mDiceCup);
     
-    mDice = Sprite::create(getDiceImage(6));
+    mDice = Sprite::create(CommonUtil::getDiceImage(6));
     mDice->retain();
     mDice->setPosition(Vec2(visibleSize.width/2, (visibleSize.height-punishTypeMenuItem->getContentSize().height)/2));
     addChild(mDice);
     
-//    auto listener = EventListenerTouchOneByOne::create();
-//    listener->setSwallowTouches(true);
-//    listener->onTouchBegan = [&](Touch*, Event*)->bool {
-//        return true;
-//    };
-//    
-//    listener->onTouchEnded = [&](Touch*, Event*) {
-//        this->showDiceAnimation();
-//        this->schedule(schedule_selector(GameLayer::onDiceAnimationFinish), 0, 0, 4);
-//    };
-//    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, mDice);
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    listener->onTouchBegan = [&](Touch*, Event*)->bool {
+        return true;
+    };
+    
+    listener->onTouchEnded = [&](Touch*, Event*) {
+        static int i = 0;
+        Player player;
+        char name[20] = {0};
+        sprintf(name, "player %d", i);
+        player.name = name;
+        player.photo = PlayerPhotoNull;
+        player.winRate = i*0.05;
+        this->addPlayer(player);
+        i++;
+    };
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, mDice);
     
     //For Shake detect
     setAccelerometerEnabled(true);
@@ -377,5 +383,53 @@ void GameLayer::onAcceleration(Acceleration* pAccelerationValue, Event* event)  
     }
     
     lastAcc = *pAccelerationValue;
+}
+
+void GameLayer::addPlayer(Player &player) {
+    PlayerSprite* sprite = PlayerSprite::create(player);
+    sprite->retain();
+    sprite->setPosition(getPlayerInitPos());
+    
+    addChild(sprite);
+    mPlayers.pushBack(sprite);
+    
+    placePlayers();
+}
+
+Vec2 GameLayer::getPlayerInitPos() {
+    Vec2 cupPos = mDiceCup->getPosition();
+    return Vec2(cupPos.x, cupPos.y+getPlayerRadiusToCenter());
+}
+
+
+float GameLayer::getPlayerRadiusToCenter() {
+    static float r = -1;
+    if (r == -1) {
+        PlayerSprite* player = PlayerSprite::create(-1, "tmp");
+        float cupLength = MAX(mDiceCup->getContentSize().height/2, mDiceCup->getContentSize().width/2);
+        float playerLength = MAX(player->getContentSize().height/2, player->getContentSize().width/2);
+        r = cupLength+playerLength+PlayerRadiusMargin;
+    }
+    
+    return r;
+}
+
+
+
+void GameLayer::placePlayers() {
+    size_t count = mPlayers.size();
+    float degree = 2*PI / count;
+    Vec2 initPos = getPlayerInitPos();
+
+    for (int i = 0; i < mPlayers.size(); i++) {
+        PlayerSprite* player = mPlayers.at(i);
+        Vec2 newPos = initPos.rotateByAngle(mDiceCup->getPosition(), degree*i);
+        player->runAction(MoveTo::create(PlayerPlaceDuration, newPos));
+    }
+}
+
+void GameLayer::showRoomSelect()
+{
+    
 }
 

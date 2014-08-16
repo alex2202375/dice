@@ -16,6 +16,8 @@
 #include "CCMenuItem.h"
 #include "CCSprite.h"
 #include <string>
+#include "Constants.h"
+#include "Player.h"
 
 USING_NS_CC;
 using namespace std;
@@ -23,13 +25,6 @@ using namespace std;
 
 class GameLayer : public Layer {
 public:
-    
-    enum PunishType {
-        PunishTypeShy = 1,
-        PunishTypeBold = 2,
-        PunishTypeTrueWords = 3,
-        PunishTypeRisky = 4
-    };
     
     CREATE_FUNC(GameLayer);
     virtual ~GameLayer();
@@ -60,9 +55,13 @@ private:
     Vec2 getSelfInfoMenuShowPos();
     Vec2 getSelfInfoMenuHidePos();
     void showDiceAnimation();
-    string getDiceImage(int num);
     void shakeHandler(Acceleration* pAccelerationValue, Event*);
     void stopDiceAnimation();
+    void placePlayers();
+    float getPlayerRadiusToCenter();
+    Vec2 getPlayerInitPos();
+    void addPlayer(Player &player);
+    void showRoomSelect();
     
 private:
     Node* mSelfInfoMenu;
@@ -80,6 +79,10 @@ private:
     
     Sprite* mDice;
     bool mDiceRunning;
+    
+    Sprite* mDiceCup;
+    
+    Vector<PlayerSprite*> mPlayers;
  };
 
 

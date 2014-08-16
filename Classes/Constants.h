@@ -12,17 +12,29 @@
 #include <string>
 #include "ccTypes.h"
 
+using namespace std;
+USING_NS_CC;
+
+enum PunishType {
+    PunishTypeShy = 1,
+    PunishTypeBold = 2,
+    PunishTypeTrueWords = 3,
+    PunishTypeRisky = 4
+};
+
+const float PI = 3.1415926;
+
 const string DefaultFontName = "fonts/HKYuanMini.ttf";
 const int DefaultFontSize = 35;
 const Color3B DefaultFontColor = Color3B::BLACK;
 const float DefaultActionTime = 0.2;
 
 const string DiceCupImg ="diceCup.png";
-const char* DiceImgFormat ="dice/dice%d.png";
+const string DiceImgFormat = "dice/dice%d.png";
 
 const string DiceRunAnimationName = "diceRunAnimation";
 const int DiceRunAnimationSize = 6;
-const char* DiceRunAnimationFileNameFormat = "dice/diceChange%d.png";
+const string DiceRunAnimationFileNameFormat = "dice/diceChange%d.png";
 const int DiceRunAnimationDuration = 1;
 
 const string PunishTypeSelectedImg = "infoSelected.png";
@@ -47,5 +59,15 @@ const float SelfInfoLineMarginTop = 10;
 const string SelfInfoFontName = DefaultFontName;
 const int SelfInfoFontSize = DefaultFontSize;
 const Color3B SelfInfoFontColor = DefaultFontColor;
+
+const string PlayerBgImg = "playerPicBox.png";
+const string PlayerPhotoNull = "playerPicBox.png";
+const string PlayerFontName = DefaultFontName;
+const int PlayerFontSize = DefaultFontSize;
+const Color3B PlayerFontColor = DefaultFontColor;
+const int PlayerDiceDefaultNum = 6;
+const int PlayerLineMarginTop = 2;
+const float PlayerRadiusMargin = 10;
+const float PlayerPlaceDuration = 0.2;
 
 #endif

@@ -9,13 +9,11 @@
 #ifndef __dice__LogicalEngine__
 #define __dice__LogicalEngine__
 
-using namespace std;
-
-
 #include <iostream>
 #include <list>
 #include "CCRef.h"
 
+using namespace std;
 USING_NS_CC;
 
 class LogicalEngine {

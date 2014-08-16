@@ -9,9 +9,10 @@
 #ifndef __dice__CommonUtil__
 #define __dice__CommonUtil__
 
-using namespace std;
 #include <iostream>
 #include "CCNode.h"
+
+using namespace std;
 
 USING_NS_CC;
 
@@ -22,6 +23,10 @@ public:
     static bool isValidPhone(string phoneNum);
     
     static void setPosAccordSize(Node* node);
+    
+    static string getDiceImage(int num);
+    
+    static Vec2 getSceenCenter();
     
 };
 
