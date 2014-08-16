@@ -7,3 +7,11 @@
 //
 
 #include "RegisterScene.h"
+#include "RegisterLayer.h"
+
+void RegisterScene::onEnter() {
+    Scene::onEnter();
+    auto reglayer = RegisterLayer::create();
+    addChild(reglayer);
+
+}
