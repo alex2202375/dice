@@ -42,12 +42,16 @@ void HeadLayer::onBackClicked(Ref * caller) {
 }
 
 bool HeadLayer::init() {
+    int i;
+    int gridx=4, gridy=5;
+    
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )
     {
         return false;
     }
+    PicCount  = 24;
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -56,6 +60,16 @@ bool HeadLayer::init() {
     auto background = Sprite::create("registerBackground.png");
     background->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     this->addChild(background, 0);
+    
+    int xnum, ynum;
+    for (i = 0; i < PicCount; i ++)
+    {
+        xnum = i % gridx + 1;
+        ynum = i / gridy;
+        auto headObj = Sprite::create("playerPicBox.png");
+        headObj->setPosition(Vec2(visibleSize.width/(gridx+1)*xnum, visibleSize.height/(gridy+1)*ynum));
+        this->addChild(headObj);
+    }
     
     
     

@@ -25,6 +25,8 @@ public:
     
     void onPicClicked(Ref* caller);
     void onBackClicked(Ref * caller);
+    
+    int PicCount;
 };
 
 
