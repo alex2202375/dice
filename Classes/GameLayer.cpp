@@ -43,6 +43,9 @@ GameLayer::GameLayer()
     mPlayerWinRate = 0;
     
     mDiceRunning = false;
+    
+    mRoomMenu = nullptr;
+    mRoomCreateJoin = nullptr;
 }
 
 GameLayer::~GameLayer() {
@@ -61,6 +64,7 @@ GameLayer::~GameLayer() {
     mPunishTypeMenu->release();
     mSelfInfoBox->release();
     mDiceCup->release();
+    mRoomMenu->release();
 }
 
 void GameLayer::onSelfInfoClicked(Ref* sender){
@@ -138,7 +142,7 @@ void GameLayer::onPunishInfoClicked(Ref* sender) {
 
 void GameLayer::onPunishTypeSelected(Ref* sender) {
     Node * item = (Node*)sender;
-    PunishType type = (PunishType)(int)(item->getUserData());
+    PunishType type = (PunishType)(item->getTag());
     setSelectedPunishType(type);
     hidePunishInfo();
 
@@ -236,7 +240,7 @@ void GameLayer::showPunishInfo(PunishType selectedIndex) {
             normalSprite->addChild(normalTop);
             
             auto menuItem = MenuItemSprite::create(normalSprite, selectedSprite, CC_CALLBACK_1(GameLayer::onPunishTypeSelected, this));
-            menuItem->setUserData((void*)(int)(PunishTypeShy+i));
+            menuItem->setTag((int)(PunishTypeShy+i));
             
             Vec2 pos(selectedSprite->getContentSize().width/2, selectedSprite->getContentSize().height*(i+0.5));
             menuItem->setPosition(pos);
@@ -265,7 +269,7 @@ void GameLayer::showPunishInfo(PunishType selectedIndex) {
 void GameLayer::setSelectedPunishType(PunishType type) {
     for (int i= 0; i < mPunishTypeMenuItems.size() ; i++) {
         MenuItem* item = mPunishTypeMenuItems.at(i);
-        if ((PunishType)(int)item->getUserData() == type) {
+        if ((PunishType)item->getTag() == type) {
             mPunishTypeMenuItems.at(i)->selected();
         }
         else {
@@ -339,22 +343,41 @@ bool GameLayer::init()
     
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
-    listener->onTouchBegan = [&](Touch*, Event*)->bool {
-        return true;
+    listener->onTouchBegan = [&](Touch* touch, Event* event)->bool {
+        auto target = static_cast<Sprite*>(event->getCurrentTarget());
+        if (target == mDiceCup) {
+            // 获取当前点击点所在相对按钮的位置坐标
+            Point locationInNode = target->convertToNodeSpace(touch->getLocation());
+            Size s = target->getContentSize();
+            Rect rect = Rect(0, 0, s.width, s.height);
+            
+            // 点击范围判断检测
+            if (rect.containsPoint(locationInNode))
+            {
+                log("sprite began... x = %f, y = %f", locationInNode.x, locationInNode.y);
+                showRoomSelect(true);
+                return true;
+            }
+            return false;
+        }
+        else {
+            static int i = 0;
+            Player player;
+            char name[20] = {0};
+            sprintf(name, "player %d", i);
+            player.name = name;
+            player.photo = PlayerPhotoNull;
+            player.winRate = i*0.05;
+            this->addPlayer(player);
+            i++;
+            return true;
+        }
     };
     
-    listener->onTouchEnded = [&](Touch*, Event*) {
-        static int i = 0;
-        Player player;
-        char name[20] = {0};
-        sprintf(name, "player %d", i);
-        player.name = name;
-        player.photo = PlayerPhotoNull;
-        player.winRate = i*0.05;
-        this->addPlayer(player);
-        i++;
-    };
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, mDice);
+    listener->onTouchEnded = [&](Touch*, Event* event) {
+     };
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, mDiceCup);
+
     
     //For Shake detect
     setAccelerometerEnabled(true);
@@ -428,8 +451,72 @@ void GameLayer::placePlayers() {
     }
 }
 
-void GameLayer::showRoomSelect()
+void GameLayer::showRoomSelect(bool show)
 {
+    if (mRoomMenu == nullptr) {
+        auto createRoom = MenuItemImage::create(RoomCreateRoomNormalImg, RoomCreateRoomPressedImg, CC_CALLBACK_1(GameLayer::onCreateRoomMenuClicked, this));
+        
+        Vec2 cupPos = mDiceCup->getPosition();
+        Size cupSize = mDiceCup->getContentSize();
+        createRoom->setPosition(Vec2(cupPos.x, cupPos.y + cupSize.height/2 + createRoom->getContentSize().height/2));
+        
+        auto joinRoom = MenuItemImage::create(RoomJoinRoomNormalImg, RoomJoinRoomPressedImg, CC_CALLBACK_1(GameLayer::onJoinRoomMenuClicked, this));
+        joinRoom->setPosition(Vec2(cupPos.x, cupPos.y - cupSize.height/2 - joinRoom->getContentSize().height/2));
+        
+        mRoomMenu = Menu::create(createRoom, joinRoom, nullptr);
+        mRoomMenu->setPosition(Vec2::ZERO);
+        mRoomMenu->retain();
+        addChild(mRoomMenu, 2);
+    }
+    
+    if (mRoomMenu) {
+        mRoomMenu->setVisible(show);
+    }
+}
+
+void GameLayer::onCreateRoomMenuClicked(Ref*sender) {
+    showRoomCreateOrJoin(true, true);
+    showRoomSelect(false);
+}
+
+void GameLayer::onJoinRoomMenuClicked(Ref*sender) {
+    showRoomCreateOrJoin(false, true);
+    showRoomSelect(false);
+}
+
+void  GameLayer::onCreateRoomOKClicked(const string& roomNum, const string & roomPwd) {
     
 }
 
+void  GameLayer::onJoinRoomOKClicked(const string& roomNum, const string & roomPwd) {
+    
+}
+
+void  GameLayer::onJoinRoomCancelClicked() {
+    
+}
+
+void  GameLayer::onCreateRoomCancelClicked() {
+    
+}
+
+void GameLayer::showRoomCreateOrJoin(bool create, bool show) {
+    if (mRoomCreateJoin == nullptr) {
+        mRoomCreateJoin = RoomCreateJoin::create();
+        mRoomCreateJoin->setPosition(mDiceCup->getPosition());
+        mRoomCreateJoin->retain();
+        addChild(mRoomCreateJoin, 2);
+    }
+    if (create) {
+        mRoomCreateJoin->setType(RoomCreateJoin::CreateOrJoin::CREATE_ROOM);
+        mRoomCreateJoin->setOnOKClicked(CC_CALLBACK_2(GameLayer::onCreateRoomOKClicked, this));
+        mRoomCreateJoin->setOnCancelClicked(CC_CALLBACK_0(GameLayer::onCreateRoomCancelClicked, this));
+    }
+    else {
+        mRoomCreateJoin->setType(RoomCreateJoin::CreateOrJoin::JOIN_ROOM);
+        mRoomCreateJoin->setOnOKClicked(CC_CALLBACK_2(GameLayer::onJoinRoomOKClicked, this));
+        mRoomCreateJoin->setOnCancelClicked(CC_CALLBACK_0(GameLayer::onJoinRoomCancelClicked, this));
+    }
+    
+    mRoomCreateJoin->setVisible(show);
+}

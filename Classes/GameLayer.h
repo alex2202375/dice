@@ -10,14 +10,18 @@
 #define __dice__GameLayer__
 
 #include <iostream>
+#include <string>
 
 #include "CCLayer.h"
 #include "CCNode.h"
 #include "CCMenuItem.h"
 #include "CCSprite.h"
-#include <string>
+#include "CCMenu.h"
+
 #include "Constants.h"
 #include "Player.h"
+#include "Room.h"
+
 
 USING_NS_CC;
 using namespace std;
@@ -61,7 +65,15 @@ private:
     float getPlayerRadiusToCenter();
     Vec2 getPlayerInitPos();
     void addPlayer(Player &player);
-    void showRoomSelect();
+    void showRoomSelect(bool show);
+    void onCreateRoomMenuClicked(Ref *sender);
+    void onJoinRoomMenuClicked(Ref *sender);
+    void showRoomCreateOrJoin(bool create, bool show);
+    
+    void onCreateRoomOKClicked(const string& roomNum, const string & roomPwd);
+    void onJoinRoomOKClicked(const string& roomNum, const string & roomPwd);
+    void onJoinRoomCancelClicked();
+    void onCreateRoomCancelClicked();
     
 private:
     Node* mSelfInfoMenu;
@@ -83,6 +95,9 @@ private:
     Sprite* mDiceCup;
     
     Vector<PlayerSprite*> mPlayers;
+    
+    Menu* mRoomMenu;
+    RoomCreateJoin* mRoomCreateJoin;
  };
 
 

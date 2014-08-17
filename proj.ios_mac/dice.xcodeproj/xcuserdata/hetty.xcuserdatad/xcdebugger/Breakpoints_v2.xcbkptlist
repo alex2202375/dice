@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../classes/GameLayer.cpp"
-            timestampString = "429898692.31171"
+            timestampString = "429980823.579253"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "423"
+            endingLineNumber = "423"
             landmarkName = "GameLayer::getPlayerInitPos()"
             landmarkType = "5">
          </BreakpointContent>
@@ -145,6 +145,98 @@
             endingLineNumber = "41"
             landmarkName = "PlayerSprite::placeSelf()"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Room.cpp"
+            timestampString = "429980329.794517"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "RoomCreateJoin::RoomCreateJoin()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RoomCreateJoin::RoomCreateJoin()"
+                  moduleName = "dice iOS"
+                  urlString = "file:///Users/hetty/alex/selfwork/dice/project/dice/classes/Room.cpp"
+                  timestampString = "429980405.632542"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RoomCreateJoin::RoomCreateJoin()"
+                  moduleName = "dice iOS"
+                  urlString = "file:///Users/hetty/alex/selfwork/dice/project/dice/classes/Room.cpp"
+                  timestampString = "429980405.632904"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "22">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Room.cpp"
+            timestampString = "429980336.884467"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "RoomCreateJoin::RoomCreateJoin()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RoomCreateJoin::RoomCreateJoin()"
+                  moduleName = "dice iOS"
+                  urlString = "file:///Users/hetty/alex/selfwork/dice/project/dice/classes/Room.cpp"
+                  timestampString = "429980824.067909"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RoomCreateJoin::RoomCreateJoin()"
+                  moduleName = "dice iOS"
+                  urlString = "file:///Users/hetty/alex/selfwork/dice/project/dice/classes/Room.cpp"
+                  timestampString = "429980824.069695"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "151">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

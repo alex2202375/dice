@@ -70,4 +70,34 @@ const int PlayerLineMarginTop = 2;
 const float PlayerRadiusMargin = 10;
 const float PlayerPlaceDuration = 0.2;
 
+const string EditBoxImg = "registerEditBox.png";
+const float EditBoxWidth = 300;
+const float EditBoxHeight = 50;
+
+const string RoomCreateRoomNormalImg = "createRoomNormal.png";
+const string RoomCreateRoomPressedImg = "createRoomPressed.png";
+const string RoomJoinRoomNormalImg = "joinRoomNormal.png";
+const string RoomJoinRoomPressedImg = "joinRoomPressed.png";
+const string RoomCreateNormalImg = "createNormal.png";
+const string RoomCreatePressedImg = "createPressed.png";
+const string RoomJoinNormalImg = "joinNormal.png";
+const string RoomJoinPressedImg = "joinPressed.png";
+const string RoomCancelNormalImg = "cancelNormal.png";
+const string RoomCancelPressedImg = "cancelPressed.png";
+const string RoomCreateBgImg = "createRoomBg.png";
+const string RoomNumEditBgImg = "roomNumEditBg.png";
+const string RoomNumEditTitle = "房间号码:";
+const float  RoomNumEditTitleX = 86;
+const float RoomNumEditTitleY = 200;
+const string RoomNumEditHint = "请输入房间号码";
+const string RoomPwdEditBgImg = "passwordEditBg.png";
+const string RoomPwdEditTitle = "房间密码:";
+const float RoomPwdEditTitleX = RoomNumEditTitleX;
+const float RoomPwdEditTitleY = RoomNumEditTitleY - 50;
+const string RoomPwdEditHint = "请输入房间密码";
+const string RoomFontName = DefaultFontName;
+const int RoomFontSize = 35;
+const Color3B RoomFontColor = Color3B::GRAY;
+const int RoomEditMaxLength = 12;
+
 #endif
