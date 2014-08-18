@@ -76,6 +76,25 @@
 		C3DE3E101999140B00EB0A2A /* GameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3E0E1999140B00EB0A2A /* GameLayer.cpp */; };
 		C3E776C1199E6A9B0009F0C3 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = C3E776BF199E6A9B0009F0C3 /* fonts */; };
 		C3E776C2199E6A9B0009F0C3 /* xhd in Resources */ = {isa = PBXBuildFile; fileRef = C3E776C0199E6A9B0009F0C3 /* xhd */; };
+		C3E7776419A2570F0009F0C3 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = C3E7772B19A2570F0009F0C3 /* .travis.yml */; };
+		C3E7776519A2570F0009F0C3 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E7772D19A2570F0009F0C3 /* dump.c */; };
+		C3E7776619A2570F0009F0C3 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E7772E19A2570F0009F0C3 /* error.c */; };
+		C3E7776719A2570F0009F0C3 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E7772F19A2570F0009F0C3 /* hashtable.c */; };
+		C3E7776819A2570F0009F0C3 /* jansson.def in Resources */ = {isa = PBXBuildFile; fileRef = C3E7773119A2570F0009F0C3 /* jansson.def */; };
+		C3E7776919A2570F0009F0C3 /* jansson_config.h.in in Resources */ = {isa = PBXBuildFile; fileRef = C3E7773419A2570F0009F0C3 /* jansson_config.h.in */; };
+		C3E7776A19A2570F0009F0C3 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E7773619A2570F0009F0C3 /* load.c */; };
+		C3E7776B19A2570F0009F0C3 /* Makefile.am in Resources */ = {isa = PBXBuildFile; fileRef = C3E7773719A2570F0009F0C3 /* Makefile.am */; };
+		C3E7776C19A2570F0009F0C3 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E7773819A2570F0009F0C3 /* memory.c */; };
+		C3E7776D19A2570F0009F0C3 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E7773919A2570F0009F0C3 /* pack_unpack.c */; };
+		C3E7776E19A2570F0009F0C3 /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E7773A19A2570F0009F0C3 /* strbuffer.c */; };
+		C3E7776F19A2570F0009F0C3 /* strconv.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E7773C19A2570F0009F0C3 /* strconv.c */; };
+		C3E7777019A2570F0009F0C3 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E7773D19A2570F0009F0C3 /* utf.c */; };
+		C3E7777119A2570F0009F0C3 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E7773F19A2570F0009F0C3 /* value.c */; };
+		C3E7777219A2570F0009F0C3 /* .mailmap in Resources */ = {isa = PBXBuildFile; fileRef = C3E7774119A2570F0009F0C3 /* .mailmap */; };
+		C3E7777319A2570F0009F0C3 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = C3E7774219A2570F0009F0C3 /* .travis.yml */; };
+		C3E7777419A2570F0009F0C3 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E7776119A2570F0009F0C3 /* libjansson.a */; };
+		C3E7777519A2570F0009F0C3 /* libpomelo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E7776219A2570F0009F0C3 /* libpomelo.a */; };
+		C3E7777619A2570F0009F0C3 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E7776319A2570F0009F0C3 /* libuv.a */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
@@ -306,6 +325,53 @@
 		C3DE3E83199E2C6100EB0A2A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C3E776BF199E6A9B0009F0C3 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		C3E776C0199E6A9B0009F0C3 /* xhd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = xhd; sourceTree = "<group>"; };
+		C3E7772B19A2570F0009F0C3 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		C3E7772D19A2570F0009F0C3 /* dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dump.c; sourceTree = "<group>"; };
+		C3E7772E19A2570F0009F0C3 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
+		C3E7772F19A2570F0009F0C3 /* hashtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable.c; sourceTree = "<group>"; };
+		C3E7773019A2570F0009F0C3 /* hashtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashtable.h; sourceTree = "<group>"; };
+		C3E7773119A2570F0009F0C3 /* jansson.def */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jansson.def; sourceTree = "<group>"; };
+		C3E7773219A2570F0009F0C3 /* jansson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson.h; sourceTree = "<group>"; };
+		C3E7773319A2570F0009F0C3 /* jansson_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_config.h; sourceTree = "<group>"; };
+		C3E7773419A2570F0009F0C3 /* jansson_config.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jansson_config.h.in; sourceTree = "<group>"; };
+		C3E7773519A2570F0009F0C3 /* jansson_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_private.h; sourceTree = "<group>"; };
+		C3E7773619A2570F0009F0C3 /* load.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load.c; sourceTree = "<group>"; };
+		C3E7773719A2570F0009F0C3 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		C3E7773819A2570F0009F0C3 /* memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
+		C3E7773919A2570F0009F0C3 /* pack_unpack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pack_unpack.c; sourceTree = "<group>"; };
+		C3E7773A19A2570F0009F0C3 /* strbuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strbuffer.c; sourceTree = "<group>"; };
+		C3E7773B19A2570F0009F0C3 /* strbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strbuffer.h; sourceTree = "<group>"; };
+		C3E7773C19A2570F0009F0C3 /* strconv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strconv.c; sourceTree = "<group>"; };
+		C3E7773D19A2570F0009F0C3 /* utf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf.c; sourceTree = "<group>"; };
+		C3E7773E19A2570F0009F0C3 /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
+		C3E7773F19A2570F0009F0C3 /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
+		C3E7774119A2570F0009F0C3 /* .mailmap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .mailmap; sourceTree = "<group>"; };
+		C3E7774219A2570F0009F0C3 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		C3E7774519A2570F0009F0C3 /* ngx-queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ngx-queue.h"; sourceTree = "<group>"; };
+		C3E7774619A2570F0009F0C3 /* stdint-msvc2008.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "stdint-msvc2008.h"; sourceTree = "<group>"; };
+		C3E7774719A2570F0009F0C3 /* tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tree.h; sourceTree = "<group>"; };
+		C3E7774819A2570F0009F0C3 /* uv-bsd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "uv-bsd.h"; sourceTree = "<group>"; };
+		C3E7774919A2570F0009F0C3 /* uv-darwin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "uv-darwin.h"; sourceTree = "<group>"; };
+		C3E7774A19A2570F0009F0C3 /* uv-linux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "uv-linux.h"; sourceTree = "<group>"; };
+		C3E7774B19A2570F0009F0C3 /* uv-sunos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "uv-sunos.h"; sourceTree = "<group>"; };
+		C3E7774C19A2570F0009F0C3 /* uv-unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "uv-unix.h"; sourceTree = "<group>"; };
+		C3E7774D19A2570F0009F0C3 /* uv-win.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "uv-win.h"; sourceTree = "<group>"; };
+		C3E7774E19A2570F0009F0C3 /* uv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uv.h; sourceTree = "<group>"; };
+		C3E7775119A2570F0009F0C3 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		C3E7775219A2570F0009F0C3 /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
+		C3E7775319A2570F0009F0C3 /* jansson-memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "jansson-memory.h"; sourceTree = "<group>"; };
+		C3E7775419A2570F0009F0C3 /* listener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = listener.h; sourceTree = "<group>"; };
+		C3E7775519A2570F0009F0C3 /* map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map.h; sourceTree = "<group>"; };
+		C3E7775619A2570F0009F0C3 /* ngx-queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ngx-queue.h"; sourceTree = "<group>"; };
+		C3E7775719A2570F0009F0C3 /* transport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = transport.h; sourceTree = "<group>"; };
+		C3E7775919A2570F0009F0C3 /* pb-util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "pb-util.h"; sourceTree = "<group>"; };
+		C3E7775A19A2570F0009F0C3 /* pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb.h; sourceTree = "<group>"; };
+		C3E7775C19A2570F0009F0C3 /* message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = message.h; sourceTree = "<group>"; };
+		C3E7775D19A2570F0009F0C3 /* package.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = package.h; sourceTree = "<group>"; };
+		C3E7775E19A2570F0009F0C3 /* pomelo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pomelo.h; sourceTree = "<group>"; };
+		C3E7776119A2570F0009F0C3 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjansson.a; sourceTree = "<group>"; };
+		C3E7776219A2570F0009F0C3 /* libpomelo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpomelo.a; sourceTree = "<group>"; };
+		C3E7776319A2570F0009F0C3 /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuv.a; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -317,6 +383,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3E7777419A2570F0009F0C3 /* libjansson.a in Frameworks */,
+				C3E7777519A2570F0009F0C3 /* libpomelo.a in Frameworks */,
+				C3E7777619A2570F0009F0C3 /* libuv.a in Frameworks */,
 				1AC6FB2E180E99EB004C840B /* libbox2d iOS.a in Frameworks */,
 				1AC6FB2F180E99EB004C840B /* libchipmunk iOS.a in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2dx iOS.a in Frameworks */,
@@ -427,6 +496,7 @@
 				503AE10617EB990700D1A890 /* mac */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				78C7DDAA14EBA5050085D0C2 /* Resources */,
+				C3E7772819A2570E0009F0C3 /* libpomelo */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -576,6 +646,157 @@
 				C3DE3DFB1997B35000EB0A2A /* Room.h */,
 			);
 			name = Objs;
+			sourceTree = "<group>";
+		};
+		C3E7772819A2570E0009F0C3 /* libpomelo */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7772919A2570F0009F0C3 /* deps */,
+				C3E7774F19A2570F0009F0C3 /* include */,
+				C3E7775F19A2570F0009F0C3 /* lib */,
+			);
+			name = libpomelo;
+			path = ../libpomelo;
+			sourceTree = "<group>";
+		};
+		C3E7772919A2570F0009F0C3 /* deps */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7772A19A2570F0009F0C3 /* jansson */,
+				C3E7774019A2570F0009F0C3 /* uv */,
+			);
+			path = deps;
+			sourceTree = "<group>";
+		};
+		C3E7772A19A2570F0009F0C3 /* jansson */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7772B19A2570F0009F0C3 /* .travis.yml */,
+				C3E7772C19A2570F0009F0C3 /* src */,
+			);
+			path = jansson;
+			sourceTree = "<group>";
+		};
+		C3E7772C19A2570F0009F0C3 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7772D19A2570F0009F0C3 /* dump.c */,
+				C3E7772E19A2570F0009F0C3 /* error.c */,
+				C3E7772F19A2570F0009F0C3 /* hashtable.c */,
+				C3E7773019A2570F0009F0C3 /* hashtable.h */,
+				C3E7773119A2570F0009F0C3 /* jansson.def */,
+				C3E7773219A2570F0009F0C3 /* jansson.h */,
+				C3E7773319A2570F0009F0C3 /* jansson_config.h */,
+				C3E7773419A2570F0009F0C3 /* jansson_config.h.in */,
+				C3E7773519A2570F0009F0C3 /* jansson_private.h */,
+				C3E7773619A2570F0009F0C3 /* load.c */,
+				C3E7773719A2570F0009F0C3 /* Makefile.am */,
+				C3E7773819A2570F0009F0C3 /* memory.c */,
+				C3E7773919A2570F0009F0C3 /* pack_unpack.c */,
+				C3E7773A19A2570F0009F0C3 /* strbuffer.c */,
+				C3E7773B19A2570F0009F0C3 /* strbuffer.h */,
+				C3E7773C19A2570F0009F0C3 /* strconv.c */,
+				C3E7773D19A2570F0009F0C3 /* utf.c */,
+				C3E7773E19A2570F0009F0C3 /* utf.h */,
+				C3E7773F19A2570F0009F0C3 /* value.c */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		C3E7774019A2570F0009F0C3 /* uv */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7774119A2570F0009F0C3 /* .mailmap */,
+				C3E7774219A2570F0009F0C3 /* .travis.yml */,
+				C3E7774319A2570F0009F0C3 /* include */,
+			);
+			path = uv;
+			sourceTree = "<group>";
+		};
+		C3E7774319A2570F0009F0C3 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7774419A2570F0009F0C3 /* uv-private */,
+				C3E7774E19A2570F0009F0C3 /* uv.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		C3E7774419A2570F0009F0C3 /* uv-private */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7774519A2570F0009F0C3 /* ngx-queue.h */,
+				C3E7774619A2570F0009F0C3 /* stdint-msvc2008.h */,
+				C3E7774719A2570F0009F0C3 /* tree.h */,
+				C3E7774819A2570F0009F0C3 /* uv-bsd.h */,
+				C3E7774919A2570F0009F0C3 /* uv-darwin.h */,
+				C3E7774A19A2570F0009F0C3 /* uv-linux.h */,
+				C3E7774B19A2570F0009F0C3 /* uv-sunos.h */,
+				C3E7774C19A2570F0009F0C3 /* uv-unix.h */,
+				C3E7774D19A2570F0009F0C3 /* uv-win.h */,
+			);
+			path = "uv-private";
+			sourceTree = "<group>";
+		};
+		C3E7774F19A2570F0009F0C3 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7775019A2570F0009F0C3 /* pomelo-private */,
+				C3E7775819A2570F0009F0C3 /* pomelo-protobuf */,
+				C3E7775B19A2570F0009F0C3 /* pomelo-protocol */,
+				C3E7775E19A2570F0009F0C3 /* pomelo.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		C3E7775019A2570F0009F0C3 /* pomelo-private */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7775119A2570F0009F0C3 /* common.h */,
+				C3E7775219A2570F0009F0C3 /* internal.h */,
+				C3E7775319A2570F0009F0C3 /* jansson-memory.h */,
+				C3E7775419A2570F0009F0C3 /* listener.h */,
+				C3E7775519A2570F0009F0C3 /* map.h */,
+				C3E7775619A2570F0009F0C3 /* ngx-queue.h */,
+				C3E7775719A2570F0009F0C3 /* transport.h */,
+			);
+			path = "pomelo-private";
+			sourceTree = "<group>";
+		};
+		C3E7775819A2570F0009F0C3 /* pomelo-protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7775919A2570F0009F0C3 /* pb-util.h */,
+				C3E7775A19A2570F0009F0C3 /* pb.h */,
+			);
+			path = "pomelo-protobuf";
+			sourceTree = "<group>";
+		};
+		C3E7775B19A2570F0009F0C3 /* pomelo-protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7775C19A2570F0009F0C3 /* message.h */,
+				C3E7775D19A2570F0009F0C3 /* package.h */,
+			);
+			path = "pomelo-protocol";
+			sourceTree = "<group>";
+		};
+		C3E7775F19A2570F0009F0C3 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7776019A2570F0009F0C3 /* ios */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		C3E7776019A2570F0009F0C3 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7776119A2570F0009F0C3 /* libjansson.a */,
+				C3E7776219A2570F0009F0C3 /* libpomelo.a */,
+				C3E7776319A2570F0009F0C3 /* libuv.a */,
+			);
+			path = ios;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -742,11 +963,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3E7776919A2570F0009F0C3 /* jansson_config.h.in in Resources */,
+				C3E7776819A2570F0009F0C3 /* jansson.def in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
+				C3E7776B19A2570F0009F0C3 /* Makefile.am in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
+				C3E7776419A2570F0009F0C3 /* .travis.yml in Resources */,
+				C3E7777219A2570F0009F0C3 /* .mailmap in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
@@ -755,6 +981,7 @@
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				C3E776C1199E6A9B0009F0C3 /* fonts in Resources */,
+				C3E7777319A2570F0009F0C3 /* .travis.yml in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
@@ -778,14 +1005,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3E7777119A2570F0009F0C3 /* value.c in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				C3DE3DED1997A0A600EB0A2A /* NetEngine.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				C3DE3E101999140B00EB0A2A /* GameLayer.cpp in Sources */,
+				C3E7776F19A2570F0009F0C3 /* strconv.c in Sources */,
+				C3E7776619A2570F0009F0C3 /* error.c in Sources */,
 				C3DE3DD31995C6FB00EB0A2A /* LoginScene.cpp in Sources */,
+				C3E7776719A2570F0009F0C3 /* hashtable.c in Sources */,
 				C3DE3DFC1997B35000EB0A2A /* Room.cpp in Sources */,
+				C3E7776A19A2570F0009F0C3 /* load.c in Sources */,
 				C3DE3E0119990C5B00EB0A2A /* GameBackgroundLayer.cpp in Sources */,
 				C3DE3DF41997AF6600EB0A2A /* CommonUtil.cpp in Sources */,
 				2D4C91BE19A05C2700692B3F /* HeadScene.cpp in Sources */,
@@ -797,8 +1029,13 @@
 				2D4C91C319A05C8800692B3F /* HeadLayer.cpp in Sources */,
 				2DE537DA199EF53D004AEAAF /* RegisterLayer.cpp in Sources */,
 				C3DE3DC21995C54D00EB0A2A /* LoadingLayer.cpp in Sources */,
+				C3E7776D19A2570F0009F0C3 /* pack_unpack.c in Sources */,
+				C3E7776C19A2570F0009F0C3 /* memory.c in Sources */,
 				C3DE3DF01997ABAA00EB0A2A /* LogicalEngine.cpp in Sources */,
 				C3DE3DF91997B34300EB0A2A /* Player.cpp in Sources */,
+				C3E7777019A2570F0009F0C3 /* utf.c in Sources */,
+				C3E7776519A2570F0009F0C3 /* dump.c in Sources */,
+				C3E7776E19A2570F0009F0C3 /* strbuffer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -887,11 +1124,17 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
+					"$(SRCROOT)/../libpomelo/include",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
+					"$(SRCROOT)/../libpomelo/deps/jansson/src",
+					"$(SRCROOT)/../libpomelo/deps/uv/include",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/libpomelo/lib/ios",
+					/Users/hetty/alex/selfwork/dice/project/dice/libpomelo/lib/ios,
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -916,11 +1159,17 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
+					"$(SRCROOT)/../libpomelo/include",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
+					"$(SRCROOT)/../libpomelo/deps/jansson/src",
+					"$(SRCROOT)/../libpomelo/deps/uv/include",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/libpomelo/lib/ios",
+					/Users/hetty/alex/selfwork/dice/project/dice/libpomelo/lib/ios,
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";

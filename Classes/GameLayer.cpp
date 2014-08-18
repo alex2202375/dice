@@ -67,6 +67,17 @@ GameLayer::~GameLayer() {
     mRoomMenu->release();
 }
 
+void GameLayer::onEnter() {
+    Layer::onEnter();
+    
+    
+}
+
+void GameLayer::onExit() {
+    Layer::onExit();
+    
+}
+
 void GameLayer::onSelfInfoClicked(Ref* sender){
     log(__FUNCTION__);
     //Show self info
@@ -355,7 +366,9 @@ bool GameLayer::init()
             if (rect.containsPoint(locationInNode))
             {
                 log("sprite began... x = %f, y = %f", locationInNode.x, locationInNode.y);
-                showRoomSelect(true);
+                if (!mRoomCreateJoin || !mRoomCreateJoin->isVisible()) {
+                    showRoomSelect(true);
+                }
                 return true;
             }
             return false;
@@ -493,11 +506,11 @@ void  GameLayer::onJoinRoomOKClicked(const string& roomNum, const string & roomP
 }
 
 void  GameLayer::onJoinRoomCancelClicked() {
-    
+    mRoomCreateJoin->setVisible(false);
 }
 
 void  GameLayer::onCreateRoomCancelClicked() {
-    
+    mRoomCreateJoin->setVisible(false);
 }
 
 void GameLayer::showRoomCreateOrJoin(bool create, bool show) {

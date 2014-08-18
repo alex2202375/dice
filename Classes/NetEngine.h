@@ -11,12 +11,17 @@
 
 #include <iostream>
 
-class NetEngine {
+#include "CCRef.h"
+
+USING_NS_CC;
+
+class NetEngine : public Ref{
 public:
     static NetEngine* getInstance();
     
 private:
     NetEngine();
+    bool init();
 };
 
 #endif /* defined(__dice__NetEngine__) */

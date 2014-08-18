@@ -7,3 +7,17 @@
 //
 
 #include "NetEngine.h"
+
+#include "pomelo.h"
+
+NetEngine* NetEngine::getInstance() {
+    NetEngine * en = new NetEngine();
+    if (en) {
+        en->init();
+    }
+    return en;
+}
+
+bool NetEngine::init() {
+    
+}

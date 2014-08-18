@@ -25,10 +25,12 @@ RoomCreateJoin::~RoomCreateJoin() {
 
 void RoomCreateJoin::setType(CreateOrJoin type) {
     if (type == CREATE_ROOM) {
-        
+        mCreateMenuItem->setVisible(true);
+        mJoinMenuItem->setVisible(false);
     }
     else if (type == JOIN_ROOM) {
-        
+        mJoinMenuItem->setVisible(true);
+        mCreateMenuItem->setVisible(false);
     }
 }
 

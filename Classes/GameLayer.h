@@ -48,6 +48,9 @@ public:
     void setDiceNumber(int num);
     void onGetDiceNum(int num);
     void onDiceAnimationFinish(float interval);
+    
+    virtual void onEnter() override;
+    virtual void onExit() override;
 
 protected:
     virtual void onAcceleration(Acceleration* acc, Event* unused_event) override;
