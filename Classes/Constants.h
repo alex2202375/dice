@@ -37,6 +37,11 @@ const int DiceRunAnimationSize = 6;
 const string DiceRunAnimationFileNameFormat = "dice/diceChange%d.png";
 const int DiceRunAnimationDuration = 1;
 
+// Head Picture Count for chose
+const int HeadPicCount = 20;
+const int HeadGridx = 4;
+const int HeadGridy = 5;
+
 const string PunishTypeSelectedImg = "infoSelected.png";
 const string PunishTypeNormalImg = "infoNormal.png";
 const string PunishTypeShyStr = "腼腆型";

@@ -34,6 +34,9 @@ void HeadLayer::onEnter() {
 void HeadLayer::onPicClicked(Ref* caller) {
     log(__FUNCTION__);
     
+    RegisterScene * scene = RegisterScene::create();
+    Director::getInstance()->replaceScene(scene);
+    
 }
 
 void HeadLayer::onBackClicked(Ref * caller) {
@@ -43,7 +46,6 @@ void HeadLayer::onBackClicked(Ref * caller) {
 
 bool HeadLayer::init() {
     int i;
-    int gridx=4, gridy=5;
     
     //////////////////////////////
     // 1. super init first
@@ -51,7 +53,7 @@ bool HeadLayer::init() {
     {
         return false;
     }
-    PicCount  = 24;
+    
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -61,14 +63,18 @@ bool HeadLayer::init() {
     background->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     this->addChild(background, 0);
     
+    
+    
     int xnum, ynum;
-    for (i = 0; i < PicCount; i ++)
+    for (i = 0; i < HeadPicCount; i ++)
     {
-        xnum = i % gridx + 1;
-        ynum = i / gridy;
+        xnum = i % HeadGridx + 1;
+        ynum = i / HeadGridx + 1;
         auto headObj = Sprite::create("playerPicBox.png");
-        headObj->setPosition(Vec2(visibleSize.width/(gridx+1)*xnum, visibleSize.height/(gridy+1)*ynum));
-        this->addChild(headObj);
+        auto HeadButton = MenuItemImage::create("playerPicBox.png", "playerPicBox.png", CC_CALLBACK_1(HeadLayer::onPicClicked, this));
+//        Size headPicSize = headObj->getContentSize();
+        HeadButton->setPosition(Vec2(visibleSize.width/(HeadGridx+1)*xnum, visibleSize.height/(HeadGridy+1)*ynum));
+        this->addChild(HeadButton);
     }
     
     
