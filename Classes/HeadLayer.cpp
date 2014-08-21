@@ -70,11 +70,22 @@ bool HeadLayer::init() {
     {
         xnum = i % HeadGridx + 1;
         ynum = i / HeadGridx + 1;
-        auto headObj = Sprite::create("playerPicBox.png");
-        auto HeadButton = MenuItemImage::create("playerPicBox.png", "playerPicBox.png", CC_CALLBACK_1(HeadLayer::onPicClicked, this));
+        
+//        Button* button = Button::create("playerPicBox.png");
+        
+//        auto headObj = Sprite::create("playerPicBox.png");
 //        Size headPicSize = headObj->getContentSize();
-        HeadButton->setPosition(Vec2(visibleSize.width/(HeadGridx+1)*xnum, visibleSize.height/(HeadGridy+1)*ynum));
-        this->addChild(HeadButton);
+
+//        auto HeadButton = MenuItemImage::create("playerPicBox.png", "playerPicBox.png", CC_CALLBACK_1(HeadLayer::onPicClicked, this));
+//        HeadButton->setPosition(Vec2(visibleSize.width/(HeadGridx+1)*xnum, visibleSize.height/(HeadGridy+1)*ynum));
+//        this->addChild(HeadButton);
+        
+        
+        auto HeadButton = MenuItemImage::create("playerPicBox.png", "playerPicBox.png", CC_CALLBACK_1(HeadLayer::onPicClicked, this));
+        HeadButton->setPosition(Vec2(visibleSize.width/(HeadGridx+1)*xnum, 0));
+        auto HeadMenu = Menu::create(HeadButton, nullptr);
+        HeadMenu->setPosition(Vec2(0, visibleSize.height/(HeadGridy+1)*ynum));
+        this->addChild(HeadMenu);
     }
     
     
