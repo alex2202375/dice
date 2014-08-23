@@ -13,6 +13,7 @@
 #include <iostream>
 #include "CCLayer.h"
 #include "cocos-ext.h"
+#include "Constants.h"
 #include "deprecated/CCDeprecated.h"
 using namespace cocos2d;
 USING_NS_CC_EXT;
