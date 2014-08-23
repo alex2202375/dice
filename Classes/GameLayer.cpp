@@ -70,7 +70,7 @@ GameLayer::~GameLayer() {
 void GameLayer::onEnter() {
     Layer::onEnter();
     
-    
+    showRoomSelect(true);
 }
 
 void GameLayer::onExit() {
@@ -309,6 +309,36 @@ void GameLayer::onDiceAnimationFinish(float interval)
     onGetDiceNum(rand()/DiceRunAnimationSize + 1);
 }
 
+bool GameLayer::onTouch(Touch* touch, Event* event) {
+    auto target = static_cast<Sprite*>(event->getCurrentTarget());
+    if (target == mDiceCup) {
+        if (CommonUtil::isInRect(target, touch->getLocation())) {
+            if (!mRoomCreateJoin || !mRoomCreateJoin->isVisible()) {
+                showRoomSelect(true);
+            }
+            return true;
+        }
+        return false;
+    }
+    else if (target == mDice) {
+        if (CommonUtil::isInRect(target, touch->getLocation())) {
+            static int i = 0;
+            Player player;
+            char name[20] = {0};
+            sprintf(name, "玩家%d", i);
+            char photo[50] = {0};
+            sprintf(photo, "head/head%d.png", i%6+1);
+            player.name = name;
+            player.photo = photo;
+            player.winRate = i*0.05;
+            this->addPlayer(player);
+            i++;
+            return true;}
+        return false;
+    }
+    return false;
+}
+
 bool GameLayer::init()
 {
     //////////////////////////////
@@ -350,47 +380,24 @@ bool GameLayer::init()
     mDice = Sprite::create(CommonUtil::getDiceImage(6));
     mDice->retain();
     mDice->setPosition(Vec2(visibleSize.width/2, (visibleSize.height-punishTypeMenuItem->getContentSize().height)/2));
+    mDice->setVisible(false);
     addChild(mDice);
     
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
-    listener->onTouchBegan = [&](Touch* touch, Event* event)->bool {
-        auto target = static_cast<Sprite*>(event->getCurrentTarget());
-        if (target == mDiceCup) {
-            // 获取当前点击点所在相对按钮的位置坐标
-            Point locationInNode = target->convertToNodeSpace(touch->getLocation());
-            Size s = target->getContentSize();
-            Rect rect = Rect(0, 0, s.width, s.height);
-            
-            // 点击范围判断检测
-            if (rect.containsPoint(locationInNode))
-            {
-                log("sprite began... x = %f, y = %f", locationInNode.x, locationInNode.y);
-                if (!mRoomCreateJoin || !mRoomCreateJoin->isVisible()) {
-                    showRoomSelect(true);
-                }
-                return true;
-            }
-            return false;
-        }
-        else {
-            static int i = 0;
-            Player player;
-            char name[20] = {0};
-            sprintf(name, "player %d", i);
-            player.name = name;
-            player.photo = PlayerPhotoNull;
-            player.winRate = i*0.05;
-            this->addPlayer(player);
-            i++;
-            return true;
-        }
-    };
+    listener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouch, this);
     
     listener->onTouchEnded = [&](Touch*, Event* event) {
      };
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, mDiceCup);
-
+    
+    auto listener2 = EventListenerTouchOneByOne::create();
+    listener2->setSwallowTouches(true);
+    listener2->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouch, this);
+    
+    listener2->onTouchEnded = [&](Touch*, Event* event) {
+    };
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener2, mDice);
     
     //For Shake detect
     setAccelerometerEnabled(true);
@@ -419,6 +426,15 @@ void GameLayer::onAcceleration(Acceleration* pAccelerationValue, Event* event)  
     }
     
     lastAcc = *pAccelerationValue;
+}
+
+void GameLayer::removeAllPlayers() {
+    for (size_t i = 0; i < mPlayers.size(); i++) {
+        Sprite* player = mPlayers.at(i);
+        player->release();
+        removeChild(player);
+    }
+    mPlayers.clear();
 }
 
 void GameLayer::addPlayer(Player &player) {
@@ -498,11 +514,15 @@ void GameLayer::onJoinRoomMenuClicked(Ref*sender) {
 }
 
 void  GameLayer::onCreateRoomOKClicked(const string& roomNum, const string & roomPwd) {
-    
+    mRoomCreateJoin->setVisible(false);
+    removeAllPlayers();
+    mDice->setVisible(true);
 }
 
 void  GameLayer::onJoinRoomOKClicked(const string& roomNum, const string & roomPwd) {
-    
+    mRoomCreateJoin->setVisible(false);
+    removeAllPlayers();
+    mDice->setVisible(true);
 }
 
 void  GameLayer::onJoinRoomCancelClicked() {

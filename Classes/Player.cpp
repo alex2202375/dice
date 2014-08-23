@@ -36,11 +36,11 @@ int PlayerSprite::getId() {
 
 void PlayerSprite::placeSelf(){
     Size pSize = getTextureRect().size;
-    mNameLabel->setPosition(Vec2(pSize.width/2, -mNameLabel->getContentSize().height/2-PlayerLineMarginTop));
+    mNameLabel->setPosition(Vec2(pSize.width/2, 0));
     
     mDice->setPosition(Vec2(pSize.width/2, pSize.height+mDice->getContentSize().height/2+PlayerLineMarginTop));
     
-    mPhotoPic->setPosition(Vec2(mPhotoPic->getContentSize().width/2, mPhotoPic->getContentSize().height/2));
+    mPhotoPic->setPosition(getContentSize().width/2, getContentSize().height/2);
     
 //    setContentSize(Size(pSize.width, pSize.height+mNameLabel->getContentSize().height + mDice->getContentSize().height + 2*PlayerLineMarginTop));
 }
@@ -52,16 +52,16 @@ bool PlayerSprite::init() {
     
     mNameLabel = LabelTTF::create(mName, PlayerFontName, PlayerFontSize);
     mNameLabel->retain();
-    mNameLabel->setVisible(false);
+    mNameLabel->setVisible(true);
     addChild(mNameLabel);
     
     mPhotoPic = Sprite::create(mPhoto);
     mPhotoPic->retain();
     addChild(mPhotoPic);
     
-    mDice = Sprite::create(CommonUtil::getDiceImage(PlayerDiceDefaultNum));
+    mDice = Sprite::create(CommonUtil::getDiceImage(PlayerDiceDefaultNum, true));
     mDice->retain();
-    mDice->setVisible(false);
+    mDice->setVisible(true);
     addChild(mDice);
     
     placeSelf();
@@ -83,7 +83,7 @@ bool PlayerSprite::isDiceVisible() {
 
 void PlayerSprite::setDiceNum(int num) {
     mDiceNumber = num;
-    mDice->setTexture(CommonUtil::getDiceImage(num));
+    mDice->setTexture(CommonUtil::getDiceImage(num, true));
     placeSelf();
 }
 
@@ -101,7 +101,7 @@ string PlayerSprite::getName() {
 }
 
 void PlayerSprite::setPhoto(string photo) {
-    setTexture(photo);
+    mPhotoPic->setTexture(photo);
     placeSelf();
 }
 

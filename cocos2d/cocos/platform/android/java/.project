@@ -30,4 +30,10 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>NDK_ROOT</name>
+			<value>file:/Users/hetty/alex/software/android/android-ndk-r10</value>
+		</variable>
+	</variableList>
 </projectDescription>

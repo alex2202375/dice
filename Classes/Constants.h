@@ -24,13 +24,15 @@ enum PunishType {
 
 const float PI = 3.1415926;
 
-const string DefaultFontName = "fonts/HKYuanMini.ttf";
+const string DefaultFontName = "fonts/zhanghaishan.ttf";
 const int DefaultFontSize = 35;
 const Color3B DefaultFontColor = Color3B::BLACK;
 const float DefaultActionTime = 0.2;
 
 const string DiceCupImg ="diceCup.png";
 const string DiceImgFormat = "dice/dice%d.png";
+const string DiceMiniImgFormat = "dice/diceM%d.png";
+const string HeadImgFormat = "head/head%d.png";
 
 const string DiceRunAnimationName = "diceRunAnimation";
 const int DiceRunAnimationSize = 6;
@@ -66,7 +68,7 @@ const string PlayerFontName = DefaultFontName;
 const int PlayerFontSize = DefaultFontSize;
 const Color3B PlayerFontColor = DefaultFontColor;
 const int PlayerDiceDefaultNum = 6;
-const int PlayerLineMarginTop = 2;
+const int PlayerLineMarginTop = 0;
 const float PlayerRadiusMargin = 10;
 const float PlayerPlaceDuration = 0.2;
 

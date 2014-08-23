@@ -21,3 +21,7 @@ NetEngine* NetEngine::getInstance() {
 bool NetEngine::init() {
     
 }
+
+NetEngine::NetEngine() {
+
+}

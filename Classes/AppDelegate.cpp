@@ -34,22 +34,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto fileUtils = FileUtils::getInstance();
     std::vector<std::string> searchPaths;
     Size resourceSize;
-#if 0 //Enable following lines when has multiple resources
-    if (screenSize.height > 1280)
+
+    if (screenSize.height/screenSize.width <= 1620.0/1080.0)
     {
-        resourceSize = Size(1080, 1920);
-        searchPaths.push_back("xhd");
+        searchPaths.push_back("hd");
     }
-    else
-    {
-        resourceSize = Size(720, 1280);
-        searchPaths.push_back("xh");
-    }
-#else 
     resourceSize = Size(1080, 1920);
     searchPaths.push_back("xhd");
-    searchPaths.push_back("xhd/dice");
-#endif
     
     director->setContentScaleFactor(resourceSize.width/designSize.width);
     fileUtils->setSearchPaths(searchPaths);

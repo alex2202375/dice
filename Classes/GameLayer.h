@@ -67,6 +67,7 @@ private:
     void placePlayers();
     float getPlayerRadiusToCenter();
     Vec2 getPlayerInitPos();
+    void removeAllPlayers();
     void addPlayer(Player &player);
     void showRoomSelect(bool show);
     void onCreateRoomMenuClicked(Ref *sender);
@@ -77,6 +78,7 @@ private:
     void onJoinRoomOKClicked(const string& roomNum, const string & roomPwd);
     void onJoinRoomCancelClicked();
     void onCreateRoomCancelClicked();
+    bool onTouch(Touch* touch, Event* event);
     
 private:
     Node* mSelfInfoMenu;

@@ -17,11 +17,12 @@ void CommonUtil::setPosAccordSize(Node* node)
 }
 
 
-string CommonUtil::getDiceImage(int num)
+string CommonUtil::getDiceImage(int num, bool small)
 {
     num = num%DiceRunAnimationSize + 1;
     char picName[100] = {0};
-    sprintf(picName, DiceImgFormat.c_str(), num);
+    string format = small ? DiceMiniImgFormat: DiceImgFormat;
+    sprintf(picName, format.c_str(), num);
     
     return string(picName);
 }
@@ -29,4 +30,14 @@ string CommonUtil::getDiceImage(int num)
 Vec2 CommonUtil::getSceenCenter(){
     Size visibleSize = Director::getInstance()->getVisibleSize();
     return Vec2(visibleSize.width/2, visibleSize.height/2);
+}
+
+bool CommonUtil::isInRect(Sprite* target, const Vec2& pos) {
+    // 获取当前点击点所在相对按钮的位置坐标
+    Point locationInNode = target->convertToNodeSpace(pos);
+    Size s = target->getContentSize();
+    Rect rect = Rect(0, 0, s.width, s.height);
+    
+    // 点击范围判断检测
+    return rect.containsPoint(locationInNode);
 }

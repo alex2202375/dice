@@ -64,7 +64,7 @@ class Sprite;
 */
 class CC_DLL SpriteBatchNode : public Node, public TextureProtocol
 {
-    static const int DEFAULT_CAPACITY = 29;
+    static const ssize_t DEFAULT_CAPACITY = 29;
 
 public:
     /** creates a SpriteBatchNode with a texture2d and capacity of children.

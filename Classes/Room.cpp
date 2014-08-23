@@ -109,7 +109,7 @@ bool RoomCreateJoin::init(){
     
     
     mJoinMenuItem = MenuItemImage::create(RoomJoinNormalImg, RoomJoinPressedImg, CC_CALLBACK_1(RoomCreateJoin::onOkClicked, this));
-    Vec2 pos = Vec2(mRoomPwdEdit->getPosition().x - mRoomPwdEdit->getContentSize().width/2 + mJoinMenuItem->getContentSize().width/2, mRoomPwdEdit->getPosition().y - mRoomPwdEdit->getContentSize().height/2 - mJoinMenuItem->getContentSize().height/2);
+    Vec2 pos = Vec2(mRoomPwdEdit->getPosition().x - mRoomPwdEdit->getContentSize().width/2 + mJoinMenuItem->getContentSize().width/2, mRoomPwdEdit->getPosition().y - mRoomPwdEdit->getContentSize().height/2 - mJoinMenuItem->getContentSize().height);
     mJoinMenuItem->setPosition(pos);
     mJoinMenuItem->retain();
     

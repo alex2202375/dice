@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "CCNode.h"
+#include "CCSprite.h"
 
 using namespace std;
 
@@ -24,9 +25,11 @@ public:
     
     static void setPosAccordSize(Node* node);
     
-    static string getDiceImage(int num);
+    static string getDiceImage(int num, bool small = false);
     
     static Vec2 getSceenCenter();
+    
+    static bool isInRect(Sprite* target, const Vec2& pos);
     
 };
 

@@ -1,0 +1,10 @@
+cocos2d/cocos/platform/android/java/bin/
+cocos2d/cocos/platform/android/java/gen/
+Resources/fonts/.DS_Store
+cocos2d/external/edtaa3func/.DS_Store
+libpomelo/deps/.DS_Store
+libpomelo/deps/jansson/.DS_Store
+proj.android/obj
+proj.android/bin
+proj.android/gen
+proj.android/libs

@@ -698,7 +698,7 @@ bool Scale9Sprite::isOpacityModifyRGB() const
 
 void Scale9Sprite::setSpriteFrame(SpriteFrame * spriteFrame)
 {
-    SpriteBatchNode * batchnode = SpriteBatchNode::createWithTexture(spriteFrame->getTexture(), 9);
+    SpriteBatchNode * batchnode = SpriteBatchNode::createWithTexture(spriteFrame->getTexture(), (ssize_t)9);
     this->updateWithBatchNode(batchnode, spriteFrame->getRect(), spriteFrame->isRotated(), Rect::ZERO);
 
     // Reset insets
