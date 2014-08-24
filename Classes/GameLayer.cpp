@@ -30,13 +30,19 @@ using namespace std;
 
 GameLayer::GameLayer()
 {
-    mSelectedPunishType = PunishTypeShy;
+    mSelectedPunishCat = PunishCatSmall;
+    mPunishCatMenuShown = false;
+    mPunishCatMenu = nullptr;
+    mPunishCatBox = nullptr;
+    
     mSelfInfoMenu= nullptr;
-    mPunishInfoMenu= nullptr;
     mSelfInfoBox= nullptr;
-    mPunishTypeMenu= nullptr;
-    mPunishTypeMenuShown = false;
     mSelfInfoMenuShown = false;
+    
+    mSelectedPunishType = PunishTypeShy;
+    mPunishTypeMenu= nullptr;
+    mPunishTypeBox= nullptr;
+    mPunishTypeMenuShown = false;
     
     mPlayerName = "Hello World";
     mPlayerPic = "";
@@ -49,20 +55,32 @@ GameLayer::GameLayer()
 }
 
 GameLayer::~GameLayer() {
-    for (Vector<MenuItem*>::iterator it = mPunishTypeMenuItems.begin(); it != mPunishTypeMenuItems.end(); it++) {
-        (*it)->release();
-    }
-    mPunishTypeMenuItems.clear();
-    
     for (Vector<PlayerSprite*>::iterator it = mPlayers.begin(); it != mPlayers.end(); it++) {
         (*it)->release();
     }
     mPlayers.clear();
     
-    mPunishInfoMenu->release();
+
     mSelfInfoMenu->release();
-    mPunishTypeMenu->release();
     mSelfInfoBox->release();
+    
+    //Punish category
+    for (Vector<MenuItem*>::iterator it = mPunishCatMenuItems.begin(); it != mPunishCatMenuItems.end(); it++) {
+        (*it)->release();
+    }
+    mPunishCatMenuItems.clear();
+    mPunishCatMenu->release();
+    mPunishCatBox->release();
+    
+    
+    //Punish type
+    for (Vector<MenuItem*>::iterator it = mPunishTypeMenuItems.begin(); it != mPunishTypeMenuItems.end(); it++) {
+        (*it)->release();
+    }
+    mPunishTypeMenuItems.clear();
+    mPunishTypeMenu->release();
+    mPunishTypeBox->release();
+
     mDiceCup->release();
     mRoomMenu->release();
 }
@@ -76,6 +94,17 @@ void GameLayer::onEnter() {
 void GameLayer::onExit() {
     Layer::onExit();
     
+}
+
+void GameLayer::onPunishCatClicked(Ref* sender){
+    log(__FUNCTION__);
+    //Show cat info
+    if (mPunishCatBox != nullptr && mPunishCatMenuShown) {
+        hidePunishCat();
+    }
+    else {
+        showPunishCat(mSelectedPunishCat);
+    }
 }
 
 void GameLayer::onSelfInfoClicked(Ref* sender){
@@ -143,7 +172,7 @@ void GameLayer::showSelfInfo(string & name, string& photo, float winRate)
 void GameLayer::onPunishInfoClicked(Ref* sender) {
     log(__FUNCTION__);
     //Show punish info
-    if (mPunishTypeMenu != nullptr && mPunishTypeMenuShown) {
+    if (mPunishTypeBox != nullptr && mPunishTypeMenuShown) {
         hidePunishInfo();
     }
     else {
@@ -157,6 +186,16 @@ void GameLayer::onPunishTypeSelected(Ref* sender) {
     setSelectedPunishType(type);
     hidePunishInfo();
 
+    log((string(__FUNCTION__)+"Selected type:%d").c_str(), (int)type);
+    
+}
+
+void GameLayer::onPunishCatSelected(Ref* sender) {
+    Node * item = (Node*)sender;
+    PunishCat type = (PunishCat)(item->getTag());
+    setSelectedPunishCat(type);
+    hidePunishCat();
+    
     log((string(__FUNCTION__)+"Selected type:%d").c_str(), (int)type);
     
 }
@@ -188,11 +227,21 @@ void GameLayer::showDiceAnimation() {
 
 void GameLayer::hidePunishInfo()
 {
-    if (mPunishTypeMenu && mPunishTypeMenuShown) {
+    if (mPunishTypeBox && mPunishTypeMenuShown) {
         mPunishTypeMenuShown = false;
         MoveTo *action = MoveTo::create(DefaultActionTime, getPunishTypeMenuHidePos());
-        mPunishTypeMenu->stopAllActions();
-        mPunishTypeMenu->runAction(action);
+        mPunishTypeBox->stopAllActions();
+        mPunishTypeBox->runAction(action);
+    }
+}
+
+void GameLayer::hidePunishCat()
+{
+    if (mPunishCatBox && mPunishCatMenuShown) {
+        mPunishCatMenuShown = false;
+        MoveTo *action = MoveTo::create(DefaultActionTime, getPunishCatMenuHidePos());
+        mPunishCatBox->stopAllActions();
+        mPunishCatBox->runAction(action);
     }
 }
 
@@ -213,21 +262,21 @@ Vec2 GameLayer::getSelfInfoMenuHidePos()
 Vec2 GameLayer::getPunishTypeMenuShowPos()
 {
     Size visibleSize = Director::getInstance()->getVisibleSize();
-    auto boxSize = Sprite::create("infoBackground.png")->getContentSize();
-    return Vec2(visibleSize.width-boxSize.width/2, visibleSize.height-mPunishInfoMenu->getContentSize().height-boxSize.height/2);
+    auto boxSize = Sprite::create(PunishTypeBgImg)->getContentSize();
+    return Vec2(visibleSize.width-boxSize.width/2, visibleSize.height-mPunishTypeMenu->getContentSize().height-boxSize.height/2);
 }
 
 Vec2 GameLayer::getPunishTypeMenuHidePos()
 {
     Size visibleSize = Director::getInstance()->getVisibleSize();
-    auto boxSize = Sprite::create("infoBackground.png")->getContentSize();
-    return Vec2(visibleSize.width-boxSize.width/2, visibleSize.height-mPunishInfoMenu->getContentSize().height+boxSize.height/2+3);
+    auto boxSize = Sprite::create(PunishTypeBgImg)->getContentSize();
+    return Vec2(visibleSize.width-boxSize.width/2, visibleSize.height-mPunishTypeMenu->getContentSize().height+boxSize.height/2+3);
 }
 
 void GameLayer::showPunishInfo(PunishType selectedIndex) {
-    if (mPunishTypeMenu == nullptr) {
+    if (mPunishTypeBox == nullptr) {
         mPunishTypeMenuItems.clear();
-        auto punishInfoBox = Sprite::create("infoBackground.png");
+        auto punishInfoBox = Sprite::create(PunishTypeBgImg);
         Size boxSize = punishInfoBox->getContentSize();
         punishInfoBox->setPosition(getPunishTypeMenuHidePos());
         
@@ -260,10 +309,10 @@ void GameLayer::showPunishInfo(PunishType selectedIndex) {
         }
         
         auto punishTypeMenu = Menu::createWithArray(mPunishTypeMenuItems);
-        mPunishTypeMenu = punishInfoBox;
+        mPunishTypeBox = punishInfoBox;
         punishTypeMenu->setPosition(Vec2::ZERO);
-        mPunishTypeMenu->addChild(punishTypeMenu);
-        mPunishTypeMenu->retain();
+        mPunishTypeBox->addChild(punishTypeMenu);
+        mPunishTypeBox->retain();
 
         addChild(punishInfoBox, 1);
     }
@@ -272,9 +321,9 @@ void GameLayer::showPunishInfo(PunishType selectedIndex) {
 
     mPunishTypeMenuShown = true;
     MoveTo* action = MoveTo::create(DefaultActionTime, getPunishTypeMenuShowPos());
-    mPunishTypeMenu->stopAllActions();
-    mPunishTypeMenu->runAction(action);
-    hideSelfInfo();
+    mPunishTypeBox->stopAllActions();
+    mPunishTypeBox->runAction(action);
+    hidePunishCat();
 }
 
 void GameLayer::setSelectedPunishType(PunishType type) {
@@ -291,6 +340,87 @@ void GameLayer::setSelectedPunishType(PunishType type) {
     mSelectedPunishType = type;
 }
 
+
+Vec2 GameLayer::getPunishCatMenuShowPos()
+{
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    auto boxSize = Sprite::create(PunishCatBgImg)->getContentSize();
+    return Vec2(boxSize.width/2, visibleSize.height-mPunishCatMenu->getContentSize().height-boxSize.height/2);
+}
+
+Vec2 GameLayer::getPunishCatMenuHidePos()
+{
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    auto boxSize = Sprite::create(PunishCatBgImg)->getContentSize();
+    return Vec2(boxSize.width/2, visibleSize.height-mPunishCatMenu->getContentSize().height+boxSize.height/2+3);
+}
+
+void GameLayer::showPunishCat(PunishCat selectedIndex) {
+    if (mPunishCatBox == nullptr) {
+        mPunishCatMenuItems.clear();
+        auto punishCatBox = Sprite::create(PunishCatBgImg);
+        Size boxSize = punishCatBox->getContentSize();
+        punishCatBox->setPosition(getPunishCatMenuHidePos());
+        
+        Size punishCatSize = punishCatBox->getContentSize();
+        Vec2 punishCatPos = punishCatBox->getPosition();
+        
+        const string typeList[] = {PunishCatBigStr, PunishCatSmallStr, PunishCatSameStr};
+        
+        for (int i = 0; i < sizeof(typeList)/sizeof(string); i++) {
+            
+            auto selectedSprite = Sprite::create(PunishCatSelectedImg);
+            auto selectedTop = LabelTTF::create(typeList[i], PunishCatFontName, PunishCatFontSize);
+            selectedTop->setColor(PunishCatFontColor);
+            selectedTop->setPosition(Vec2(selectedTop->getContentSize().width/2+PunishCatLineMarginLeft, selectedSprite->getContentSize().height/2));
+            selectedSprite->addChild(selectedTop);
+            
+            auto normalSprite = Sprite::create(PunishCatNormalImg);
+            auto normalTop = LabelTTF::create(typeList[i], PunishCatFontName, PunishCatFontSize);
+            normalTop->setColor(PunishCatFontColor);
+            normalTop->setPosition(Vec2(normalTop->getContentSize().width/2+PunishCatLineMarginLeft, normalSprite->getContentSize().height/2));
+            normalSprite->addChild(normalTop);
+            
+            auto menuItem = MenuItemSprite::create(normalSprite, selectedSprite, CC_CALLBACK_1(GameLayer::onPunishCatSelected, this));
+            menuItem->setTag((int)(PunishCatSmall+i));
+            
+            Vec2 pos(selectedSprite->getContentSize().width/2, selectedSprite->getContentSize().height*(i+0.5));
+            menuItem->setPosition(pos);
+            menuItem->retain();
+            mPunishCatMenuItems.pushBack(menuItem);
+        }
+        
+        auto punishCatMenu = Menu::createWithArray(mPunishCatMenuItems);
+        mPunishCatBox = punishCatBox;
+        punishCatMenu->setPosition(Vec2::ZERO);
+        mPunishCatBox->addChild(punishCatMenu);
+        mPunishCatBox->retain();
+        
+        addChild(punishCatBox, 1);
+    }
+    
+    setSelectedPunishCat(selectedIndex);
+    
+    mPunishCatMenuShown = true;
+    MoveTo* action = MoveTo::create(DefaultActionTime, getPunishCatMenuShowPos());
+    mPunishCatBox->stopAllActions();
+    mPunishCatBox->runAction(action);
+    hidePunishInfo();
+}
+
+void GameLayer::setSelectedPunishCat(PunishCat type) {
+    for (int i= 0; i < mPunishCatMenuItems.size() ; i++) {
+        MenuItem* item = mPunishCatMenuItems.at(i);
+        if ((PunishCat)item->getTag() == type) {
+            mPunishCatMenuItems.at(i)->selected();
+        }
+        else {
+            mPunishCatMenuItems.at(i)->unselected();
+        }
+    }
+    
+    mSelectedPunishCat = type;
+}
 
 void GameLayer::onGetDiceNum(int num) {
     stopDiceAnimation();
@@ -351,21 +481,22 @@ bool GameLayer::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    auto selfInfoMenuItem = MenuItemImage::create("selfInfo.png", "selfInfo.png", CC_CALLBACK_1(GameLayer::onSelfInfoClicked, this));
+    //Punish Category
+    auto punishCatMenuItem = MenuItemImage::create(PunishCatImg, PunishCatImg, CC_CALLBACK_1(GameLayer::onPunishCatClicked, this));
+    Size punishCatSize = punishCatMenuItem->getContentSize();
+    punishCatMenuItem->setPosition(Vec2(punishCatSize.width/2, visibleSize.height-punishCatSize.height/2));
+    punishCatMenuItem->retain();
+    mPunishCatMenu = punishCatMenuItem;
     
-    Size selfInfoSize = selfInfoMenuItem->getContentSize();
-    selfInfoMenuItem->setPosition(Vec2(selfInfoSize.width/2, visibleSize.height-selfInfoSize.height/2));
     
-    auto punishTypeMenuItem = MenuItemImage::create("punishType.png", "punishType.png", CC_CALLBACK_1(GameLayer::onPunishInfoClicked, this));
-    punishTypeMenuItem->setPosition(Vec2(visibleSize.width-selfInfoSize.width/2, visibleSize.height-selfInfoSize.height/2));
-    
-    selfInfoMenuItem->retain();
-    mSelfInfoMenu = selfInfoMenuItem;
-    
+    //Punish Type
+    auto punishTypeMenuItem = MenuItemImage::create(PunishTypeImg, PunishTypeImg, CC_CALLBACK_1(GameLayer::onPunishInfoClicked, this));
+    Size punishTypeSize = punishTypeMenuItem->getContentSize();
+    punishTypeMenuItem->setPosition(Vec2(visibleSize.width-punishTypeSize.width/2, visibleSize.height-punishTypeSize.height/2));
     punishTypeMenuItem->retain();
-    mPunishInfoMenu = punishTypeMenuItem;
+    mPunishTypeMenu = punishTypeMenuItem;
     
-    auto menu = Menu::create(selfInfoMenuItem, punishTypeMenuItem, nullptr);
+    auto menu = Menu::create(punishCatMenuItem, punishTypeMenuItem, nullptr);
     
     menu->setPosition(Vec2::ZERO);
     

@@ -36,7 +36,7 @@ int PlayerSprite::getId() {
 
 void PlayerSprite::placeSelf(){
     Size pSize = getTextureRect().size;
-    mNameLabel->setPosition(Vec2(pSize.width/2, 0));
+    mNameLabel->setPosition(Vec2(pSize.width/2, -5));
     
     mDice->setPosition(Vec2(pSize.width/2, pSize.height+mDice->getContentSize().height/2+PlayerLineMarginTop));
     

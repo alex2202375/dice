@@ -21,9 +21,32 @@ public:
     static LogicalEngine * getInstance();
     
     enum GameStatus {
-        LOGIN,
-        REGISTER,
-        ST
+        //Login
+        LOGINING,
+        LOGIN_WAIT_RSP,
+        LOGINED,
+        
+        //Register
+        REGISTERING,
+        REGISTER_WAIT_RSP,
+        
+        //Room create/join
+        ROOM_SELECTING,
+        ROOM_CREATING,
+        ROOM_CREATE_WAIT_RSP,
+        ROOM_CREATED,
+        ROOM_JOINING,
+        ROOM_JOIN_WAIT_RSP,
+        ROOM_JOINED,
+        
+        //Game
+        GAME_READY,
+        GAME_START_WAIT_RSP,
+        GAME_GENERATING_NUMBER,
+        GAME_SENDING_NUMBER_WAIT_RSP,
+        GAME_WAITING_RESULT,
+        GAME_PUNISHING,
+        GAME_FINISHED
     };
     
     // Logical Functions

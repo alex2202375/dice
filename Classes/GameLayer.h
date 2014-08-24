@@ -38,9 +38,17 @@ public:
     void onPunishInfoClicked(Ref* sender);
     void onPunishTypeSelected(Ref* sender);
     
+    void onPunishCatClicked(Ref* sender);
+    void onPunishCatSelected(Ref* sender);
+    
     void hidePunishInfo();
     void showPunishInfo(PunishType selectedIndex);
     void setSelectedPunishType(PunishType type);
+
+    void hidePunishCat();
+    void showPunishCat(PunishCat selectedIndex);
+    void setSelectedPunishCat(PunishCat type);
+
     
     void showSelfInfo(string & name, string& photo, float winRate);
     void hideSelfInfo();
@@ -59,6 +67,8 @@ private:
     GameLayer();
     Vec2 getPunishTypeMenuShowPos();
     Vec2 getPunishTypeMenuHidePos();
+    Vec2 getPunishCatMenuShowPos();
+    Vec2 getPunishCatMenuHidePos();
     Vec2 getSelfInfoMenuShowPos();
     Vec2 getSelfInfoMenuHidePos();
     void showDiceAnimation();
@@ -82,13 +92,25 @@ private:
     
 private:
     Node* mSelfInfoMenu;
-    Node* mPunishInfoMenu;
     Node* mSelfInfoBox;
-    Node* mPunishTypeMenu;
-    bool mPunishTypeMenuShown;
     bool mSelfInfoMenuShown;
+    
+    Node* mPunishCatMenu;
+    Node* mPunishCatBox;
+    
+    Node* mPunishTypeBox;
+    Node* mPunishTypeMenu;
+
+    
+    //Punish type
+    bool mPunishTypeMenuShown;
     Vector<MenuItem *> mPunishTypeMenuItems;
     PunishType mSelectedPunishType;
+    
+    //Punish category
+    bool mPunishCatMenuShown;
+    Vector<MenuItem *> mPunishCatMenuItems;
+    PunishCat mSelectedPunishCat;
     
     string mPlayerName;
     string mPlayerPic;

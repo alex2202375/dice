@@ -22,6 +22,12 @@ enum PunishType {
     PunishTypeRisky = 4
 };
 
+enum PunishCat {
+    PunishCatSmall = 1,
+    PunishCatBig = 2,
+    PunishCatSameMost = 3
+};
+
 const float PI = 3.1415926;
 
 const string DefaultFontName = "fonts/zhanghaishan.ttf";
@@ -44,6 +50,22 @@ const int HeadPicCount = 20;
 const int HeadGridx = 4;
 const int HeadGridy = 5;
 
+//Punish category
+const string PunishCatImg = "punishCategory.png";
+const string PunishCatBgImg = "punishCatBg.png";
+const string PunishCatSelectedImg = "infoSelected.png";
+const string PunishCatNormalImg = "infoNormal.png";
+const string PunishCatBigStr = "点数最大";
+const string PunishCatSmallStr = "点数最小";
+const string PunishCatSameStr = "相同最多";
+const string PunishCatFontName = DefaultFontName;
+const int PunishCatFontSize = DefaultFontSize;
+const Color3B PunishCatFontColor = DefaultFontColor;
+const float PunishCatLineMarginLeft = 15;
+
+//Punish type
+const string PunishTypeImg = "punishType.png";
+const string PunishTypeBgImg = "punishTypeBg.png";
 const string PunishTypeSelectedImg = "infoSelected.png";
 const string PunishTypeNormalImg = "infoNormal.png";
 const string PunishTypeShyStr = "腼腆型";
@@ -67,20 +89,22 @@ const string SelfInfoFontName = DefaultFontName;
 const int SelfInfoFontSize = DefaultFontSize;
 const Color3B SelfInfoFontColor = DefaultFontColor;
 
+//Player
 const string PlayerBgImg = "playerPicBox.png";
 const string PlayerPhotoNull = "playerPicBox.png";
 const string PlayerFontName = DefaultFontName;
-const int PlayerFontSize = DefaultFontSize;
+const int PlayerFontSize = 26;
 const Color3B PlayerFontColor = DefaultFontColor;
 const int PlayerDiceDefaultNum = 6;
 const int PlayerLineMarginTop = 0;
-const float PlayerRadiusMargin = 10;
+const float PlayerRadiusMargin = 16;
 const float PlayerPlaceDuration = 0.2;
 
 const string EditBoxImg = "registerEditBox.png";
 const float EditBoxWidth = 300;
 const float EditBoxHeight = 50;
 
+//ROOM
 const string RoomCreateRoomNormalImg = "createRoomNormal.png";
 const string RoomCreateRoomPressedImg = "createRoomPressed.png";
 const string RoomJoinRoomNormalImg = "joinRoomNormal.png";
