@@ -10,6 +10,10 @@
 
 #include "DiceScene.h"
 
+using namespace std;
+
+class DiceScene;
+
 class SceneCreater
 {
 public:

@@ -30,7 +30,10 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 					../../Classes/Player.cpp \
 					../../Classes/RegisterLayer.cpp \
 					../../Classes/RegisterScene.cpp \
-					../../Classes/Room.cpp 
+					../../Classes/Room.cpp \
+					../../Classes/DiceScene.cpp \
+					../../Classes/SceneCreater.cpp \
+
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
                     $(LOCAL_PATH)/../../cocos2d \

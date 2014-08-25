@@ -10,6 +10,14 @@
 #include "GameBackgroundLayer.h"
 #include "GameLayer.h"
 
+GameScene::~GameScene() {
+
+}
+
+GameScene::GameScene() {
+
+}
+
 bool GameScene::init() {
     if (!DiceScene::init()) {
         return false;
@@ -21,6 +29,6 @@ bool GameScene::init() {
     return true;
 }
 
-LogicalEngine::GameStatus GameScene::initStatus() {
-  return LogicalEngine::ROOM_SELECTING;
+GameStatus GameScene::initStatus() {
+  return ROOM_SELECTING;
 }

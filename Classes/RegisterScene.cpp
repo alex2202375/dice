@@ -16,6 +16,6 @@ void RegisterScene::onEnter() {
 
 }
 
-LogicalEngine::GameStatus RegisterScene::initStatus() {
-  return LogicalEngine::REGISTERING;
+GameStatus RegisterScene::initStatus() {
+  return REGISTERING;
 }

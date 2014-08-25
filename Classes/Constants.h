@@ -28,6 +28,60 @@ enum PunishCat {
     PunishCatSameMost = 3
 };
 
+
+enum GameStatus {
+    //Load
+    LOADING,
+    
+    //Login
+    LOGINING,
+    LOGIN_WAIT_RSP,
+    LOGINED,
+    
+    //Register
+    REGISTERING,
+    REGISTER_WAIT_RSP,
+    
+    //Room create/join
+    ROOM_SELECTING,
+    ROOM_CREATING,
+    ROOM_CREATE_WAIT_RSP,
+    ROOM_CREATED,
+    ROOM_JOINING,
+    ROOM_JOIN_WAIT_RSP,
+    ROOM_JOINED,
+    
+    //Game
+    GAME_READY,
+    GAME_START_WAIT_RSP,
+    GAME_GENERATING_NUMBER,
+    GAME_SENDING_NUMBER_WAIT_RSP,
+    GAME_WAITING_RESULT,
+    GAME_PUNISHING,
+    GAME_FINISHED
+};
+
+/**
+ *libpomelo related definition
+**/
+//Request
+const string NetReqLogin = "login";
+const string NetReqRegister = "register";
+const string NetReqGetAuthKey = "auth";
+const string NetReqCreateRoom = "create_room";
+const string NetReqJoinRoom = "join_room";
+const string NetReqSendDiceNum = "send_dice";
+const string NetReqStartGame = "start";
+const string NetReqPunishFinished = "punished";
+
+//Event
+const string NetEventRollDice = "roll";
+const string NetEventUserJoined = "joined";
+const string NetEventUserLeft = "joined";
+const string NetEventUserDiceNum = "dice_num";
+const string NetEventPunishFinished = "punished";
+const string NetEventGameFinished = "game_finished";
+
 const float PI = 3.1415926;
 
 const string DefaultFontName = "fonts/zhanghaishan.ttf";

@@ -5,12 +5,12 @@
  *      Author: Alex Liu
  */
 
-#ifndef DICESCENE_H_
-#define DICESCENE_H_
+#ifndef __DICESCENE_H_
+#define __DICESCENE_H_
 
 #include "cocos2d.h"
 #include "CCScene.h"
-#include "LogicalEngine.h"
+#include "Constants.h"
 
 using namespace std;
 USING_NS_CC;
@@ -21,7 +21,7 @@ public:
   virtual ~DiceScene();
   virtual bool init();
 
-  void setStatus(LogicalEngine::GameStatus status);
+  void setStatus(GameStatus status);
 
   /**
    * Show a notify dialog with content.
@@ -30,12 +30,9 @@ public:
    */
   void showNotifyDialog(const string& content, int closeDelay = 3);
 
-  CREATE_FUNC(DiceScene);
 protected:
-  LogicalEngine::GameStatus initStatus() = 0;
-
-private:
+  virtual GameStatus initStatus() = 0 ;
   DiceScene();
 };
 
-#endif /* DICESCENE_H_ */
+#endif /* _DICESCENE_H_ */

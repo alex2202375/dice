@@ -16,7 +16,6 @@ void HeadScene::onEnter() {
     
 }
 
-
-LogicalEngine::GameStatus HeadScene::initStatus() {
-  return LogicalEngine::LOADING;
+GameStatus HeadScene::initStatus() {
+  return LOADING;
 }

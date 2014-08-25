@@ -12,17 +12,19 @@
 #include <iostream>
 #include "CCScene.h"
 #include "DiceScene.h"
-
+#include "Constants.h"
 
 class LoginScene : public DiceScene {
 public:
     CREATE_FUNC(LoginScene);
+    ~LoginScene();
     virtual void onEnter() override;
     
 protected:
-  LogicalEngine::GameStatus initStatus();
+  GameStatus initStatus();
 
 private:
+  LoginScene();
 };
 
 

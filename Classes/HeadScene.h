@@ -20,7 +20,7 @@ public:
     virtual void onEnter() override;
 
 protected:
-  LogicalEngine::GameStatus initStatus();
+    GameStatus initStatus();
 };
 
 

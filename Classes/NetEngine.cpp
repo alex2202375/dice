@@ -19,9 +19,17 @@ NetEngine* NetEngine::getInstance() {
 }
 
 bool NetEngine::init() {
-    
+    return true;
 }
 
-NetEngine::NetEngine() {
+NetEngine::NetEngine(): mHandler(nullptr) {
 
+}
+
+void NetEngine::setHandler(NetEngineHandler* handler) {
+    mHandler = handler;
+}
+
+NetEngineHandler* NetEngine::getHandler() {
+    return mHandler;
 }

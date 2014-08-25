@@ -11,17 +11,21 @@
 
 #include <iostream>
 #include "DiceScene.h"
+#include "Constants.h"
 
 class LoadingScene : public DiceScene {
 public:
     CREATE_FUNC(LoadingScene);
+
+    ~LoadingScene();
     void nextScene(float delta);
     virtual void onEnter() override;
     
 protected:
-  LogicalEngine::GameStatus initStatus();
+  GameStatus initStatus();
 
 private:
+  LoadingScene();
 };
 
 #endif /* defined(__dice__LoadingScene__) */

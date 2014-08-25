@@ -6,6 +6,7 @@
  */
 
 #include "DiceScene.h"
+#include "LogicalEngine.h"
 
 DiceScene::DiceScene()
 {
@@ -26,7 +27,7 @@ bool DiceScene::init() {
   return true;
 }
 
-void DiceScene::setStatus(LogicalEngine::GameStatus status)
+void DiceScene::setStatus(GameStatus status)
 {
   LogicalEngine* engine = LogicalEngine::getInstance();
   engine->setStatus(status);

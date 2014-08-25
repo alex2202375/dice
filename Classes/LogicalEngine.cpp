@@ -19,11 +19,16 @@ LogicalEngine * LogicalEngine::getInstance() {
 }
 
 LogicalEngine::LogicalEngine()
-: mStatus(LOADING) {
-
+: mStatus(LOADING), mCurrentScene(nullptr), mNetEngine(nullptr) {
+    mNetEngine = NetEngine::getInstance();
+    mNetEngine->setHandler(this);
 }
 
-LogicalEngine::GameStatus LogicalEngine::getStatus() {
+LogicalEngine::~LogicalEngine() {
+    
+}
+
+GameStatus LogicalEngine::getStatus() {
   return mStatus;
 }
 
@@ -32,15 +37,15 @@ void LogicalEngine::setStatus(GameStatus status) {
 }
 
 void LogicalEngine::switchTo(SceneCreater::SceneType sceneType) {
-  DiceScene * next = SceneCreater::getInstance()->getScence(sceneType);
+  DiceScene * next = SceneCreater::getInstance()->getScene(sceneType);
   if (next) {
     setCurrentScene(next, sceneType);
     Director* direct = Director::getInstance();
     direct->replaceScene(next);
-    log("switch to scene:%s", SceneCreater::getInstance()->sceneName(sceneType));
+    log("switch to scene:%s", SceneCreater::getInstance()->sceneName(sceneType).c_str());
   }
   else {
-    log("Could not switch to scene:%s", SceneCreater::getInstance()->sceneName(sceneType));
+    log("Could not switch to scene:%s", SceneCreater::getInstance()->sceneName(sceneType).c_str());
   }
 }
 
@@ -59,3 +64,80 @@ void LogicalEngine::setCurrentScene(DiceScene* scene, SceneCreater::SceneType sc
   }
   mCurrentSceneType = sceneType;
 }
+
+void LogicalEngine::getLastLoginInfo(string& name, string& password) {
+    
+}
+
+void LogicalEngine::login(const string& name, const string& password, bool rememberInfo) {
+    
+}
+
+void LogicalEngine::onLoginRsp() {
+    
+}
+
+void LogicalEngine::getAuthKey(const string& phone) {
+    
+}
+
+void LogicalEngine::onGetAuthKeyRsp(bool rsp) {
+    
+}
+
+void LogicalEngine::registerUser(const string& name, const string& password,
+                                 const string& phone, const string& authKey) {
+    
+}
+
+void LogicalEngine::onRegisterUserRsp() {
+    
+}
+
+void LogicalEngine::createRoom(){
+}
+
+void LogicalEngine::onCreateRoomRsp() {
+    
+}
+
+void LogicalEngine::joinRoom() {
+    
+}
+
+void LogicalEngine::onJoinRoomRsp() {
+    
+}
+
+void LogicalEngine::sendDiceNum(int number) {
+    
+}
+
+void LogicalEngine::onSendDiceNumRsp() {
+    
+}
+
+
+/**
+ * Notification from server
+ */
+void LogicalEngine::onStartRollDice() {
+    
+}
+
+void LogicalEngine::onUserJoined() {
+    
+}
+
+void LogicalEngine::onUserLeft() {
+    
+}
+
+void LogicalEngine::onPunishUser() {
+    
+}
+
+void LogicalEngine::onGameFinished() {
+    
+}
+

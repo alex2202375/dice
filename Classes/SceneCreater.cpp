@@ -6,6 +6,12 @@
  */
 
 #include "SceneCreater.h"
+#include "LoadingScene.h"
+#include "GameScene.h"
+#include "RegisterScene.h"
+#include "LoginScene.h"
+
+
 SceneCreater* SceneCreater::sInstance = nullptr;
 
 SceneCreater::SceneCreater()
