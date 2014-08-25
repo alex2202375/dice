@@ -10,14 +10,17 @@
 #define __dice__headscene__
 
 #include <iostream>
-#include "CCScene.h"
+#include "DiceScene.h"
 
 USING_NS_CC;
 
-class HeadScene: public Scene {
+class HeadScene: public DiceScene {
 public:
     CREATE_FUNC(HeadScene);
     virtual void onEnter() override;
+
+protected:
+  LogicalEngine::GameStatus initStatus();
 };
 
 

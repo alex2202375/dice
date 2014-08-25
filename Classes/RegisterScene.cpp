@@ -10,8 +10,12 @@
 #include "RegisterLayer.h"
 
 void RegisterScene::onEnter() {
-    Scene::onEnter();
+    DiceScene::onEnter();
     auto reglayer = RegisterLayer::create();
     addChild(reglayer);
 
+}
+
+LogicalEngine::GameStatus RegisterScene::initStatus() {
+  return LogicalEngine::REGISTERING;
 }

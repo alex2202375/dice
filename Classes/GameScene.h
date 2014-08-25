@@ -11,14 +11,18 @@
 
 #include <iostream>
 #include "CCScene.h"
+#include "DiceScene.h"
 
 USING_NS_CC;
 
-class GameScene: public Scene {
+class GameScene: public DiceScene {
 public:
     CREATE_FUNC(GameScene);
     
     virtual bool init() override;
+
+protected:
+  LogicalEngine::GameStatus initStatus();
 };
 
 #endif /* defined(__dice__GameScene__) */

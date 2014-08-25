@@ -10,17 +10,18 @@
 #define __dice__LoadingScene__
 
 #include <iostream>
-#include "CCScene.h"
+#include "DiceScene.h"
 
-class LoadingScene : public cocos2d::Scene {
+class LoadingScene : public DiceScene {
 public:
     CREATE_FUNC(LoadingScene);
     void nextScene(float delta);
     virtual void onEnter() override;
     
+protected:
+  LogicalEngine::GameStatus initStatus();
+
 private:
-
-
 };
 
 #endif /* defined(__dice__LoadingScene__) */

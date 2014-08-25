@@ -12,15 +12,16 @@
 #include "CCDirector.h"
 
 void LoadingScene::nextScene(float delta) {
-    Scene * next = LoginScene::create();
-    Director* direct = Director::getInstance();
-    direct->replaceScene(next);
-    log("next scene");
+    LogicalEngine::getInstance()->switchTo(SceneCreater::SCENE_LOGIN);
 }
 
 void LoadingScene::onEnter() {
-    Scene::onEnter();
+    DiceScene::onEnter();
     auto backLayer = InitBackgroundLayer::create();
     addChild(backLayer);
     schedule(schedule_selector(LoadingScene::nextScene), 1, kRepeatForever, 0);
+}
+
+LogicalEngine::GameStatus LoadingScene::initStatus() {
+  return LogicalEngine::LOADING;
 }

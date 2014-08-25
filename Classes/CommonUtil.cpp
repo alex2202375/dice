@@ -41,3 +41,16 @@ bool CommonUtil::isInRect(Sprite* target, const Vec2& pos) {
     // 点击范围判断检测
     return rect.containsPoint(locationInNode);
 }
+
+DiceScene* CommonUtil::getParentScene(Layer* layer)
+{
+  Node* parent = layer->getParent();
+  while (parent) {
+      if (dynamic_cast<DiceScene*>(parent)) {
+          return (DiceScene*)parent;
+      }
+      parent = parent->getParent();
+  }
+
+  return nullptr;
+}

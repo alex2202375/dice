@@ -12,6 +12,7 @@
 #include <iostream>
 #include "CCNode.h"
 #include "CCSprite.h"
+#include "DiceScene.h"
 
 using namespace std;
 
@@ -31,6 +32,7 @@ public:
     
     static bool isInRect(Sprite* target, const Vec2& pos);
     
+    static DiceScene* getParentScene(Layer* layer);
 };
 
 #endif /* defined(__dice__CommonUtil__) */

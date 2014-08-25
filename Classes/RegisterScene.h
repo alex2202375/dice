@@ -11,13 +11,18 @@
 
 #include <iostream>
 #include "CCScene.h"
+#include "DiceScene.h"
 
 USING_NS_CC;
 
-class RegisterScene: public Scene {
+class RegisterScene: public DiceScene {
 public:
     CREATE_FUNC(RegisterScene);
     virtual void onEnter() override;
+
+protected:
+  LogicalEngine::GameStatus initStatus();
+
 };
 
 

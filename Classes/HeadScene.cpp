@@ -10,8 +10,13 @@
 #include "HeadLayer.h"
 
 void HeadScene::onEnter() {
-    Scene::onEnter();
+    DiceScene::onEnter();
     auto headlayer = HeadLayer::create();
     addChild(headlayer);
     
+}
+
+
+LogicalEngine::GameStatus HeadScene::initStatus() {
+  return LogicalEngine::LOADING;
 }

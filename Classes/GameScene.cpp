@@ -11,7 +11,7 @@
 #include "GameLayer.h"
 
 bool GameScene::init() {
-    if (!Scene::init()) {
+    if (!DiceScene::init()) {
         return false;
     }
     auto backLayer = GameBackgroundLayer::create();
@@ -19,4 +19,8 @@ bool GameScene::init() {
     auto gameLayer = GameLayer::create();
     addChild(gameLayer, 1);
     return true;
+}
+
+LogicalEngine::GameStatus GameScene::initStatus() {
+  return LogicalEngine::ROOM_SELECTING;
 }

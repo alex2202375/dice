@@ -11,9 +11,13 @@
 #include "LoginLayer.h"
 
 void LoginScene::onEnter() {
-    Scene::onEnter();
+    DiceScene::onEnter();
     auto backLayer = InitBackgroundLayer::create();
     addChild(backLayer);
     auto loginLayer = LoginLayer::create();
     addChild(loginLayer, 1);
+}
+
+LogicalEngine::GameStatus LoginScene::initStatus() {
+  return LogicalEngine::LOGINING;
 }
