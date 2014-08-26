@@ -13,6 +13,7 @@ LogicalEngine* LogicalEngine::sInstance = nullptr;
 LogicalEngine * LogicalEngine::getInstance() {
   if (!sInstance) {
       sInstance = new LogicalEngine();
+      sInstance->retain();
   }
 
   return sInstance;

@@ -79,8 +79,12 @@ const string NetEventRollDice = "roll";
 const string NetEventUserJoined = "joined";
 const string NetEventUserLeft = "joined";
 const string NetEventUserDiceNum = "dice_num";
-const string NetEventPunishFinished = "punished";
+const string NetEventPunishPlayer = "punish";
 const string NetEventGameFinished = "game_finished";
+
+//Server
+const string NetServerIp = "192.168.1.1";
+const int NetServerPort = 3041;
 
 const float PI = 3.1415926;
 
