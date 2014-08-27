@@ -74,71 +74,83 @@ void LogicalEngine::login(const string& name, const string& password, bool remem
     
 }
 
-void LogicalEngine::onLoginRsp() {
-    
-}
 
 void LogicalEngine::getAuthKey(const string& phone) {
     
 }
 
-void LogicalEngine::onGetAuthKeyRsp(bool rsp) {
-    
-}
+
 
 void LogicalEngine::registerUser(const string& name, const string& password,
                                  const string& phone, const string& authKey) {
     
 }
 
-void LogicalEngine::onRegisterUserRsp() {
-    
-}
 
 void LogicalEngine::createRoom(){
 }
 
-void LogicalEngine::onCreateRoomRsp() {
-    
-}
+
 
 void LogicalEngine::joinRoom() {
     
 }
 
-void LogicalEngine::onJoinRoomRsp() {
-    
-}
 
 void LogicalEngine::sendDiceNum(int number) {
     
 }
 
-void LogicalEngine::onSendDiceNumRsp() {
-    
+/**
+ * Send to server
+ */
+void LogicalEngine::onCanRegisterRsp(const ResponseBase& rsp)  {
 }
 
+void LogicalEngine::onLoginRsp(const ResponseBase& rsp)  {
+}
+    
+void LogicalEngine::onGetAuthKeyRsp(const ResponseBase& rsp)  {
+}
+    
+void LogicalEngine::onRegisterUserRsp(const ResponseBase& rsp)  {
+}
+    
+void LogicalEngine::onCreateRoomRsp(const ResponseBase& rsp)  {
+}
+    
+void LogicalEngine::onJoinRoomRsp(const JoinRoomRsp& rsp)  {
+}
+    
+void LogicalEngine::onSendDiceNumRsp(const ResponseBase& rsp)  {
+}
+    
+void LogicalEngine::onStartRsp(const ResponseBase& rsp)  {
+}
+    
+void LogicalEngine::onPunishFinishedRsp(const ResponseBase& rsp)  {
+}
 
 /**
  * Notification from server
  */
-void LogicalEngine::onStartRollDice() {
-    
+//Event
+void LogicalEngine::onStartRollDice()  {
 }
 
-void LogicalEngine::onUserJoined() {
-    
+void LogicalEngine::onPlayerJoined(const Player& player)  {
 }
-
-void LogicalEngine::onUserLeft() {
     
+void LogicalEngine::onPlayerLeft(const string& name)  {
 }
-
-void LogicalEngine::onPunishUser() {
     
+void LogicalEngine::onPlayerDiceNum(const string& name, int num)  {
 }
-
-void LogicalEngine::onGameFinished() {
     
+void LogicalEngine::onPunishPlayer(const string& name, const string& punish)  {
 }
+    
+void LogicalEngine::onGameFinished()  {
+}
+    
 

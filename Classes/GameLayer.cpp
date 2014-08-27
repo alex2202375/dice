@@ -456,10 +456,8 @@ bool GameLayer::onTouch(Touch* touch, Event* event) {
             Player player;
             char name[20] = {0};
             sprintf(name, "玩家%d", i);
-            char photo[50] = {0};
-            sprintf(photo, "head/head%d.png", i%6+1);
             player.name = name;
-            player.photo = photo;
+            player.picId = i%6+1;
             player.winRate = i*0.05;
             this->addPlayer(player);
             i++;
@@ -588,7 +586,7 @@ Vec2 GameLayer::getPlayerInitPos() {
 float GameLayer::getPlayerRadiusToCenter() {
     static float r = -1;
     if (r == -1) {
-        PlayerSprite* player = PlayerSprite::create(-1, "tmp");
+        PlayerSprite* player = PlayerSprite::create("tmp");
         float cupLength = MAX(mDiceCup->getContentSize().height/2, mDiceCup->getContentSize().width/2);
         float playerLength = MAX(player->getContentSize().height/2, player->getContentSize().width/2);
         r = cupLength+playerLength+PlayerRadiusMargin;

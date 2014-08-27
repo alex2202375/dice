@@ -51,10 +51,10 @@ public:
 
     //Event
     virtual void onStartRollDice() = 0;
-    virtual void onPlayerJoined(const string& name, int picId) = 0;
+    virtual void onPlayerJoined(const Player& player) = 0;
     virtual void onPlayerLeft(const string& name) = 0;
     virtual void onPlayerDiceNum(const string& name, int num) = 0;
-    virtual void onPunishPlayer(const string& name, const string& punish) = 0;
+    virtual void onPunishPlayer(const string& name, const string& punishment) = 0;
     virtual void onGameFinished() = 0;
 };
 

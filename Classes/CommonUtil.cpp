@@ -72,3 +72,62 @@ int CommonUtil::getPictureId(const string& pic) {
         return 1;
     }
 }
+
+template <typename T>
+void CommonUtil::parseArray(json_t* jsObj, const string& name, list<T>& result) {
+    json_t* obj = json_object_get(jsObj, name.c_str());
+    if (obj) {
+        parseArray(obj, result);
+    }
+    else {
+        result.clear();
+    }
+}
+
+template <>
+void CommonUtil::parseArray(json_t* jsObj, list<Player>& result) {
+    size_t count = json_array_size(jsObj);
+    for (size_t i = 0; i < count; i++) {
+        json_t * objJson = json_array_get(jsObj, i);
+        Player obj;
+        parseObj(objJson, obj);
+        result.push_back(obj);
+    }
+}
+
+template <>
+void CommonUtil::parseObj(json_t* jsObj, Player & obj) {
+    json_t* name = json_object_get(jsObj, NetJsonPlayerNameKey.c_str());
+    obj.name = name ? json_string_value(name) : NetJsonPlayerNameUnknown;
+    
+    json_t* pic = json_object_get(jsObj, NetJsonPlayerPicKey.c_str());
+    obj.picId = pic ? json_integer_value(pic) : NetJsonPlayerPicDefault;
+}
+
+
+template <typename T>
+void CommonUtil::parseValue(json_t* jsObj, const string& name, T & value, const T & defValue) {
+    json_t* obj = json_object_get(jsObj, name.c_str());
+    if (obj) {
+        parseValue(obj, value);
+    }
+    else {
+        value = defValue;
+    }
+    
+}
+
+template <>
+void CommonUtil::parseValue(json_t* jsObj, string & value) {
+    value = json_string_value(jsObj);
+}
+
+template <>
+void CommonUtil::parseValue(json_t* jsObj, int & value) {
+    value = json_integer_value(jsObj);
+}
+
+template <>
+void CommonUtil::parseValue(json_t* jsObj, double & value) {
+    value = json_real_value(jsObj);
+}

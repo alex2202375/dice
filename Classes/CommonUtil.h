@@ -14,6 +14,7 @@
 #include "CCSprite.h"
 #include "DiceScene.h"
 #include "jansson.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -43,11 +44,20 @@ public:
     
     static int parseInt(json_t* jsObj, int defValue = -1);
     
-    template<class T>
-    static void parseArray(json_t* jsObj, list<T>& result, );
+    template <typename T>
+    static void parseArray(json_t* jsObj, const string& name, list<T>& result);
     
-    template<class T>
-     static T parseObj(json_t* jsObj, T defValue);
+    template <typename T>
+    static void parseArray(json_t* jsObj, list<T>& result);
+    
+    template <typename T>
+    static void parseObj(json_t* jsObj, T & obj);
+    
+    template <typename T>
+    static void parseValue(json_t* jsObj, const string& name, T & value, const T & defValue);
+    
+    template <typename T>
+    static void parseValue(json_t* jsObj, T & value);
 };
 
 #endif /* defined(__dice__CommonUtil__) */

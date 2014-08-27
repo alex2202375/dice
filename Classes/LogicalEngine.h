@@ -37,26 +37,29 @@ public:
     void joinRoom();
     void sendDiceNum(int number);
     
-    virtual void onCanRegisterRsp(const ResponseBase& rsp);
-    virtual void onLoginRsp(const ResponseBase& rsp);
-    virtual void onGetAuthKeyRsp(const ResponseBase& rsp);
-    virtual void onRegisterUserRsp(const ResponseBase& rsp);
-    virtual void onCreateRoomRsp(const ResponseBase& rsp);
-    virtual void onJoinRoomRsp(const JoinRoomRsp& rsp);
-    virtual void onSendDiceNumRsp(const ResponseBase& rsp);
-    virtual void onStartRsp(const ResponseBase& rsp);
-    virtual void onPunishFinishedRsp(const ResponseBase& rsp);
+    /**
+     * Responses handle
+     */
+    virtual void onCanRegisterRsp(const ResponseBase& rsp) override;
+    virtual void onLoginRsp(const ResponseBase& rsp) override;
+    virtual void onGetAuthKeyRsp(const ResponseBase& rsp) override;
+    virtual void onRegisterUserRsp(const ResponseBase& rsp) override;
+    virtual void onCreateRoomRsp(const ResponseBase& rsp) override;
+    virtual void onJoinRoomRsp(const JoinRoomRsp& rsp) override;
+    virtual void onSendDiceNumRsp(const ResponseBase& rsp) override;
+    virtual void onStartRsp(const ResponseBase& rsp) override;
+    virtual void onPunishFinishedRsp(const ResponseBase& rsp) override;
 
     /**
      * Notification from server
      */
     //Event
-    virtual void onStartRollDice();
-    virtual void onPlayerJoined(const Player& player);
-    virtual void onPlayerLeft(const string& name);
-    virtual void onPlayerDiceNum(const string& name, int num);
-    virtual void onPunishPlayer(const string& name, const string& punish);
-    virtual void onGameFinished();
+    virtual void onStartRollDice() override;
+    virtual void onPlayerJoined(const Player& player) override;
+    virtual void onPlayerLeft(const string& name) override;
+    virtual void onPlayerDiceNum(const string& name, int num) override;
+    virtual void onPunishPlayer(const string& name, const string& punish) override;
+    virtual void onGameFinished() override;
     
     /**
      * Utilities

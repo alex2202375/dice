@@ -82,15 +82,40 @@ const string NetEventUserDiceNum = "dice_num";
 const string NetEventPunishPlayer = "punish";
 const string NetEventGameFinished = "game_finished";
 
-//Response keys
-const int NetRspResultOk = 1;
-const int NetRspResultFailed = 0;
-const string NetRspResultKey = "status";
-const string NetRspResultStrUnknown = "未知错误";
-const string NetRspResultStrKey = "msg";
-const string NetRspResultOwnerKey = "owner";
-const string NetRspResultOwnerUnknown = "未知房主";
-const string NetRspResultRoomPlayerListKey = "list";
+/**
+ *Response JSON keys
+ */
+const int NetJsonResultOk = 1;
+const int NetJsonResultFailed = 0;
+//Common
+const string NetJsonResultKey = "status";
+const string NetJsonResultStrUnknown = "未知错误";
+const string NetJsonResultStrConnect = "连接服务器失败";
+const string NetJsonResultStrKey = "msg";
+const string NetJsonFromKey = "from";
+const string NetJsonToKey = "target";
+//Login
+const string NetJsonLoginRspIpKey = "ip";
+const string NetJsonLoginRspIpInvalid = "";
+const string NetJsonLoginRspPortKey = "port";
+const int NetJsonLoginRspPortInvalid = -1;
+//Room
+const string NetJsonRoomOwnerKey = "owner";
+const string NetJsonRoomOwnerUnknown = "未知房主";
+const string NetJsonRoomPlayerListKey = "list";
+//Player
+const string NetJsonPlayerNameKey = "name";
+const string NetJsonPlayerNameUnknown = "未知名字";
+const int NetJsonPlayerPicDefault = 1;
+const string NetJsonPlayerPicKey = "pic";
+//Dice number
+const string NetJsonDiceNumberKey = "number";
+const int NetJsonDiceNumberDefult = 1;
+//Punish
+const string NetJsonPunishmentKey = "punish";
+const string NetJsonPunishmentDefult = "未知惩罚";
+
+
 
 //Server
 const string NetServerIp = "192.168.1.1";
