@@ -82,6 +82,16 @@ const string NetEventUserDiceNum = "dice_num";
 const string NetEventPunishPlayer = "punish";
 const string NetEventGameFinished = "game_finished";
 
+//Response keys
+const int NetRspResultOk = 1;
+const int NetRspResultFailed = 0;
+const string NetRspResultKey = "status";
+const string NetRspResultStrUnknown = "未知错误";
+const string NetRspResultStrKey = "msg";
+const string NetRspResultOwnerKey = "owner";
+const string NetRspResultOwnerUnknown = "未知房主";
+const string NetRspResultRoomPlayerListKey = "list";
+
 //Server
 const string NetServerIp = "192.168.1.1";
 const int NetServerPort = 3041;

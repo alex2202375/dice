@@ -9,6 +9,7 @@
 #include "NetEngine.h"
 
 #include "pomelo.h"
+#include "Constants.h"
 
 NetEngine* NetEngine::getInstance() {
     NetEngine * en = new NetEngine();
@@ -76,7 +77,7 @@ bool NetEngine::init() {
     pc_add_listener(mClient, NetEventUserJoined.c_str(), onEvent);
     pc_add_listener(mClient, NetEventUserLeft.c_str(), onEvent);
     pc_add_listener(mClient, NetEventUserDiceNum.c_str(), onEvent);
-    pc_add_listener(mClient, NetEventPunishFinished.c_str(), onEvent);
+    pc_add_listener(mClient, NetEventPunishPlayer.c_str(), onEvent);
     pc_add_listener(mClient, NetEventGameFinished.c_str(), onEvent);
     return true;
 }
@@ -95,42 +96,97 @@ NetEngineHandler* NetEngine::getHandler() {
     return mHandler;
 }
 
+void NetEngine::setResponseField(ResponseBase& rsp, int status, json_t *resp) {
+    json_t* resJson = json_object_get(resp, NetRspResultKey.c_str());
+    if (status == 0 && resJson && (json_integer_value(resJson) == NetRspResultOk)) {
+        rsp.result = RSP_OK;
+    }
+    else {
+        rsp.result = RSP_FAIL;
+        json_t* resStrJson = json_object_get(resp, NetRspResultStrKey.c_str());
+        if (resStrJson) {
+            rsp.resultString = json_string_value(resStrJson);
+        }
+        else {
+            rsp.resultString = NetRspResultStrUnknown;
+        }
+    }
+}
+
 void NetEngine::onRequestResult(pc_request_t* req, int status, json_t *resp) {
     NetEngine* engine = NetEngine::getInstance();
-    if (!mHandler) {
+    if (!engine->mHandler) {
         return;
     }
-
     string request = req->route;
+
+    ResponseBase* rsp;
+    if (request == NetReqJoinRoom) {
+        rsp = new JoinRoomRsp();
+    }
+    else {
+        rsp = new ResponseBase();
+    }
+    engine->setResponseField(*rsp, status, resp);
+    
+
     if (request == NetReqLogin) {
-        mHandler->onLoginRsp();
+        engine->mHandler->onLoginRsp(*rsp);
     }
     else if (request == NetReqRegister) {
-        mHandler->onRegisterUserRsp();
+        engine->mHandler->onRegisterUserRsp(*rsp);
     }
     else if (request == NetReqGetAuthKey) {
-        mHandler->onGetAuthKeyRsp();
+        engine->mHandler->onGetAuthKeyRsp(*rsp);
     }
     else if (request == NetReqCreateRoom) {
-        mHandler->onCreateRoomRsp();
+        engine->mHandler->onCreateRoomRsp(*rsp);
     }
     else if (request == NetReqJoinRoom) {
-        mHandler->onJoinRoomRsp();
+        JoinRoomRsp *jrRsp = (JoinRoomRsp*)rsp;
+        //Get owner
+        json_t* owner = json_object_get(resp, NetRspResultOwnerKey.c_str());
+        if (owner) {
+            jrRsp->owner = json_string_value(owner);
+        }
+        else {
+            jrRsp->owner = NetRspResultOwnerUnknown;
+        }
+        
+        //Get players
+        json_t* players = json_object_get(resp, NetRspResultRoomPlayerListKey.c_str());
+        if (players) {
+            size_t count = json_array_size(players);
+            for (size_t i = 0; i < count; i++) {
+                json_t * player = json_array_get(players, i);
+                
+            }
+        }
+        else {
+            jrRsp->players.clear();
+        }
+        
+        engine->mHandler->onJoinRoomRsp(*jrRsp);
     }
     else if (request == NetReqSendDiceNum) {
-        mHandler->onSendDiceNumRsp();
+        engine->mHandler->onSendDiceNumRsp(*rsp);
     }
     else if (request == NetReqStartGame) {
-        mHandler->onStartRsp();
+        engine->mHandler->onStartRsp(*rsp);
     }
     else if (request == NetReqPunishFinished) {
-        mHandler->onPunishFinishedRsp();
+        engine->mHandler->onPunishFinishedRsp(*rsp);
     }
+}
+
+void NetEngine::sendRequest(const string& route, json_t *msg) {
+    pc_request_t *request = pc_request_new();
+    pc_request(mClient, request, route.c_str(), msg, onRequestResult);
 }
 
 void NetEngine::onEvent(pc_client_t *client, const char *event, void *data) {
     NetEngine* engine = NetEngine::getInstance();
-    if (!mHandler) {
+    if (!engine->mHandler) {
         return;
     }
     string evt = event;
@@ -153,15 +209,12 @@ void NetEngine::onEvent(pc_client_t *client, const char *event, void *data) {
 
     }
     else if (evt == NetEventUserDiceNum) {
-        mHandler->on
+        engine->mHandler->on
     }
     else if (evt == NetEventPunishPlayer) {
-        mHandler->onPunishUser();
-    }
-    else if (evt == NetEventPunishFinished) {
-        mHandler->onPunishFinished();
+        engine->mHandler->onPunishUser();
     }
     else if (evt == NetEventGameFinished) {
-        mHandler->onGameFinished();
+        engine->mHandler->onGameFinished();
     }
 }

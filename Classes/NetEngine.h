@@ -13,6 +13,7 @@
 
 #include "CCRef.h"
 #include "pomelo.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -29,21 +30,28 @@ public:
     string resultString;
 };
 
+class JoinRoomRsp : public ResponseBase {
+public:
+    string owner;
+    list<Player> players;
+};
+
 class NetEngineHandler {
 public:
     //Request response
+    virtual void onCanRegisterRsp(const ResponseBase& rsp) = 0;
     virtual void onLoginRsp(const ResponseBase& rsp) = 0;
     virtual void onGetAuthKeyRsp(const ResponseBase& rsp) = 0;
     virtual void onRegisterUserRsp(const ResponseBase& rsp) = 0;
     virtual void onCreateRoomRsp(const ResponseBase& rsp) = 0;
-    virtual void onJoinRoomRsp(const ResponseBase& rsp) = 0;
+    virtual void onJoinRoomRsp(const JoinRoomRsp& rsp) = 0;
     virtual void onSendDiceNumRsp(const ResponseBase& rsp) = 0;
     virtual void onStartRsp(const ResponseBase& rsp) = 0;
     virtual void onPunishFinishedRsp(const ResponseBase& rsp) = 0;
 
     //Event
     virtual void onStartRollDice() = 0;
-    virtual void onPlayerJoined(const string& name) = 0;
+    virtual void onPlayerJoined(const string& name, int picId) = 0;
     virtual void onPlayerLeft(const string& name) = 0;
     virtual void onPlayerDiceNum(const string& name, int num) = 0;
     virtual void onPunishPlayer(const string& name, const string& punish) = 0;
@@ -57,6 +65,13 @@ public:
     void setHandler(NetEngineHandler* handler);
     NetEngineHandler* getHandler();
     
+    /**
+     * Send request to server
+     * @param route The API route, see Constants.h
+     * @param msg The JSON object. This msg is freed automatically, the caller can't release it.
+     */
+    void sendRequest(const string& route, json_t *msg);
+    
     void disconnectServer();
     bool connectServer();
     void setServerAddr(const string& ip, int port);
@@ -67,6 +82,8 @@ private:
     bool init();
     static void onRequestResult(pc_request_t* req, int status, json_t *resp);
     static void onEvent(pc_client_t *client, const char *event, void *data);
+    
+    void setResponseField(ResponseBase& rsp, int status, json_t *resp);
     
 private:
     NetEngineHandler *mHandler;

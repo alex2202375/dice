@@ -11,11 +11,11 @@
 #include "CommonUtil.h"
 
 PlayerSprite* PlayerSprite::create(Player& player) {
-    return create(player.id, player.name, player.photo, player.winRate);
+    return create(player.name, CommonUtil::getDiceImage(player.picId), player.winRate);
 }
 
-PlayerSprite* PlayerSprite::create(int id, string name, string photo, float winRate) {
-    PlayerSprite *sprite = new (std::nothrow) PlayerSprite(id, name, photo, winRate);
+PlayerSprite* PlayerSprite::create(string name, string photo, float winRate) {
+    PlayerSprite *sprite = new (std::nothrow) PlayerSprite(name, photo, winRate);
     if (sprite && sprite->init())
     {
         sprite->autorelease();
@@ -24,14 +24,6 @@ PlayerSprite* PlayerSprite::create(int id, string name, string photo, float winR
     }
     CC_SAFE_DELETE(sprite);
     return nullptr;
-}
-
-void PlayerSprite::setId(int id) {
-    mId = id;
-}
-
-int PlayerSprite::getId() {
-    return mId;
 }
 
 void PlayerSprite::placeSelf(){
@@ -68,8 +60,8 @@ bool PlayerSprite::init() {
     return true;
 }
 
-PlayerSprite::PlayerSprite(int id, string name, string photo, float winRate)
-: mId(id), mName(name), mPhoto(photo), mWinRate(winRate){
+PlayerSprite::PlayerSprite(string name, string photo, float winRate)
+: mName(name), mPhoto(photo), mWinRate(winRate){
     
 }
 

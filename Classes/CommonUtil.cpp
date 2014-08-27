@@ -5,6 +5,7 @@
 //  Created by Hetty on 14-8-10.
 //
 //
+#include <stdio.h>
 
 #include "CommonUtil.h"
 #include "Vec2.h"
@@ -53,4 +54,21 @@ DiceScene* CommonUtil::getParentScene(Layer* layer)
   }
 
   return nullptr;
+}
+
+
+string CommonUtil::getPicture(int picId) {
+    char name[50] = {0};
+    sprintf(name, HeadImgFormat.c_str(), picId);
+    return string(name);
+}
+
+int CommonUtil::getPictureId(const string& pic) {
+    int id;
+    if (sscanf(pic.c_str(), HeadImgFormat.c_str(), &id) == 1) {
+        return id;
+    }
+    else {
+        return 1;
+    }
 }

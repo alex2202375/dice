@@ -21,9 +21,8 @@ using namespace std;
 
 class Player {
 public:
-    int id;
     string name;
-    string photo;
+    int picId;
     float winRate;
 };
 
@@ -33,11 +32,8 @@ class PlayerSprite : public Sprite
 public:
     static PlayerSprite* create(Player& player);
     
-    static PlayerSprite* create(int id, string name, string photo = PlayerPhotoNull, float winRate = 0);
-    
-    void setId(int id);
-    int getId();
-    
+    static PlayerSprite* create(string name, string photo = PlayerPhotoNull, float winRate = 0);
+
     void showDice(bool show);
     bool isDiceVisible();
     void setDiceNum(int num);
@@ -54,11 +50,9 @@ protected:
     
 private:
     void placeSelf();
-    PlayerSprite(int id, string name, string photo, float winRate);
+    PlayerSprite(string name, string photo, float winRate);
     
 private:
-    int mId;
-    
     string mName;
     LabelTTF* mNameLabel;
     
