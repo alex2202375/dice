@@ -111,6 +111,7 @@ private:
     pc_client_t *mClient;
     string mConnectIp;
     int mConnectPort;
+    static NetEngine* sInstance;
 };
 
 #endif /* defined(__dice__NetEngine__) */

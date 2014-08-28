@@ -11,17 +11,20 @@
 #include "pomelo.h"
 #include "Constants.h"
 #include "CommonUtil.h"
+NetEngine* NetEngine::sInstance = NULL;
 
 NetEngine* NetEngine::getInstance() {
-    NetEngine * en = new NetEngine();
-    if (en) {
-        if (!en->init()) {
-            en->release();
-            return nullptr;
+    if (!sInstance) {
+        sInstance = new NetEngine();
+        if (sInstance) {
+            if (!sInstance->init()) {
+                sInstance->release();
+                return nullptr;
+            }
+            sInstance->retain();
         }
-        en->retain();
     }
-    return en;
+    return sInstance;
 }
 
 void NetEngine::disconnectServer() {
@@ -49,8 +52,8 @@ bool NetEngine::connectServer() {
     }
     memset(&address, 0, sizeof(struct sockaddr_in));
     address.sin_family = AF_INET;
-    address.sin_port = htons(3014);//htons(mConnectPort);
-    address.sin_addr.s_addr = inet_addr("182.92.82.164");//mConnectIp.c_str());
+    address.sin_port = htons(mConnectPort);
+    address.sin_addr.s_addr = inet_addr(mConnectIp.c_str());
 
     // try to connect to server.
     if (pc_client_connect(mClient, &address)) {
