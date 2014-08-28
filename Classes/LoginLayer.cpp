@@ -14,14 +14,8 @@
 #include "CCMenu.h"
 #include "GameScene.h"
 #include "RegisterScene.h"
-#include <UITextField.h>
-#include "GUI/CCEditBox/CCEditBox.h"
+#include "LogicalEngine.h"
 
-
-using namespace cocos2d::extension;
-USING_NS_CC;
-using namespace CocosDenshion;
-using namespace cocos2d::ui;
 
 //void LoginLayer::menuCloseCallback(Ref* pSender)
 //{
@@ -31,6 +25,11 @@ using namespace cocos2d::ui;
 //    exit(0);
 //#endif
 //}
+
+LoginLayer::~LoginLayer() {
+    mNameEdit->release();
+    mPasswordEdit->release();
+}
 
 void LoginLayer::onEnter() {
     Layer::onEnter();
@@ -50,13 +49,13 @@ void LoginLayer::onEnter() {
 void LoginLayer::onLoginClicked(Ref* caller) {
     log(__FUNCTION__);
     GameScene * scene = GameScene::create();
-    Director::getInstance()->replaceScene(scene);
+    LogicalEngine* engine = LogicalEngine::getInstance();
+    engine->login(mNameEdit->getText(), mPasswordEdit->getText(), true);
 }
 
 void LoginLayer::onRegisterClicked(Ref * caller) {
     log(__FUNCTION__);
-    RegisterScene * scene = RegisterScene::create();
-    Director::getInstance()->replaceScene(scene);
+    LogicalEngine::getInstance()->switchTo(SceneCreater::SCENE_REGISTER);
 }
 
 bool LoginLayer::init() {
@@ -93,29 +92,30 @@ bool LoginLayer::init() {
     /* 输入用户名，输入框 */
     Size size = Director::getInstance()->getWinSize();
     Scale9Sprite * sacel9SprY=Scale9Sprite::create("editRect.png");
-    EditBox * m_InputBox = EditBox::create(Size(280,60), sacel9SprY);
+    mNameEdit = EditBox::create(Size(280,60), sacel9SprY);
     
-    m_InputBox->setText("");
-    m_InputBox->setFontColor(Color3B(0, 0, 0));
-    m_InputBox->setPlaceHolder("请输入帐号");
-    m_InputBox->setMaxLength(12);
+    mNameEdit->setText("");
+    mNameEdit->setFontColor(Color3B(0, 0, 0));
+    mNameEdit->setPlaceHolder("请输入帐号");
+    mNameEdit->setMaxLength(12);
     // TODO:
 //    m_InputBox->setInputFlag(kEditBoxInputFlagSensitive);
 //    m_InputBox->setReturnType(kKeyboardReturnTypeDone);
-    m_InputBox->setPosition(Vec2(backRectSize.width/2, backRectSize.height/4 * 3));
-    login->addChild(m_InputBox);
+    mNameEdit->setPosition(Vec2(backRectSize.width/2, backRectSize.height/4 * 3));
+    mNameEdit->retain();
+    addChild(mNameEdit);
     
     /* 输入密码，输入框 */
     Scale9Sprite  * scale9SprG =Scale9Sprite::create("editRect.png");
-    EditBox * m_PwdBox = EditBox::create(Size(280, 60), scale9SprG);
-    m_PwdBox->setPosition(Vec2(backRectSize.width/2, backRectSize.height/2));
-    m_PwdBox->setFontColor(Color3B(0, 0, 0));
-    m_PwdBox->setPlaceHolder("输入密码");
-    m_PwdBox->setMaxLength(12);
+    mPasswordEdit = EditBox::create(Size(280, 60), scale9SprG);
+    mPasswordEdit->setPosition(Vec2(backRectSize.width/2, backRectSize.height/2));
+    mPasswordEdit->setFontColor(Color3B(0, 0, 0));
+    mPasswordEdit->setPlaceHolder("输入密码");
+    mPasswordEdit->setMaxLength(12);
     // TODO:
-    m_PwdBox->setInputFlag(cocos2d::extension::EditBox::InputFlag::PASSWORD);
+    mPasswordEdit->setInputFlag(cocos2d::extension::EditBox::InputFlag::PASSWORD);
 //    m_PwdBox->setReturnType(kKeyboardReturnTypeGo);
-    login->addChild(m_PwdBox);
-   
+    mPasswordEdit->retain();
+    addChild(mPasswordEdit);
     return true;
 }

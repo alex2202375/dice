@@ -20,7 +20,9 @@ LogicalEngine * LogicalEngine::getInstance() {
 }
 
 LogicalEngine::LogicalEngine()
-: mStatus(LOADING), mCurrentScene(nullptr), mNetEngine(nullptr) {
+: mStatus(LOADING), mCurrentScene(nullptr),
+  mCurrentSceneType(SceneCreater::SCENE_LOAD),
+  mNetEngine(nullptr) {
     mNetEngine = NetEngine::getInstance();
     mNetEngine->setHandler(this);
 }
@@ -71,7 +73,7 @@ void LogicalEngine::getLastLoginInfo(string& name, string& password) {
 }
 
 void LogicalEngine::login(const string& name, const string& password, bool rememberInfo) {
-    
+    mNetEngine->sendRequest()
 }
 
 

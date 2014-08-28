@@ -97,6 +97,78 @@ NetEngineHandler* NetEngine::getHandler() {
     return mHandler;
 }
 
+
+void NetEngine::canRegister(const string& name, const string& phone) {
+    json_t *msg = json_object();
+    CommonUtil::setValue(msg, NetJsonPlayerNameKey, name);
+    CommonUtil::setValue(msg, NetJsonPlayerPhoneKey, phone);
+
+    sendRequest(NetReqCanRegister, msg);
+}
+
+void NetEngine::login(const string& name, const string& passwd) {
+    json_t *msg = json_object();
+    CommonUtil::setValue(msg, NetJsonPlayerNameKey, name);
+    CommonUtil::setValue(msg, NetJsonPlayerPwdKey, passwd);
+
+    sendRequest(NetReqLogin, msg);
+}
+
+void NetEngine::getAuthKey(const string& name, const string& phone) {
+    json_t *msg = json_object();
+    CommonUtil::setValue(msg, NetJsonPlayerNameKey, name);
+    CommonUtil::setValue(msg, NetJsonPlayerPhoneKey, phone);
+
+    sendRequest(NetReqGetAuthKey, msg);
+}
+
+void NetEngine::registerUser(const string& name, const string& passwd,
+                  const string& phone, int imageId, const string& authKey) {
+    json_t *msg = json_object();
+    CommonUtil::setValue(msg, NetJsonPlayerNameKey, name);
+    CommonUtil::setValue(msg, NetJsonPlayerPwdKey, passwd);
+    CommonUtil::setValue(msg, NetJsonPlayerPhoneKey, phone);
+    CommonUtil::setValue(msg, NetJsonPlayerPicIdKey, imageId);
+    CommonUtil::setValue(msg, NetJsonRegisterAuthKey, authKey);
+    sendRequest(NetReqRegister, msg);
+}
+
+void NetEngine::createRoom(const string& name, int roomId) {
+    json_t *msg = json_object();
+    CommonUtil::setValue(msg, NetJsonPlayerNameKey, name);
+    CommonUtil::setValue(msg, NetJsonRoomIdKey, roomId);
+    sendRequest(NetReqCreateRoom, msg);
+}
+
+void NetEngine::joinRoom(const string& name, int roomId) {
+    json_t *msg = json_object();
+    CommonUtil::setValue(msg, NetJsonPlayerNameKey, name);
+    CommonUtil::setValue(msg, NetJsonRoomIdKey, roomId);
+    sendRequest(NetReqJoinRoom, msg);
+}
+
+void NetEngine::sendDiceNum(const string& name, int roomId, int num) {
+    json_t *msg = json_object();
+    CommonUtil::setValue(msg, NetJsonFromKey, name);
+    CommonUtil::setValue(msg, NetJsonRoomIdKey, roomId);
+    CommonUtil::setValue(msg, NetJsonDiceNumberKey, num);
+    sendRequest(NetReqSendDiceNum, msg);
+}
+
+void NetEngine::startGame(const string& name, int roomId) {
+    json_t *msg = json_object();
+    CommonUtil::setValue(msg, NetJsonFromKey, name);
+    CommonUtil::setValue(msg, NetJsonRoomIdKey, roomId);
+    sendRequest(NetReqStartGame, msg);
+}
+
+void NetEngine::punishFinished(const string& name, int roomId) {
+    json_t *msg = json_object();
+    CommonUtil::setValue(msg, NetJsonFromKey, name);
+    CommonUtil::setValue(msg, NetJsonRoomIdKey, roomId);
+    sendRequest(NetReqPunishFinished, msg);
+}
+
 void NetEngine::setResponseField(ResponseBase& rsp, int status, json_t *resp) {
     json_t* resJson = json_object_get(resp, NetJsonResultKey.c_str());
     if (status == 0 && resJson && (json_integer_value(resJson) == NetJsonResultOk)) {
@@ -180,6 +252,11 @@ void NetEngine::onRequestResult(pc_request_t* req, int status, json_t *resp) {
     else if (request == NetReqPunishFinished) {
         engine->mHandler->onPunishFinishedRsp(*rsp);
     }
+
+    // release relative resource with pc_request_t
+    json_t *msg = req->msg;
+    json_decref(msg);
+    pc_request_destroy(req);
 }
 
 void NetEngine::sendRequest(const string& route, json_t *msg) {

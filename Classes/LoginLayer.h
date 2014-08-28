@@ -13,7 +13,14 @@
 #include "CCLayer.h"
 #include "cocos-ext.h"
 #include "deprecated/CCDeprecated.h"
-using namespace cocos2d;
+#include <UITextField.h>
+#include "GUI/CCEditBox/CCEditBox.h"
+
+
+using namespace cocos2d::extension;
+USING_NS_CC;
+using namespace CocosDenshion;
+using namespace cocos2d::ui;
 USING_NS_CC_EXT;
 
 class LoginLayer: public Layer{
@@ -24,6 +31,11 @@ public:
     
     void onLoginClicked(Ref* caller);
     void onRegisterClicked(Ref * caller);
+
+    virtual ~LoginLayer();
+private:
+    EditBox* mNameEdit;
+    EditBox* mPasswordEdit;
 };
 
 #endif /* defined(__dice__LoginLayer__) */

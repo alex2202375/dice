@@ -73,8 +73,28 @@ int CommonUtil::getPictureId(const string& pic) {
     }
 }
 
-template <typename T>
-void CommonUtil::parseArray(json_t* jsObj, const string& name, list<T>& result) {
+void CommonUtil::setValue(json_t* jsObj, const string& name, const string& value) {
+    json_t *valueJ = json_string(name.c_str());
+    json_object_set(jsObj, name.c_str(), valueJ);
+    // decref for json object
+    json_decref(valueJ);
+}
+
+void CommonUtil::setValue(json_t* jsObj, const string& name, const int& value) {
+    json_t *valueJ = json_integer(name.c_str());
+    json_object_set(jsObj, name.c_str(), valueJ);
+    // decref for json object
+    json_decref(valueJ);
+}
+
+void CommonUtil::setValue(json_t* jsObj, const string& name, const double& value) {
+    json_t *valueJ = json_real(name.c_str());
+    json_object_set(jsObj, name.c_str(), valueJ);
+    // decref for json object
+    json_decref(valueJ);
+}
+
+void CommonUtil::parseArray(json_t* jsObj, const string& name, list<Player>& result) {
     json_t* obj = json_object_get(jsObj, name.c_str());
     if (obj) {
         parseArray(obj, result);
@@ -84,7 +104,6 @@ void CommonUtil::parseArray(json_t* jsObj, const string& name, list<T>& result) 
     }
 }
 
-template <>
 void CommonUtil::parseArray(json_t* jsObj, list<Player>& result) {
     size_t count = json_array_size(jsObj);
     for (size_t i = 0; i < count; i++) {
@@ -95,7 +114,6 @@ void CommonUtil::parseArray(json_t* jsObj, list<Player>& result) {
     }
 }
 
-template <>
 void CommonUtil::parseObj(json_t* jsObj, Player & obj) {
     json_t* name = json_object_get(jsObj, NetJsonPlayerNameKey.c_str());
     obj.name = name ? json_string_value(name) : NetJsonPlayerNameUnknown;
@@ -104,30 +122,36 @@ void CommonUtil::parseObj(json_t* jsObj, Player & obj) {
     obj.picId = pic ? json_integer_value(pic) : NetJsonPlayerPicDefault;
 }
 
+#define PARSE_VALUE(jsObj, name, value, defValue) \
+        json_t* obj = json_object_get(jsObj, name.c_str()); \
+        if (obj) {\
+            parseValue(obj, value); \
+        } \
+        else { \
+            value = defValue; \
+        } \
 
-template <typename T>
-void CommonUtil::parseValue(json_t* jsObj, const string& name, T & value, const T & defValue) {
-    json_t* obj = json_object_get(jsObj, name.c_str());
-    if (obj) {
-        parseValue(obj, value);
-    }
-    else {
-        value = defValue;
-    }
-    
+void CommonUtil::parseValue(json_t* jsObj, const string& name, string & value, const string & defValue) {
+    PARSE_VALUE(jsObj, name, value, defValue);
 }
 
-template <>
+void CommonUtil::parseValue(json_t* jsObj, const string& name, int & value, const int & defValue) {
+    PARSE_VALUE(jsObj, name, value, defValue);
+}
+
+void CommonUtil::parseValue(json_t* jsObj, const string& name, double & value, const double & defValue) {
+    PARSE_VALUE(jsObj, name, value, defValue);
+}
+
+
 void CommonUtil::parseValue(json_t* jsObj, string & value) {
     value = json_string_value(jsObj);
 }
 
-template <>
 void CommonUtil::parseValue(json_t* jsObj, int & value) {
     value = json_integer_value(jsObj);
 }
 
-template <>
 void CommonUtil::parseValue(json_t* jsObj, double & value) {
     value = json_real_value(jsObj);
 }

@@ -65,22 +65,25 @@ enum GameStatus {
  *libpomelo related definition
 **/
 //Request
-const string NetReqLogin = "login";
-const string NetReqRegister = "register";
-const string NetReqGetAuthKey = "auth";
-const string NetReqCreateRoom = "create_room";
-const string NetReqJoinRoom = "join_room";
-const string NetReqSendDiceNum = "send_dice";
-const string NetReqStartGame = "start";
-const string NetReqPunishFinished = "punished";
+const string NetReqLogin = "gate.gateHandler.loginCheck";
+const string NetReqCanRegister = "gate.gateHandler.regcheck";
+const string NetReqRegister = "gate.gateHandler.register";
+const string NetReqGetAuthKey = "gate.gateHandler.code";
+const string NetReqCreateRoom = "connector.entryHandler.create";
+const string NetReqJoinRoom = "connector.entryHandler.enter";
+const string NetReqSetSetting = "chat.chatHandler.setgamble";
+const string NetReqGetSetting = "chat.chatHandler.listgambles";
+const string NetReqSendDiceNum = "chat.chatHandler.gamble";
+const string NetReqStartGame = "chat.chatHandler.startgamble";
+const string NetReqPunishFinished = "chat.chatHandler.punishment";
 
 //Event
-const string NetEventRollDice = "roll";
-const string NetEventUserJoined = "joined";
-const string NetEventUserLeft = "joined";
-const string NetEventUserDiceNum = "dice_num";
-const string NetEventPunishPlayer = "punish";
-const string NetEventGameFinished = "game_finished";
+const string NetEventRollDice = "onStartGamble";
+const string NetEventUserJoined = "onAdd";
+const string NetEventUserLeft = "onLeave";
+const string NetEventUserDiceNum = "onChat";
+const string NetEventPunishPlayer = "onPunishment";
+const string NetEventGameFinished = "onFinishGamble";
 
 /**
  *Response JSON keys
@@ -94,6 +97,8 @@ const string NetJsonResultStrConnect = "连接服务器失败";
 const string NetJsonResultStrKey = "msg";
 const string NetJsonFromKey = "from";
 const string NetJsonToKey = "target";
+//Register
+const string NetJsonRegisterAuthKey = "code";
 //Login
 const string NetJsonLoginRspIpKey = "ip";
 const string NetJsonLoginRspIpInvalid = "";
@@ -101,15 +106,19 @@ const string NetJsonLoginRspPortKey = "port";
 const int NetJsonLoginRspPortInvalid = -1;
 //Room
 const string NetJsonRoomOwnerKey = "owner";
+const string NetJsonRoomIdKey = "rid";
 const string NetJsonRoomOwnerUnknown = "未知房主";
 const string NetJsonRoomPlayerListKey = "list";
 //Player
 const string NetJsonPlayerNameKey = "name";
 const string NetJsonPlayerNameUnknown = "未知名字";
+const string NetJsonPlayerPhoneKey = "phone";
+const string NetJsonPlayerPicIdKey = "pid";
+const string NetJsonPlayerPwdKey = "password";
 const int NetJsonPlayerPicDefault = 1;
 const string NetJsonPlayerPicKey = "pic";
 //Dice number
-const string NetJsonDiceNumberKey = "number";
+const string NetJsonDiceNumberKey = "content";
 const int NetJsonDiceNumberDefult = 1;
 //Punish
 const string NetJsonPunishmentKey = "punish";

@@ -64,6 +64,20 @@ public:
     
     void setHandler(NetEngineHandler* handler);
     NetEngineHandler* getHandler();
+
+    void canRegister(const string& name, const string& phone);
+    void login(const string& name, const string& passwd);
+    void getAuthKey(const string& name, const string& phone);
+    void registerUser(const string& name, const string& passwd,
+                      const string& phone, int imageId, const string& authKey);
+    void createRoom(const string& name, int roomId);
+    void joinRoom(const string& name, int roomId);
+    void sendDiceNum(const string& name, int roomId, int num);
+    void startGame(const string& name, int roomId);
+    void punishFinished(const string& name, int roomId);
+
+private:
+    NetEngine();
     
     /**
      * Send request to server
@@ -76,9 +90,6 @@ public:
     bool connectServer();
     void setServerAddr(const string& ip, int port);
     void getServerAddr(string& ip, int& port);
-
-private:
-    NetEngine();
     bool init();
     static void onRequestResult(pc_request_t* req, int status, json_t *resp);
     static void onEvent(pc_client_t *client, const char *event, void *data);

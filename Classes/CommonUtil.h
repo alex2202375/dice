@@ -40,24 +40,29 @@ public:
     
     static int getPictureId(const string& pic);
     
-    static string parseStr(json_t* jsObj, const string& defValue = "");
-    
-    static int parseInt(json_t* jsObj, int defValue = -1);
-    
-    template <typename T>
-    static void parseArray(json_t* jsObj, const string& name, list<T>& result);
-    
-    template <typename T>
-    static void parseArray(json_t* jsObj, list<T>& result);
-    
-    template <typename T>
-    static void parseObj(json_t* jsObj, T & obj);
-    
-    template <typename T>
-    static void parseValue(json_t* jsObj, const string& name, T & value, const T & defValue);
-    
-    template <typename T>
-    static void parseValue(json_t* jsObj, T & value);
+
+    /**
+     * Json related functions
+     */
+
+    //Set functions
+    static void setValue(json_t* jsObj, const string& name, const string& value);
+    static void setValue(json_t* jsObj, const string& name, const int& value);
+    static void setValue(json_t* jsObj, const string& name, const double& value);
+
+    //Parse functions
+    static void parseArray(json_t* jsObj, const string& name, list<Player>& result);
+    static void parseArray(json_t* jsObj, list<Player>& result);
+
+    static void parseObj(json_t* jsObj, Player & obj);
+
+    static void parseValue(json_t* jsObj, const string& name, string & value, const string & defValue);
+    static void parseValue(json_t* jsObj, const string& name, int & value, const int & defValue);
+    static void parseValue(json_t* jsObj, const string& name, double & value, const double & defValue);
+
+    static void parseValue(json_t* jsObj, string & value);
+    static void parseValue(json_t* jsObj, int & value);
+    static void parseValue(json_t* jsObj, double & value);
 };
 
 #endif /* defined(__dice__CommonUtil__) */
