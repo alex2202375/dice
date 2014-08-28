@@ -34,6 +34,13 @@ public:
     virtual ~GameLayer();
     virtual bool init() override;
     
+    void enterredRoom();
+    void showPunishment();
+    void updatePunishSettings();
+    void updatePlayerList();
+    void showStart(bool show);
+    void rollDice();
+    
     void onSelfInfoClicked(Ref* sender);
     void onPunishInfoClicked(Ref* sender);
     void onPunishTypeSelected(Ref* sender);
@@ -90,6 +97,12 @@ private:
     void onCreateRoomCancelClicked();
     bool onTouch(Touch* touch, Event* event);
     
+    void onStartClicked(Ref* sender);
+    
+    void showShakePhone(bool show);
+    void finishRollDice(Ref* sender);
+    void generateNumber();
+    
 private:
     Node* mSelfInfoMenu;
     Node* mSelfInfoBox;
@@ -125,6 +138,10 @@ private:
     
     Menu* mRoomMenu;
     RoomCreateJoin* mRoomCreateJoin;
+    
+    Menu* mStart;
+    
+    Sprite* mShakePhone;
  };
 
 

@@ -49,8 +49,8 @@ bool NetEngine::connectServer() {
     }
     memset(&address, 0, sizeof(struct sockaddr_in));
     address.sin_family = AF_INET;
-    address.sin_port = htons(mConnectPort);
-    address.sin_addr.s_addr = inet_addr(mConnectIp.c_str());
+    address.sin_port = htons(3014);//htons(mConnectPort);
+    address.sin_addr.s_addr = inet_addr("182.92.82.164");//mConnectIp.c_str());
 
     // try to connect to server.
     if (pc_client_connect(mClient, &address)) {
@@ -147,6 +147,20 @@ void NetEngine::joinRoom(const string& name, int roomId) {
     sendRequest(NetReqJoinRoom, msg);
 }
 
+void NetEngine::getPunishSetting(const string& name, int roomId) {
+    json_t *msg = json_object();
+    CommonUtil::setValue(msg, NetJsonFromKey, name);
+    CommonUtil::setValue(msg, NetJsonRoomIdKey, roomId);
+    sendRequest(NetReqGetSetting, msg);
+}
+
+void NetEngine::setPunishSetting(const string& name, int roomId, int punishCat, int punishType) {
+    json_t *msg = json_object();
+    CommonUtil::setValue(msg, NetJsonPunishmentCateKey, punishCat);
+    CommonUtil::setValue(msg, NetJsonPunishmentTypeKey, punishType);
+    sendRequest(NetReqSetSetting, msg);
+}
+
 void NetEngine::sendDiceNum(const string& name, int roomId, int num) {
     json_t *msg = json_object();
     CommonUtil::setValue(msg, NetJsonFromKey, name);
@@ -196,6 +210,9 @@ void NetEngine::onRequestResult(pc_request_t* req, int status, json_t *resp) {
     ResponseBase* rsp;
     if (request == NetReqJoinRoom) {
         rsp = new JoinRoomRsp();
+    }
+    else if (request == NetReqGetSetting) {
+        rsp = new GetPunishSettingRsp();
     }
     else {
         rsp = new ResponseBase();
@@ -251,6 +268,17 @@ void NetEngine::onRequestResult(pc_request_t* req, int status, json_t *resp) {
     }
     else if (request == NetReqPunishFinished) {
         engine->mHandler->onPunishFinishedRsp(*rsp);
+    }
+    else if (request == NetReqGetSetting) {
+        GetPunishSettingRsp *settingRsp = (GetPunishSettingRsp*)rsp;
+        //Get category id
+        CommonUtil::parseValue(resp, NetJsonPunishmentCateKey, settingRsp->catId, 1);
+        //Get type id
+        CommonUtil::parseValue(resp, NetJsonPunishmentTypeKey, settingRsp->typeId, 1);
+        engine->mHandler->onGetPunishSettingRsp(*settingRsp);
+    }
+    else if (request == NetReqSetSetting) {
+        engine->mHandler->onSetPunishSettingRsp(*rsp);
     }
 
     // release relative resource with pc_request_t

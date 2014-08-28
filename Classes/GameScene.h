@@ -13,6 +13,7 @@
 #include "CCScene.h"
 #include "DiceScene.h"
 #include "Constants.h"
+#include "Player.h"
 
 USING_NS_CC;
 
@@ -21,6 +22,12 @@ public:
     CREATE_FUNC(GameScene);
     ~GameScene();
     virtual bool init() override;
+    
+    void enterredRoom();
+    void rollDice();
+    void showPunishment();
+    void updatePunishSettings();
+    void updatePlayerList();
 
 protected:
     GameStatus initStatus();

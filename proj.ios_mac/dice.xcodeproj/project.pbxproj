@@ -1125,6 +1125,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Wang Qi (9DCQYRYDK8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wang Qi (9DCQYRYDK8)";
 				COMPRESS_PNG_FILES = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -1151,7 +1152,7 @@
 					"$(PROJECT_DIR)/libpomelo/lib/ios",
 					/Users/hetty/alex/selfwork/dice/project/dice/libpomelo/lib/ios,
 				);
-				PROVISIONING_PROFILE = "1602b7a9-9921-4fc8-a4cf-67fc36af62c3";
+				PROVISIONING_PROFILE = "0d1e5e39-9a27-4f69-aeb2-ada827bd46f4";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -1163,6 +1164,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Wang Qi (9DCQYRYDK8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wang Qi (9DCQYRYDK8)";
 				COMPRESS_PNG_FILES = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1187,7 +1189,7 @@
 					"$(PROJECT_DIR)/libpomelo/lib/ios",
 					/Users/hetty/alex/selfwork/dice/project/dice/libpomelo/lib/ios,
 				);
-				PROVISIONING_PROFILE = "1602b7a9-9921-4fc8-a4cf-67fc36af62c3";
+				PROVISIONING_PROFILE = "0d1e5e39-9a27-4f69-aeb2-ada827bd46f4";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";

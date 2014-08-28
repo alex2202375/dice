@@ -25,6 +25,7 @@
 #include "CCEventListenerAcceleration.h"
 #include "time.h"
 #include "Player.h"
+#include "LogicalEngine.h"
 
 using namespace std;
 
@@ -52,6 +53,9 @@ GameLayer::GameLayer()
     
     mRoomMenu = nullptr;
     mRoomCreateJoin = nullptr;
+    
+    mStart = nullptr;
+    mShakePhone = nullptr;
 }
 
 GameLayer::~GameLayer() {
@@ -59,30 +63,29 @@ GameLayer::~GameLayer() {
         (*it)->release();
     }
     mPlayers.clear();
-    
 
-    mSelfInfoMenu->release();
-    mSelfInfoBox->release();
+    CommonUtil::releaseRef(mSelfInfoMenu);
+    CommonUtil::releaseRef(mSelfInfoBox);
     
     //Punish category
     for (Vector<MenuItem*>::iterator it = mPunishCatMenuItems.begin(); it != mPunishCatMenuItems.end(); it++) {
         (*it)->release();
     }
     mPunishCatMenuItems.clear();
-    mPunishCatMenu->release();
-    mPunishCatBox->release();
-    
+    CommonUtil::releaseRef(mPunishCatMenu);
+    CommonUtil::releaseRef(mPunishCatBox);
     
     //Punish type
     for (Vector<MenuItem*>::iterator it = mPunishTypeMenuItems.begin(); it != mPunishTypeMenuItems.end(); it++) {
         (*it)->release();
     }
     mPunishTypeMenuItems.clear();
-    mPunishTypeMenu->release();
-    mPunishTypeBox->release();
-
-    mDiceCup->release();
-    mRoomMenu->release();
+    CommonUtil::releaseRef(mPunishTypeMenu);
+    CommonUtil::releaseRef(mPunishTypeBox);
+    CommonUtil::releaseRef(mDiceCup);
+    CommonUtil::releaseRef(mRoomMenu);
+    CommonUtil::releaseRef(mStart);
+    CommonUtil::releaseRef(mShakePhone);
 }
 
 void GameLayer::onEnter() {
@@ -425,6 +428,7 @@ void GameLayer::setSelectedPunishCat(PunishCat type) {
 void GameLayer::onGetDiceNum(int num) {
     stopDiceAnimation();
     setDiceNumber(num);
+    LogicalEngine::getInstance()->sendDiceNum(num);
 }
 
 void GameLayer::stopDiceAnimation() {
@@ -535,26 +539,29 @@ bool GameLayer::init()
 
 void GameLayer::onAcceleration(Acceleration* pAccelerationValue, Event* event)  {
     static Acceleration lastAcc = *pAccelerationValue;
-    const double dCurTimeStamp = pAccelerationValue->timestamp;
-    double dX=pAccelerationValue->x - lastAcc.x;
-    double dY=pAccelerationValue->y - lastAcc.y;
-    double dZ=pAccelerationValue->z - lastAcc.z;
     
-    const double dLengthSq = dX*dX + dY*dY + dZ*dZ;
-    
-    if( dLengthSq > 0.8 ){
-        struct timeval now;  // 秒，毫秒
-        gettimeofday(&now, NULL);
-        static long lLastTime = 0;
-        if( now.tv_sec - lLastTime > 0.5 ){
-            log("晃动了 %lf , len %lf" , dCurTimeStamp , dLengthSq );
-            lLastTime = now.tv_sec;
-            this->showDiceAnimation();
-            this->schedule(schedule_selector(GameLayer::onDiceAnimationFinish), 0, 0, 4);
+    if (mShakePhone->isVisible()) {
+        const double dCurTimeStamp = pAccelerationValue->timestamp;
+        double dX=pAccelerationValue->x - lastAcc.x;
+        double dY=pAccelerationValue->y - lastAcc.y;
+        double dZ=pAccelerationValue->z - lastAcc.z;
+        
+        const double dLengthSq = dX*dX + dY*dY + dZ*dZ;
+        
+        if( dLengthSq > 0.8 ){
+            struct timeval now;  // 秒，毫秒
+            gettimeofday(&now, NULL);
+            static long lLastTime = 0;
+            if( now.tv_sec - lLastTime > 0.5 ){
+                log("晃动了 %lf , len %lf" , dCurTimeStamp , dLengthSq );
+                lLastTime = now.tv_sec;
+                this->showShakePhone(false);
+                generateNumber();
+            }
         }
+        
+        lastAcc = *pAccelerationValue;
     }
-    
-    lastAcc = *pAccelerationValue;
 }
 
 void GameLayer::removeAllPlayers() {
@@ -681,4 +688,76 @@ void GameLayer::showRoomCreateOrJoin(bool create, bool show) {
     }
     
     mRoomCreateJoin->setVisible(show);
+}
+
+void GameLayer::enterredRoom() {
+    //Hide room create
+    showRoomCreateOrJoin(true, false);
+    showStart(LogicalEngine::getInstance()->isRoomOwner());
+}
+
+void GameLayer::showStart(bool show) {
+    if (!mStart) {
+        auto menuItem = MenuItemImage::create(GameStartImg, GameStartImg, CC_CALLBACK_1(GameLayer::onStartClicked, this));
+        Size visibleSize = Director::getInstance()->getVisibleSize();
+
+        menuItem->setPosition(Vec2(visibleSize.width/2, menuItem->getContentSize().height));
+        
+        mStart = Menu::create(menuItem, nullptr);
+        mStart->setPosition(Vec2::ZERO);
+        mStart->retain();
+    }
+    
+    mStart->setVisible(show);
+}
+
+void GameLayer::onStartClicked(Ref* sender) {
+    LogicalEngine::getInstance()->startGame();
+}
+
+void GameLayer::showPunishment() {
+    
+}
+
+void GameLayer::updatePunishSettings() {
+    
+}
+
+void GameLayer::updatePlayerList() {
+    
+}
+
+void GameLayer::showShakePhone(bool show) {
+    if (!mShakePhone) {
+        mShakePhone = Sprite::create(GameShakePhoneImg);
+        mShakePhone->setPosition(mDiceCup->getPosition());
+        mShakePhone->setAnchorPoint(Vec2(mShakePhone->getPosition().x, mShakePhone->getPosition().y - mShakePhone->getContentSize().height/2));
+    }
+    
+    mShakePhone->stopAllActions();
+    if (show) {
+        auto action = MoveBy::create(GameShakePhoneActionDuration, Vec2(GameShakePhoneActionDeltaX, 0));
+        
+        auto action2 = MoveBy::create(GameShakePhoneActionDuration, Vec2(-GameShakePhoneActionDeltaX, 0));
+        auto oneShake = Sequence::create(action, action->reverse(), action2, action2->reverse(), NULL);
+        auto wholeShake = Repeat::create(oneShake, GameShakePhoneFinishDuration/(4*GameShakePhoneActionDeltaX));
+        auto wholeAction = Sequence::create(wholeShake, CallFuncN::create(CC_CALLBACK_1(GameLayer::finishRollDice, this)), NULL);
+        mShakePhone->runAction(wholeAction);
+    }
+    
+    mShakePhone->setVisible(show);
+}
+                         
+void GameLayer::finishRollDice(Ref* sender) {
+    showShakePhone(false);
+    generateNumber();
+}
+
+void GameLayer::rollDice() {
+    showShakePhone(true);
+}
+
+void GameLayer::generateNumber() {
+    showDiceAnimation();
+    schedule(schedule_selector(GameLayer::onDiceAnimationFinish), 0, 0, 4);
 }

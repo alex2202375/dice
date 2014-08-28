@@ -81,14 +81,14 @@ void CommonUtil::setValue(json_t* jsObj, const string& name, const string& value
 }
 
 void CommonUtil::setValue(json_t* jsObj, const string& name, const int& value) {
-    json_t *valueJ = json_integer(name.c_str());
+    json_t *valueJ = json_integer(value);
     json_object_set(jsObj, name.c_str(), valueJ);
     // decref for json object
     json_decref(valueJ);
 }
 
 void CommonUtil::setValue(json_t* jsObj, const string& name, const double& value) {
-    json_t *valueJ = json_real(name.c_str());
+    json_t *valueJ = json_real(value);
     json_object_set(jsObj, name.c_str(), valueJ);
     // decref for json object
     json_decref(valueJ);
@@ -154,4 +154,10 @@ void CommonUtil::parseValue(json_t* jsObj, int & value) {
 
 void CommonUtil::parseValue(json_t* jsObj, double & value) {
     value = json_real_value(jsObj);
+}
+
+void CommonUtil::releaseRef(Ref* ref) {
+    if (ref) {
+        ref->release();
+    }
 }

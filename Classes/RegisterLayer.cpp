@@ -20,6 +20,8 @@
 #include "GUI/CCEditBox/CCEditBox.h"
 #include "HeadScene.h"
 #include "LoginScene.h"
+#include "LogicalEngine.h"
+#include "CommonUtil.h"
 
 
 using namespace cocos2d::extension;
@@ -34,19 +36,31 @@ void RegisterLayer::onEnter() {
 
 }
 
+void RegisterLayer::savePlayerInfo() {
+        LogicalEngine* engine = LogicalEngine::getInstance();
+//    engine->setPlayerName()
+}
+
 void RegisterLayer::onHeadPicClicked(Ref* caller) {
     log(__FUNCTION__);
-    HeadScene * scene = HeadScene::create();
-    Director::getInstance()->replaceScene(scene);
+    
+    LogicalEngine* engine = LogicalEngine::getInstance();
+    
+    
+    engine->switchTo(SceneCreater::SCENE_PIC_SEL);
 }
 
 void RegisterLayer::onRegButtonClicked(Ref * caller) {
     log(__FUNCTION__);
     
     // TODO: register
-    
-    LoginScene * scene = LoginScene::create();
-    Director::getInstance()->replaceScene(scene);
+    LogicalEngine* engine = LogicalEngine::getInstance();
+    string name = "abc12";
+    string password = "123456";
+    string phone = "13679012242";
+    int picId = 1;
+    string authKey = "123";
+    engine->registerUser(name, password, phone, picId, authKey);
 }
 
 bool RegisterLayer::init() {
@@ -65,17 +79,19 @@ bool RegisterLayer::init() {
     background->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     this->addChild(background, 0);
 
-    
+    LogicalEngine* engine = LogicalEngine::getInstance();
     
     // head picture button
-    auto HeadPicButton = MenuItemImage::create("registerPicNormal.png", "registerPicPressed.png", CC_CALLBACK_1(RegisterLayer::onHeadPicClicked, this));
+    string picImage1 = "registerPicNormal.png";
+    string picImage2 = "registerPicPressed.png";
+    if (engine->getPlayerPicId() != -1) {
+        picImage1 = picImage2 = CommonUtil::getPicture(engine->getPlayerPicId());
+    }
+    auto HeadPicButton = MenuItemImage::create(picImage1, picImage2, CC_CALLBACK_1(RegisterLayer::onHeadPicClicked, this));
     HeadPicButton->setPosition(Vec2(visibleSize.width/2, 0));
     auto HeadPicMenu = Menu::create(HeadPicButton, nullptr);
     HeadPicMenu->setPosition(Vec2(0, visibleSize.height/12*10));
     this->addChild(HeadPicMenu);
-    
-    
-    
     
     
     /* 输入用户名，输入框 */
@@ -85,7 +101,7 @@ bool RegisterLayer::init() {
     
     Scale9Sprite * sacel9Spruser=Scale9Sprite::create("registerEditBox.png");
     EditBox * usr_inputbox = EditBox::create(Size(300,50), sacel9Spruser);
-    usr_inputbox->setText("");
+    usr_inputbox->setText(engine->getPlayerName().c_str());
     usr_inputbox->setFontColor(Color3B(0, 0, 0));
     usr_inputbox->setPlaceHolder("注册用户名（昵称）");
     usr_inputbox->setMaxLength(12);
@@ -104,7 +120,7 @@ bool RegisterLayer::init() {
     Scale9Sprite * sacel9SprPwd=Scale9Sprite::create("registerEditBox.png");
     EditBox * pwd_inputbox = EditBox::create(Size(300,50), sacel9SprPwd);
     
-    pwd_inputbox->setText("");
+    pwd_inputbox->setText(engine->getPlayerPwd().c_str());
     pwd_inputbox->setFontColor(Color3B(0, 0, 0));
     pwd_inputbox->setPlaceHolder("请输入密码");
     pwd_inputbox->setMaxLength(12);
@@ -121,7 +137,7 @@ bool RegisterLayer::init() {
     Scale9Sprite * sacel9SprRePwd=Scale9Sprite::create("registerEditBox.png");
     EditBox * repwd_inputbox = EditBox::create(Size(300,50), sacel9SprRePwd);
     
-    repwd_inputbox->setText("");
+    repwd_inputbox->setText(engine->getPlayerPwd().c_str());
     repwd_inputbox->setFontColor(Color3B(0, 0, 0));
     repwd_inputbox->setPlaceHolder("请重复输入密码");
     repwd_inputbox->setMaxLength(12);
@@ -139,7 +155,7 @@ bool RegisterLayer::init() {
     Scale9Sprite * sacel9SprReTele=Scale9Sprite::create("registerEditBox.png");
     EditBox * tele_inputbox = EditBox::create(Size(300,50), sacel9SprReTele);
     
-    tele_inputbox->setText("");
+    tele_inputbox->setText(engine->getPlayerPhone().c_str());
     tele_inputbox->setFontColor(Color3B(0, 0, 0));
     tele_inputbox->setPlaceHolder("手机号");
     tele_inputbox->setMaxLength(12);
@@ -159,7 +175,7 @@ bool RegisterLayer::init() {
     Scale9Sprite * sacel9SprVcode=Scale9Sprite::create("registerEditBox.png");
     EditBox * vcode_inputbox = EditBox::create(Size(300,50), sacel9SprVcode);
     
-    vcode_inputbox->setText("");
+    vcode_inputbox->setText(engine->getAuthCode().c_str());
     vcode_inputbox->setFontColor(Color3B(0, 0, 0));
     vcode_inputbox->setPlaceHolder("验证码");
     vcode_inputbox->setMaxLength(12);

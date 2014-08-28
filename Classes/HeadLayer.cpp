@@ -17,7 +17,9 @@
 #include "CCLabel.h"
 #include "GameScene.h"
 #include "RegisterScene.h"
-
+#include "LogicalEngine.h"
+#include "SceneCreater.h"
+#include "CommonUtil.h"
 
 using namespace cocos2d::extension;
 USING_NS_CC;
@@ -33,10 +35,9 @@ void HeadLayer::onEnter() {
 
 void HeadLayer::onPicClicked(Ref* caller) {
     log(__FUNCTION__);
-    
-    RegisterScene * scene = RegisterScene::create();
-    Director::getInstance()->replaceScene(scene);
-    
+    LogicalEngine* engine = LogicalEngine::getInstance();
+    engine->setPlayerPicId(((Node*)caller)->getTag());
+    engine->switchTo(SceneCreater::SCENE_REGISTER);
 }
 
 void HeadLayer::onBackClicked(Ref * caller) {
@@ -80,8 +81,9 @@ bool HeadLayer::init() {
 //        HeadButton->setPosition(Vec2(visibleSize.width/(HeadGridx+1)*xnum, visibleSize.height/(HeadGridy+1)*ynum));
 //        this->addChild(HeadButton);
         
-        
-        auto HeadButton = MenuItemImage::create("playerPicBox.png", "playerPicBox.png", CC_CALLBACK_1(HeadLayer::onPicClicked, this));
+        string picName = CommonUtil::getPicture(i);
+        auto HeadButton = MenuItemImage::create(picName, picName, CC_CALLBACK_1(HeadLayer::onPicClicked, this));
+        HeadButton->setTag(i);
         HeadButton->setPosition(Vec2(visibleSize.width/(HeadGridx+1)*xnum, 0));
         auto HeadMenu = Menu::create(HeadButton, nullptr);
         HeadMenu->setPosition(Vec2(0, visibleSize.height/(HeadGridy+1)*ynum));

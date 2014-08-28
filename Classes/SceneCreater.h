@@ -21,6 +21,7 @@ public:
     SCENE_LOAD,
     SCENE_LOGIN,
     SCENE_REGISTER,
+    SCENE_PIC_SEL,
     SCENE_GAME
   };
   static SceneCreater* getInstance();

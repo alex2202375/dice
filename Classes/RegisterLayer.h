@@ -24,6 +24,12 @@ public:
     
     void onHeadPicClicked(Ref* caller);
     void onRegButtonClicked(Ref * caller);
+    
+private:
+    void savePlayerInfo();
+private:
+//    EditBox * usr_inputbox;
+//    EditBox * usr_inputbox;
 };
 
 

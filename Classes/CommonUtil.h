@@ -63,6 +63,8 @@ public:
     static void parseValue(json_t* jsObj, string & value);
     static void parseValue(json_t* jsObj, int & value);
     static void parseValue(json_t* jsObj, double & value);
+    
+    static void releaseRef(Ref* ref);
 };
 
 #endif /* defined(__dice__CommonUtil__) */

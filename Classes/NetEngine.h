@@ -36,6 +36,12 @@ public:
     list<Player> players;
 };
 
+class GetPunishSettingRsp : public ResponseBase {
+public:
+    int catId;
+    int typeId;
+};
+
 class NetEngineHandler {
 public:
     //Request response
@@ -48,6 +54,8 @@ public:
     virtual void onSendDiceNumRsp(const ResponseBase& rsp) = 0;
     virtual void onStartRsp(const ResponseBase& rsp) = 0;
     virtual void onPunishFinishedRsp(const ResponseBase& rsp) = 0;
+    virtual void onGetPunishSettingRsp(const GetPunishSettingRsp& rsp) = 0;
+    virtual void onSetPunishSettingRsp(const ResponseBase& rsp) = 0;
 
     //Event
     virtual void onStartRollDice() = 0;
@@ -71,6 +79,8 @@ public:
     void registerUser(const string& name, const string& passwd,
                       const string& phone, int imageId, const string& authKey);
     void createRoom(const string& name, int roomId);
+    void getPunishSetting(const string& name, int roomId);
+    void setPunishSetting(const string& name, int roomId, int punishCat, int punishType);
     void joinRoom(const string& name, int roomId);
     void sendDiceNum(const string& name, int roomId, int num);
     void startGame(const string& name, int roomId);

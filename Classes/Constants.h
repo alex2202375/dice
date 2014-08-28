@@ -122,13 +122,15 @@ const string NetJsonDiceNumberKey = "content";
 const int NetJsonDiceNumberDefult = 1;
 //Punish
 const string NetJsonPunishmentKey = "punish";
+const string NetJsonPunishmentCateKey = "cid";
+const string NetJsonPunishmentTypeKey = "pid";
 const string NetJsonPunishmentDefult = "未知惩罚";
 
 
 
 //Server
-const string NetServerIp = "192.168.1.1";
-const int NetServerPort = 3041;
+const string NetServerIp = "182.92.82.164";
+const int NetServerPort = 3014;
 
 const float PI = 3.1415926;
 
@@ -206,6 +208,12 @@ const string EditBoxImg = "registerEditBox.png";
 const float EditBoxWidth = 300;
 const float EditBoxHeight = 50;
 
+//Game
+const string GameStartImg = "start.png";
+const string GameShakePhoneImg = "shakePhone.png";
+const float GameShakePhoneActionDeltaX = 5;
+const float GameShakePhoneActionDuration = 0.05;
+const float GameShakePhoneFinishDuration = 5;
 //ROOM
 const string RoomCreateRoomNormalImg = "createRoomNormal.png";
 const string RoomCreateRoomPressedImg = "createRoomPressed.png";
