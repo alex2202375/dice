@@ -30,10 +30,16 @@ using namespace CocosDenshion;
 using namespace cocos2d::ui;
 
 
+RegisterLayer::~RegisterLayer() {
+    CommonUtil::releaseRef(mUserNameEdit);
+    CommonUtil::releaseRef(mUserPwdEdit);
+    CommonUtil::releaseRef(mUserPwd2Edit);
+    CommonUtil::releaseRef(mUserPhoneEdit);
+    CommonUtil::releaseRef(mUserAuthCodeEdit);
+}
 
 void RegisterLayer::onEnter() {
     Layer::onEnter();
-
 }
 
 void RegisterLayer::savePlayerInfo() {
@@ -45,22 +51,44 @@ void RegisterLayer::onHeadPicClicked(Ref* caller) {
     log(__FUNCTION__);
     
     LogicalEngine* engine = LogicalEngine::getInstance();
-    
-    
     engine->switchTo(SceneCreater::SCENE_PIC_SEL);
 }
 
 void RegisterLayer::onRegButtonClicked(Ref * caller) {
     log(__FUNCTION__);
     
-    // TODO: register
     LogicalEngine* engine = LogicalEngine::getInstance();
-    string name = "abc12";
-    string password = "123456";
-    string phone = "13679012242";
-    int picId = 1;
-    string authKey = "123";
-    engine->registerUser(name, password, phone, picId, authKey);
+    string name = mUserNameEdit->getText();
+    string password = mUserPwdEdit->getText();
+    string password2 = mUserPwd2Edit->getText();
+    string phone = mUserPhoneEdit->getText();
+    int picId = engine->getPlayerPicId();
+    string authKey = mUserAuthCodeEdit->getText();
+    DiceScene* scene = CommonUtil::getParentScene(this);
+    if (!scene) {
+        return;
+    }
+
+    string errorStr;
+    if (!name.size()) {
+        errorStr = RegisterNoName;
+    }
+    else if (password != password2) {
+        errorStr = RegisterPwdNotSame;
+    }
+    else if (!CommonUtil::isValidPhone(phone)) {
+        errorStr = RegisterPhoneNotValid;
+    }
+    else if (!authKey.size()) {
+        errorStr = RegisterNoAuthCode;
+    }
+
+    if (errorCode.size()) {
+        scene->showNotifyDialog(errorStr);
+    }
+    else {
+        engine->registerUser(name, password, phone, picId, authKey);
+    }
 }
 
 bool RegisterLayer::init() {
@@ -100,16 +128,17 @@ bool RegisterLayer::init() {
     this->addChild(usrLabel);
     
     Scale9Sprite * sacel9Spruser=Scale9Sprite::create("registerEditBox.png");
-    EditBox * usr_inputbox = EditBox::create(Size(300,50), sacel9Spruser);
-    usr_inputbox->setText(engine->getPlayerName().c_str());
-    usr_inputbox->setFontColor(Color3B(0, 0, 0));
-    usr_inputbox->setPlaceHolder("注册用户名（昵称）");
-    usr_inputbox->setMaxLength(12);
+    mUserNameEdit = EditBox::create(Size(300,50), sacel9Spruser);
+    mUserNameEdit->setText(engine->getPlayerName().c_str());
+    mUserNameEdit->setFontColor(Color3B(0, 0, 0));
+    mUserNameEdit->setPlaceHolder("注册用户名（昵称）");
+    mUserNameEdit->setMaxLength(12);
     // TODO:
     //    usr_inputbox->setInputFlag(kEditBoxInputFlagSensitive);
     //    usr_inputbox->setReturnType(kKeyboardReturnTypeDone);
-    usr_inputbox->setPosition(Vec2(visibleSize.width/2, visibleSize.height/12*8));
-    this->addChild(usr_inputbox, 0);
+    mUserNameEdit->setPosition(Vec2(visibleSize.width/2, visibleSize.height/12*8));
+    mUserNameEdit->retain();
+    this->addChild(mUserNameEdit, 0);
     
     
     
@@ -118,34 +147,36 @@ bool RegisterLayer::init() {
     pwdLabel->setPosition(Vec2(visibleSize.width/8, visibleSize.height/12*7));
     this->addChild(pwdLabel);
     Scale9Sprite * sacel9SprPwd=Scale9Sprite::create("registerEditBox.png");
-    EditBox * pwd_inputbox = EditBox::create(Size(300,50), sacel9SprPwd);
+    mUserPwdEdit = EditBox::create(Size(300,50), sacel9SprPwd);
     
-    pwd_inputbox->setText(engine->getPlayerPwd().c_str());
-    pwd_inputbox->setFontColor(Color3B(0, 0, 0));
-    pwd_inputbox->setPlaceHolder("请输入密码");
-    pwd_inputbox->setMaxLength(12);
+    mUserPwdEdit->setText(engine->getPlayerPwd().c_str());
+    mUserPwdEdit->setFontColor(Color3B(0, 0, 0));
+    mUserPwdEdit->setPlaceHolder("请输入密码");
+    mUserPwdEdit->setMaxLength(12);
     // TODO:
-    pwd_inputbox->setInputFlag(cocos2d::extension::EditBox::InputFlag::PASSWORD);
+    mUserPwdEdit->setInputFlag(cocos2d::extension::EditBox::InputFlag::PASSWORD);
     //    pwd_inputbox->setReturnType(kKeyboardReturnTypeDone);
-    pwd_inputbox->setPosition(Vec2(visibleSize.width/2, visibleSize.height/12*7));
-    this->addChild(pwd_inputbox, 0);
+    mUserPwdEdit->setPosition(Vec2(visibleSize.width/2, visibleSize.height/12*7));
+    mUserPwdEdit->retain();
+    this->addChild(mUserPwdEdit, 0);
     
     /* re-password */
     Label* repwdLabel = Label::create("重复密码","Marker Felt",30);
     repwdLabel->setPosition(Vec2(visibleSize.width/8, visibleSize.height/12*6));
     this->addChild(repwdLabel);
     Scale9Sprite * sacel9SprRePwd=Scale9Sprite::create("registerEditBox.png");
-    EditBox * repwd_inputbox = EditBox::create(Size(300,50), sacel9SprRePwd);
+    mUserPwd2Edit = EditBox::create(Size(300,50), sacel9SprRePwd);
     
-    repwd_inputbox->setText(engine->getPlayerPwd().c_str());
-    repwd_inputbox->setFontColor(Color3B(0, 0, 0));
-    repwd_inputbox->setPlaceHolder("请重复输入密码");
-    repwd_inputbox->setMaxLength(12);
+    mUserPwd2Edit->setText(engine->getPlayerPwd().c_str());
+    mUserPwd2Edit->setFontColor(Color3B(0, 0, 0));
+    mUserPwd2Edit->setPlaceHolder("请重复输入密码");
+    mUserPwd2Edit->setMaxLength(12);
     // TODO:
-    repwd_inputbox->setInputFlag(cocos2d::extension::EditBox::InputFlag::PASSWORD);
+    mUserPwd2Edit->setInputFlag(cocos2d::extension::EditBox::InputFlag::PASSWORD);
     //    repwd_inputbox->setReturnType(kKeyboardReturnTypeDone);
-    repwd_inputbox->setPosition(Vec2(visibleSize.width/2, visibleSize.height/12*6));
-    this->addChild(repwd_inputbox, 0);
+    mUserPwd2Edit->setPosition(Vec2(visibleSize.width/2, visibleSize.height/12*6));
+    mUserPwd2Edit->retain();
+    this->addChild(mUserPwd2Edit, 0);
     
     
     /* telephone */
@@ -153,18 +184,19 @@ bool RegisterLayer::init() {
     teleLabel->setPosition(Vec2(visibleSize.width/8, visibleSize.height/12*5));
     this->addChild(teleLabel);
     Scale9Sprite * sacel9SprReTele=Scale9Sprite::create("registerEditBox.png");
-    EditBox * tele_inputbox = EditBox::create(Size(300,50), sacel9SprReTele);
+    mUserPhoneEdit = EditBox::create(Size(300,50), sacel9SprReTele);
     
-    tele_inputbox->setText(engine->getPlayerPhone().c_str());
-    tele_inputbox->setFontColor(Color3B(0, 0, 0));
-    tele_inputbox->setPlaceHolder("手机号");
-    tele_inputbox->setMaxLength(12);
+    mUserPhoneEdit->setText(engine->getPlayerPhone().c_str());
+    mUserPhoneEdit->setFontColor(Color3B(0, 0, 0));
+    mUserPhoneEdit->setPlaceHolder("手机号");
+    mUserPhoneEdit->setMaxLength(12);
     // TODO:
-    tele_inputbox->setInputMode(cocos2d::extension::EditBox::InputMode::PHONE_NUMBER);
+    mUserPhoneEdit->setInputMode(cocos2d::extension::EditBox::InputMode::PHONE_NUMBER);
 //    tele_inputbox->setInputFlag(cocos2d::extension::EditBox::InputFlag::);
     //    tele_inputbox->setReturnType(kKeyboardReturnTypeDone);
-    tele_inputbox->setPosition(Vec2(visibleSize.width/2, visibleSize.height/12*5));
-    this->addChild(tele_inputbox, 0);
+    mUserPhoneEdit->setPosition(Vec2(visibleSize.width/2, visibleSize.height/12*5));
+    mUserPhoneEdit->retain();
+    this->addChild(mUserPhoneEdit, 0);
     
     
     
@@ -173,17 +205,18 @@ bool RegisterLayer::init() {
     vcodeLabel->setPosition(Vec2(visibleSize.width/8, visibleSize.height/12*4));
     this->addChild(vcodeLabel);
     Scale9Sprite * sacel9SprVcode=Scale9Sprite::create("registerEditBox.png");
-    EditBox * vcode_inputbox = EditBox::create(Size(300,50), sacel9SprVcode);
+    mUserAuthCodeEdit = EditBox::create(Size(300,50), sacel9SprVcode);
     
-    vcode_inputbox->setText(engine->getAuthCode().c_str());
-    vcode_inputbox->setFontColor(Color3B(0, 0, 0));
-    vcode_inputbox->setPlaceHolder("验证码");
-    vcode_inputbox->setMaxLength(12);
+    mUserAuthCodeEdit->setText(engine->getAuthCode().c_str());
+    mUserAuthCodeEdit->setFontColor(Color3B(0, 0, 0));
+    mUserAuthCodeEdit->setPlaceHolder("验证码");
+    mUserAuthCodeEdit->setMaxLength(12);
     // TODO:
     //    vcode_inputbox->setInputFlag(kEditBoxInputFlagSensitive);
     //    vcode_inputbox->setReturnType(kKeyboardReturnTypeDone);
-    vcode_inputbox->setPosition(Vec2(visibleSize.width/2, visibleSize.height/12*4));
-    this->addChild(vcode_inputbox, 0);
+    mUserAuthCodeEdit->setPosition(Vec2(visibleSize.width/2, visibleSize.height/12*4));
+    mUserAuthCodeEdit->retain();
+    this->addChild(mUserAuthCodeEdit, 0);
     
     
     /* agreement */

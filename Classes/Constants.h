@@ -241,4 +241,20 @@ const int RoomFontSize = 35;
 const Color3B RoomFontColor = Color3B::GRAY;
 const int RoomEditMaxLength = 12;
 
+const int NotifyDefaultCloseDelay = 2;
+const string NotifyBgImg = "dialogBg.png";
+const srring NotifyFontName = DefaultFontName;
+const int NotifyFontSize = 26;
+const float NotifyShowHideDuration = 0.2f;
+
+/**
+ * Strings
+ */
+//Register
+const string RegisterNoName = "请输入用户名";
+const string RegisterPwdNotSame = "两次输入的密码不一致";
+const string RegisterPhoneNotValid = "请输入正确的电话号码";
+const string RegisterNoAuthCode = "请输入验证码";
+
+
 #endif

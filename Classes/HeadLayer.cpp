@@ -89,8 +89,6 @@ bool HeadLayer::init() {
         HeadMenu->setPosition(Vec2(0, visibleSize.height/(HeadGridy+1)*ynum));
         this->addChild(HeadMenu);
     }
-    
-    
-    
+
     return true;
 }

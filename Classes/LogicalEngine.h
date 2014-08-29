@@ -75,6 +75,8 @@ public:
      * Notification from server
      */
     //Event
+    virtual void onDisconnected() override;
+    virtual void onTimeout() override;
     virtual void onStartRollDice() override;
     virtual void onPlayerJoined(const Player& player) override;
     virtual void onPlayerLeft(const string& name) override;

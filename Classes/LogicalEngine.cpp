@@ -175,7 +175,7 @@ void LogicalEngine::sendDiceNum(int number) {
 #define CHECK_RSP(rsp) \
     if (rsp.result != RSP_OK) { \
         mCurrentScene->showNotifyDialog(rsp.resultString); \
-    return;\
+        return;\
     }
 
 /**
@@ -240,22 +240,36 @@ void LogicalEngine::onSetPunishSettingRsp(const ResponseBase& rsp)  {
  * Notification from server
  */
 //Event
+void LogicalEngine::onDisconnected() {
+
+}
+
+void LogicalEngine::onTimeout() {
+
+}
+
 void LogicalEngine::onStartRollDice()  {
+
 }
 
 void LogicalEngine::onPlayerJoined(const Player& player)  {
+
 }
     
 void LogicalEngine::onPlayerLeft(const string& name)  {
+
 }
     
 void LogicalEngine::onPlayerDiceNum(const string& name, int num)  {
+
 }
     
 void LogicalEngine::onPunishPlayer(const string& name, const string& punish)  {
+
 }
     
 void LogicalEngine::onGameFinished()  {
+
 }
 
 

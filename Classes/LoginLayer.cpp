@@ -88,13 +88,13 @@ bool LoginLayer::init() {
     
     
     //Size backRectSize = login->getWinSize();
-    
+    LogicalEngine* engine = LogicalEngine::getInstance();
     /* 输入用户名，输入框 */
     Size size = Director::getInstance()->getWinSize();
     Scale9Sprite * sacel9SprY=Scale9Sprite::create("editRect.png");
     mNameEdit = EditBox::create(Size(280,60), sacel9SprY);
     
-    mNameEdit->setText("");
+    mNameEdit->setText(engine->getPlayerName().c_str());
     mNameEdit->setFontColor(Color3B(0, 0, 0));
     mNameEdit->setPlaceHolder("请输入帐号");
     mNameEdit->setMaxLength(12);
@@ -103,7 +103,7 @@ bool LoginLayer::init() {
 //    m_InputBox->setReturnType(kKeyboardReturnTypeDone);
     mNameEdit->setPosition(Vec2(backRectSize.width/2, backRectSize.height/4 * 3));
     mNameEdit->retain();
-    addChild(mNameEdit);
+    login->addChild(mNameEdit);
     
     /* 输入密码，输入框 */
     Scale9Sprite  * scale9SprG =Scale9Sprite::create("editRect.png");
@@ -112,10 +112,11 @@ bool LoginLayer::init() {
     mPasswordEdit->setFontColor(Color3B(0, 0, 0));
     mPasswordEdit->setPlaceHolder("输入密码");
     mPasswordEdit->setMaxLength(12);
+    mPasswordEdit->setText(engine->getPlayerPwd().c_str());
     // TODO:
     mPasswordEdit->setInputFlag(cocos2d::extension::EditBox::InputFlag::PASSWORD);
 //    m_PwdBox->setReturnType(kKeyboardReturnTypeGo);
     mPasswordEdit->retain();
-    addChild(mPasswordEdit);
+    login->addChild(mPasswordEdit);
     return true;
 }

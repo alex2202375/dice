@@ -64,13 +64,13 @@ bool NetEngine::connectServer() {
     return true;
 }
 
+bool NetEngine::isConnected() {
+    return mClient->state == PC_ST_WORKING || mClient->state ==  PC_ST_CONNECTED;
+}
+
 bool NetEngine::init() {
     mClient = pc_client_new();
     if (!mClient) {
-        return false;
-    }
-
-    if (!connectServer()) {
         return false;
     }
 
@@ -101,7 +101,10 @@ NetEngineHandler* NetEngine::getHandler() {
 }
 
 
+
 void NetEngine::canRegister(const string& name, const string& phone) {
+
+
     json_t *msg = json_object();
     CommonUtil::setValue(msg, NetJsonPlayerNameKey, name);
     CommonUtil::setValue(msg, NetJsonPlayerPhoneKey, phone);
@@ -255,12 +258,13 @@ void NetEngine::onRequestResult(pc_request_t* req, int status, json_t *resp) {
     }
     else if (request == NetReqJoinRoom) {
         JoinRoomRsp *jrRsp = (JoinRoomRsp*)rsp;
-        //Get owner
-        CommonUtil::parseValue(resp, NetJsonRoomOwnerKey, jrRsp->owner, NetJsonRoomOwnerUnknown);
-        
-        //Get players
-        CommonUtil::parseArray(resp, NetJsonRoomPlayerListKey, jrRsp->players);
-        
+        if (rsp->result == RSP_OK) {
+            //Get owner
+            CommonUtil::parseValue(resp, NetJsonRoomOwnerKey, jrRsp->owner, NetJsonRoomOwnerUnknown);
+
+            //Get players
+            CommonUtil::parseArray(resp, NetJsonRoomPlayerListKey, jrRsp->players);
+        }
         engine->mHandler->onJoinRoomRsp(*jrRsp);
     }
     else if (request == NetReqSendDiceNum) {
@@ -274,10 +278,12 @@ void NetEngine::onRequestResult(pc_request_t* req, int status, json_t *resp) {
     }
     else if (request == NetReqGetSetting) {
         GetPunishSettingRsp *settingRsp = (GetPunishSettingRsp*)rsp;
-        //Get category id
-        CommonUtil::parseValue(resp, NetJsonPunishmentCateKey, settingRsp->catId, 1);
-        //Get type id
-        CommonUtil::parseValue(resp, NetJsonPunishmentTypeKey, settingRsp->typeId, 1);
+        if (rsp->result == RSP_OK) {
+            //Get category id
+            CommonUtil::parseValue(resp, NetJsonPunishmentCateKey, settingRsp->catId, 1);
+            //Get type id
+            CommonUtil::parseValue(resp, NetJsonPunishmentTypeKey, settingRsp->typeId, 1);
+        }
         engine->mHandler->onGetPunishSettingRsp(*settingRsp);
     }
     else if (request == NetReqSetSetting) {
@@ -292,7 +298,22 @@ void NetEngine::onRequestResult(pc_request_t* req, int status, json_t *resp) {
 
 void NetEngine::sendRequest(const string& route, json_t *msg) {
     pc_request_t *request = pc_request_new();
-    pc_request(mClient, request, route.c_str(), msg, onRequestResult);
+    if (!isConnected() && !connectServer()) {
+        request->route = route.c_str();
+        request->msg = msg;
+        json_t* resp = json_object();
+        json_t* result = json_integer(1);
+        json_object_set(resp, NetJsonResultKey.c_str(), result);
+        json_decref(result);
+        json_t* resultStr = json_string(NetJsonResultStrConnect.c_str());
+        json_object_set(resp, NetJsonResultStrKey.c_str(), resultStr);
+        json_decref(resultStr);
+        onRequestResult(request, -1, resp);
+        return;
+    }
+    else {
+        pc_request(mClient, request, route.c_str(), msg, onRequestResult);
+    }
 }
 
 void NetEngine::onEvent(pc_client_t *client, const char *event, void *data) {
@@ -303,10 +324,13 @@ void NetEngine::onEvent(pc_client_t *client, const char *event, void *data) {
     json_t* msg = (json_t*)data;
     string evt = event;
     if (evt == PC_EVENT_DISCONNECT) {
-
+        engine->mHandler->onDisconnected();
+        //Reset to server ip;
+        mConnectIp = NetServerIp;
+        mConnectPort = NetServerPort;
     }
     else if (evt == PC_EVENT_TIMEOUT) {
-
+        engine->mHandler->onTimeout();
     }
     else if (evt == PC_EVENT_KICK) {
 

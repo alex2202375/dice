@@ -28,8 +28,11 @@ public:
 private:
     void savePlayerInfo();
 private:
-//    EditBox * usr_inputbox;
-//    EditBox * usr_inputbox;
+    EditBox * mUserNameEdit;
+    EditBox * mUserPwdEdit;
+    EditBox * mUserPwd2Edit;
+    EditBox * mUserPhoneEdit;
+    EditBox * mUserAuthCodeEdit;
 };
 
 

@@ -58,6 +58,8 @@ public:
     virtual void onSetPunishSettingRsp(const ResponseBase& rsp) = 0;
 
     //Event
+    virtual void onDisconnected() = 0;
+    virtual void onTimeout() = 0;
     virtual void onStartRollDice() = 0;
     virtual void onPlayerJoined(const Player& player) = 0;
     virtual void onPlayerLeft(const string& name) = 0;
@@ -96,6 +98,7 @@ private:
      */
     void sendRequest(const string& route, json_t *msg);
     
+    bool isConnected();
     void disconnectServer();
     bool connectServer();
     void setServerAddr(const string& ip, int port);

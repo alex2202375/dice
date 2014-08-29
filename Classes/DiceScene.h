@@ -10,6 +10,7 @@
 
 #include "cocos2d.h"
 #include "CCScene.h"
+#include "CCLabel.h"
 #include "Constants.h"
 
 using namespace std;
@@ -28,11 +29,16 @@ public:
    * @para content The content shows to user
    * @para closeDelay The auto close delay. if -1, show a OK button, and do not auto close
    */
-  void showNotifyDialog(const string& content, int closeDelay = 3);
+  void showNotifyDialog(const string& content, int closeDelay = NotifyDefaultCloseDelay);
+  void hideNotifyDialog(float delta);
 
 protected:
   virtual GameStatus initStatus() = 0 ;
   DiceScene();
+
+private:
+  Node* mNotifyDialog;
+  Label* mNotifyLabel;
 };
 
 #endif /* _DICESCENE_H_ */
