@@ -106,6 +106,9 @@ private:
     void finishRollDice(Ref* sender);
     void generateNumber();
     
+    void showLeave(bool show);
+    void onLeaveClicked(Ref* sender);
+    
 private:
     Node* mSelfInfoMenu;
     Node* mSelfInfoBox;
@@ -143,6 +146,7 @@ private:
     RoomCreateJoin* mRoomCreateJoin;
     
     Menu* mStart;
+    Menu* mLeave;
     
     Sprite* mShakePhone;
     

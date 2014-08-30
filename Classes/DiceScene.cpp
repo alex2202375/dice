@@ -40,20 +40,20 @@ static pthread_mutex_t sceneMutex = PTHREAD_MUTEX_INITIALIZER;
 
 void DiceScene::update(float delta) {
     Scene::update(delta);
-    pthread_mutex_lock(&sceneMutex);
+//    pthread_mutex_lock(&sceneMutex);
     if (mCallBackList.size()) {
         SEL_CallFunc cb = mCallBackList.at(0);
         mCallBackList.erase(mCallBackList.begin());
         (this->*cb)();
     }
-    pthread_mutex_unlock(&sceneMutex);
+//    pthread_mutex_unlock(&sceneMutex);
     
 }
 
 void DiceScene::callInMainThread(SEL_CallFunc cb){
-    pthread_mutex_lock(&sceneMutex);
+//    pthread_mutex_lock(&sceneMutex);
     mCallBackList.push_back(cb);
-    pthread_mutex_unlock(&sceneMutex);
+//    pthread_mutex_unlock(&sceneMutex);
 }
 
 void DiceScene::switchTo(SceneCreater::SceneType type) {

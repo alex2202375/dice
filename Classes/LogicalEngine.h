@@ -58,6 +58,7 @@ public:
                       const string& phone, int picId, const string& authKey);
     void createRoom(int roomId, const string& pwd);
     void joinRoom(int roomId, const string& pwd);
+    void leaveRoom();
     void startGame();
     void sendDiceNum(int number);
     void punishFinished();
@@ -73,6 +74,7 @@ public:
     virtual void onRegisterUserRsp(const ResponseBase& rsp) override;
     virtual void onCreateRoomRsp(const ResponseBase& rsp) override;
     virtual void onJoinRoomRsp(const JoinRoomRsp& rsp) override;
+    virtual void onLeaveRoomRsp(const ResponseBase& rsp) override;
     virtual void onSendDiceNumRsp(const ResponseBase& rsp) override;
     virtual void onStartRsp(const ResponseBase& rsp) override;
     virtual void onPunishFinishedRsp(const ResponseBase& rsp) override;

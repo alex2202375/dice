@@ -167,6 +167,10 @@ void LogicalEngine::joinRoom(int roomId, const string& pwd) {
     mNetEngine->joinRoom(mPlayerName, roomId, pwd);
 }
 
+void LogicalEngine::leaveRoom() {
+    mNetEngine->leaveRoom(mPlayerName, mRoomId);
+}
+
 void LogicalEngine::startGame() {
     mNetEngine->startGame(mPlayerName, mRoomId);
 }
@@ -244,6 +248,10 @@ void LogicalEngine::onJoinRoomRsp(const JoinRoomRsp& rsp)  {
         GameScene* game = (GameScene*)mCurrentScene;
         game->callInMainThread(callfunc_selector(GameScene::enterredRoom));
     }
+}
+
+void LogicalEngine::onLeaveRoomRsp(const ResponseBase& rsp) {
+    CHECK_RSP(rsp);
 }
 
 void LogicalEngine::onSendDiceNumRsp(const ResponseBase& rsp)  {

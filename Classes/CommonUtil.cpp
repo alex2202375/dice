@@ -173,6 +173,12 @@ void CommonUtil::releaseRef(Ref* ref) {
     }
 }
 
+void CommonUtil::setVisible(Node* node, bool show) {
+    if (node) {
+        node->setVisible(show);
+    }
+}
+
 bool CommonUtil::isValidPhone(string phoneNum) {
     if (phoneNum.size() != 11) {
         return false;

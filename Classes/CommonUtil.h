@@ -65,6 +65,7 @@ public:
     static void parseValue(json_t* jsObj, double & value);
     
     static void releaseRef(Ref* ref);
+    static void setVisible(Node* node, bool show);
 };
 
 #endif /* defined(__dice__CommonUtil__) */

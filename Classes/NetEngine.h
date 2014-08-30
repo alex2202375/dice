@@ -51,6 +51,7 @@ public:
     virtual void onRegisterUserRsp(const ResponseBase& rsp) = 0;
     virtual void onCreateRoomRsp(const ResponseBase& rsp) = 0;
     virtual void onJoinRoomRsp(const JoinRoomRsp& rsp) = 0;
+    virtual void onLeaveRoomRsp(const ResponseBase& rsp) = 0;
     virtual void onSendDiceNumRsp(const ResponseBase& rsp) = 0;
     virtual void onStartRsp(const ResponseBase& rsp) = 0;
     virtual void onPunishFinishedRsp(const ResponseBase& rsp) = 0;
@@ -85,6 +86,7 @@ public:
     void getPunishSetting(const string& name, int roomId);
     void setPunishSetting(const string& name, int roomId, int punishCat, int punishType);
     void joinRoom(const string& name, int roomId, const string& pwd);
+    void leaveRoom(const string& name, int roomId);
     void sendDiceNum(const string& name, int roomId, int num);
     void startGame(const string& name, int roomId);
     void punishFinished(const string& name, int roomId);

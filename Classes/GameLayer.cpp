@@ -59,6 +59,8 @@ GameLayer::GameLayer()
     
     mPunishment= nullptr;
     mPunishFinished = nullptr;
+    
+    mLeave = nullptr;
 }
 
 GameLayer::~GameLayer() {
@@ -91,6 +93,7 @@ GameLayer::~GameLayer() {
     CommonUtil::releaseRef(mShakePhone);
     CommonUtil::releaseRef(mPunishment);
     CommonUtil::releaseRef(mPunishFinished);
+    CommonUtil::releaseRef(mLeave);
 }
 
 void GameLayer::onEnter() {
@@ -709,27 +712,70 @@ void GameLayer::enterredRoom() {
     //Hide room create
     showRoomCreateOrJoin(true, false);
     showStart(LogicalEngine::getInstance()->isRoomOwner());
+    showLeave(true);
     updatePlayerList();
 }
 
 void GameLayer::showStart(bool show) {
-    if (!mStart) {
-        auto menuItem = MenuItemImage::create(GameStartImg, GameStartImg, CC_CALLBACK_1(GameLayer::onStartClicked, this));
-        Size visibleSize = Director::getInstance()->getVisibleSize();
-
-        menuItem->setPosition(Vec2(visibleSize.width/2, menuItem->getContentSize().height));
-        
-        mStart = Menu::create(menuItem, nullptr);
-        mStart->setPosition(Vec2::ZERO);
-        mStart->retain();
-        addChild(mStart, 2);
+    if (mStart) {
+        removeChild(mStart);
+        mStart->release();
+        mStart = nullptr;
     }
     
+    auto menuItem = MenuItemImage::create(GameStartImg, GameStartImg, CC_CALLBACK_1(GameLayer::onStartClicked, this));
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    if (LogicalEngine::getInstance()->isRoomOwner()) {
+        menuItem->setPosition(Vec2(visibleSize.width - menuItem->getContentSize().width/2, menuItem->getContentSize().height));
+    }
+    else {
+       menuItem->setPosition(Vec2(visibleSize.width/2, menuItem->getContentSize().height));
+    }
+    mStart = Menu::create(menuItem, nullptr);
+    mStart->setPosition(Vec2::ZERO);
+    mStart->retain();
+    addChild(mStart, 2);
+
     mStart->setVisible(show);
+}
+
+void GameLayer::showLeave(bool show) {
+    if (mLeave) {
+        removeChild(mLeave);
+        mLeave->release();
+        mLeave = nullptr;
+    }
+    
+    auto menuItem = MenuItemImage::create(GameLeaveImg, GameLeaveImg, CC_CALLBACK_1(GameLayer::onLeaveClicked, this));
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    if (LogicalEngine::getInstance()->isRoomOwner()) {
+        menuItem->setPosition(Vec2(menuItem->getContentSize().width/2, menuItem->getContentSize().height));
+    }
+    else {
+        menuItem->setPosition(Vec2(visibleSize.width/2, menuItem->getContentSize().height));
+    }
+    mLeave = Menu::create(menuItem, nullptr);
+    mLeave->setPosition(Vec2::ZERO);
+    mLeave->retain();
+    addChild(mLeave, 2);
+
+    mLeave->setVisible(show);
 }
 
 void GameLayer::onStartClicked(Ref* sender) {
     LogicalEngine::getInstance()->startGame();
+}
+
+void GameLayer::onLeaveClicked(Ref* sender) {
+    LogicalEngine::getInstance()->leaveRoom();
+    
+    CommonUtil::setVisible(mStart, false);
+    CommonUtil::setVisible(mLeave, false);
+    CommonUtil::setVisible(mPunishFinished, false);
+    CommonUtil::setVisible(mPunishment, false);
+    CommonUtil::setVisible(mRoomMenu, true);
+    CommonUtil::setVisible(mDice, false);
+    removeAllPlayers();
 }
 
 void GameLayer::onPunishFinishedClicked(Ref* sender) {
@@ -846,6 +892,7 @@ void GameLayer::finishRollDice(Ref* sender) {
 
 void GameLayer::rollDice() {
     showStart(false);
+    showLeave(false);
     showShakePhone(true);
 }
 
@@ -855,16 +902,18 @@ void GameLayer::generateNumber() {
 }
 
 void GameLayer::gameFinished() {
+    CommonUtil::setVisible(mRoomMenu, false);
+    CommonUtil::setVisible(mRoomCreateJoin, false);
+    CommonUtil::setVisible(mStart, false);
+    CommonUtil::setVisible(mPunishFinished, false);
+    CommonUtil::setVisible(mDice, false);
+    CommonUtil::setVisible(mPunishment, false);
+    CommonUtil::setVisible(mPunishFinished, false);
+    if (LogicalEngine::getInstance()->isRoomOwner()) {
+        showStart(true);
+    }
+    showLeave(true);
+    
     DiceScene* scene = CommonUtil::getParentScene(this);
     scene->showNotifyDialog(GameFinished);
-    mRoomMenu->setVisible(false);
-    mRoomCreateJoin->setVisible(false);
-    mStart->setVisible(false);
-    mPunishFinished->setVisible(false);
-    mDice->setVisible(false);
-    mPunishment->setVisible(false);
-    if (LogicalEngine::getInstance()->isRoomOwner()) {
-        mStart->setVisible(true);
-    }
-//    removeAllPlayers();
 }

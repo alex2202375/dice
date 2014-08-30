@@ -160,6 +160,13 @@ void NetEngine::joinRoom(const string& name, int roomId, const string& pwd) {
     sendRequest(NetReqJoinRoom, msg);
 }
 
+void NetEngine::leaveRoom(const string& name, int roomId) {
+    json_t *msg = json_object();
+    CommonUtil::setValue(msg, NetJsonPlayerNameKey, name);
+    CommonUtil::setValue(msg, NetJsonRoomIdKey, roomId);
+    sendRequest(NetReqLeaveRoom, msg);
+}
+
 void NetEngine::getPunishSetting(const string& name, int roomId) {
     json_t *msg = json_object();
     CommonUtil::setValue(msg, NetJsonFromKey, name);
@@ -361,7 +368,7 @@ void NetEngine::onEvent(pc_client_t *client, const char *event, void *data) {
     }
     else if (evt == NetEventUserLeft) {
         string name;
-        CommonUtil::parseValue(msg, NetJsonPlayerNameKey, name, NetJsonPlayerNameUnknown);
+        CommonUtil::parseValue(msg, NetJsonPlayerKey, name, NetJsonPlayerNameUnknown);
         engine->mHandler->onPlayerLeft(name);
     }
     else if (evt == NetEventUserDiceNum) {

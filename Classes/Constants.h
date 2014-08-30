@@ -101,6 +101,7 @@ const string NetReqRegister = "gate.gateHandler.register";
 const string NetReqGetAuthKey = "gate.gateHandler.code";
 const string NetReqCreateRoom = "connector.entryHandler.create";
 const string NetReqJoinRoom = "connector.entryHandler.enter";
+const string NetReqLeaveRoom = "connector.entryHandler.exit";
 const string NetReqSetSetting = "chat.chatHandler.setconfig";
 const string NetReqGetSetting = "chat.chatHandler.listconfig";
 const string NetReqSendDiceNum = "chat.chatHandler.gamble";
@@ -247,6 +248,7 @@ const float EditBoxHeight = 50;
 
 //Game
 const string GameStartImg = "start.png";
+const string GameLeaveImg = "back.png";
 const string GameShakePhoneImg = "shakePhone.png";
 const float GameShakePhoneActionDeltaX = 5;
 const float GameShakePhoneActionDuration = 0.02;
