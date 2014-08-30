@@ -7,6 +7,8 @@
 //
 
 #include "LogicalEngine.h"
+#include "GameScene.h"
+
 
 LogicalEngine* LogicalEngine::sInstance = nullptr;
 
@@ -76,7 +78,8 @@ LogicalEngine::LogicalEngine()
       mNetEngine = NetEngine::getInstance();
       mNetEngine->setHandler(this);
       mPlayerPicId = -1;
-      
+      mPunishCatId = PunishCatSmall;
+      mPunishTypeId = PunishTypeBuy;
 }
 
 LogicalEngine::~LogicalEngine() {
@@ -148,19 +151,20 @@ void LogicalEngine::registerUser(const string& name, const string& password,
     mPlayerPwd = password;
     mPlayerPhone = phone;
     mPlayerPicId = picId;
+    mAuthCode = authKey;
     mNetEngine->registerUser(name, password, phone, picId, authKey);
 }
 
-void LogicalEngine::createRoom(int roomId){
+void LogicalEngine::createRoom(int roomId, const string& pwd){
     mRoomId = roomId;
     
-    mNetEngine->createRoom(mPlayerName, roomId);
+    mNetEngine->createRoom(mPlayerName, roomId, pwd);
 }
 
-void LogicalEngine::joinRoom(int roomId) {
+void LogicalEngine::joinRoom(int roomId, const string& pwd) {
     mRoomId = roomId;
     
-    mNetEngine->joinRoom(mPlayerName, roomId);
+    mNetEngine->joinRoom(mPlayerName, roomId, pwd);
 }
 
 void LogicalEngine::startGame() {
@@ -170,6 +174,20 @@ void LogicalEngine::startGame() {
 
 void LogicalEngine::sendDiceNum(int number) {
     mNetEngine->sendDiceNum(mPlayerName, mRoomId, number);
+}
+
+void LogicalEngine::punishFinished() {
+    mNetEngine->punishFinished(mPlayerName, mRoomId);
+}
+
+void LogicalEngine::getPunishSetting() {
+    mNetEngine->getPunishSetting(mPlayerName, mRoomId);
+}
+
+void LogicalEngine::setPunishSetting(PunishCat punishCat, PunishType punishType) {
+    mPunishCatId = punishCat;
+    mPunishTypeId = punishType;
+    mNetEngine->setPunishSetting(mPlayerName, mRoomId, mPunishCatId, mPunishTypeId);
 }
 
 #define CHECK_RSP(rsp) \
@@ -187,8 +205,8 @@ void LogicalEngine::onCanRegisterRsp(const ResponseBase& rsp)  {
 
 void LogicalEngine::onLoginRsp(const ResponseBase& rsp)  {
     CHECK_RSP(rsp);
-
-    switchTo(SceneCreater::SCENE_GAME);
+    
+    mCurrentScene->switchTo(SceneCreater::SCENE_GAME);
 }
 
 void LogicalEngine::onGetAuthKeyRsp(const ResponseBase& rsp)  {
@@ -208,12 +226,24 @@ void LogicalEngine::onCreateRoomRsp(const ResponseBase& rsp)  {
     //TODO need to get last settings
     mNetEngine->setPunishSetting(mPlayerName, mRoomId, mPunishCatId, mPunishTypeId);
     
+    mIsRoomOwner = true;
+    mPlayerList.clear();
+    if (mCurrentSceneType == SceneCreater::SCENE_GAME) {
+        GameScene* game = (GameScene*)mCurrentScene;
+        game->callInMainThread(callfunc_selector(GameScene::enterredRoom));
+    }
 }
 
 void LogicalEngine::onJoinRoomRsp(const JoinRoomRsp& rsp)  {
     CHECK_RSP(rsp);
     
     mNetEngine->getPunishSetting(mPlayerName, mRoomId);
+    mIsRoomOwner = false;
+    mPlayerList = rsp.players;
+    if (mCurrentSceneType == SceneCreater::SCENE_GAME) {
+        GameScene* game = (GameScene*)mCurrentScene;
+        game->callInMainThread(callfunc_selector(GameScene::enterredRoom));
+    }
 }
 
 void LogicalEngine::onSendDiceNumRsp(const ResponseBase& rsp)  {
@@ -222,6 +252,7 @@ void LogicalEngine::onSendDiceNumRsp(const ResponseBase& rsp)  {
 
 void LogicalEngine::onStartRsp(const ResponseBase& rsp)  {
     CHECK_RSP(rsp);
+    
 }
 
 void LogicalEngine::onPunishFinishedRsp(const ResponseBase& rsp)  {
@@ -245,31 +276,95 @@ void LogicalEngine::onDisconnected() {
 }
 
 void LogicalEngine::onTimeout() {
-
+    mCurrentScene->showNotifyDialog(NetTimeOut);
 }
 
 void LogicalEngine::onStartRollDice()  {
-
+    if (mCurrentSceneType == SceneCreater::SCENE_GAME) {
+        GameScene* game = (GameScene*)mCurrentScene;
+        game->callInMainThread(callfunc_selector(GameScene::rollDice));
+    }
 }
 
 void LogicalEngine::onPlayerJoined(const Player& player)  {
-
+    if (mCurrentSceneType == SceneCreater::SCENE_GAME) {
+        mPlayerList.push_back(player);
+        GameScene* game = (GameScene*)mCurrentScene;
+        game->callInMainThread(callfunc_selector(GameScene::updatePlayerList));
+    }
 }
     
 void LogicalEngine::onPlayerLeft(const string& name)  {
+    if (mCurrentSceneType == SceneCreater::SCENE_GAME) {
+        bool found = false;
+        for (vector<Player>::iterator i = mPlayerList.begin(); i != mPlayerList.end(); i++) {
+            if ((*i).name == name) {
+                mPlayerList.erase(i);
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            GameScene* game = (GameScene*)mCurrentScene;
+            game->callInMainThread(callfunc_selector(GameScene::updatePlayerList));
+        }
+    }
+}
 
+void LogicalEngine::onPunishSetting(int catId, int typeId) {
+    mPunishCatId = (PunishCat)catId;
+    mPunishTypeId = (PunishType)typeId;
+    if (mCurrentSceneType == SceneCreater::SCENE_GAME) {
+        GameScene* game = (GameScene*)mCurrentScene;
+        game->callInMainThread(callfunc_selector(GameScene::updatePunishSettings));
+    }
 }
     
 void LogicalEngine::onPlayerDiceNum(const string& name, int num)  {
-
+    if (mCurrentSceneType == SceneCreater::SCENE_GAME) {
+        bool found = false;
+        for (vector<Player>::iterator i = mPlayerList.begin(); i != mPlayerList.end(); i++) {
+            if ((*i).name == name) {
+                (*i).diceNum = num;
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            GameScene* game = (GameScene*)mCurrentScene;
+            game->callInMainThread(callfunc_selector(GameScene::updatePlayerList));
+        }
+    }
 }
     
 void LogicalEngine::onPunishPlayer(const string& name, const string& punish)  {
-
+    if (mCurrentSceneType == SceneCreater::SCENE_GAME) {
+        GameScene* game = (GameScene*)mCurrentScene;
+        mPunishPlayerName = name;
+        mPunishment = punish;
+        game->callInMainThread(callfunc_selector(GameScene::showPunishment));
+    }
 }
-    
+
 void LogicalEngine::onGameFinished()  {
-
+    if (mCurrentSceneType == SceneCreater::SCENE_GAME) {
+        GameScene* game = (GameScene*)mCurrentScene;
+        game->callInMainThread(callfunc_selector(GameScene::gameFinished));
+    }
 }
 
+void LogicalEngine::getPlayerList(vector<Player> & playerList) {
+    playerList.clear();
+    playerList = mPlayerList;
+}
+
+void LogicalEngine::getPunishInfo(string& name, string& punishment) {
+    name = mPunishPlayerName;
+    punishment = mPunishment;
+}
+
+void LogicalEngine::getPunishSetting(PunishCat & cId, PunishType& pId) {
+    cId = mPunishCatId;
+    pId = mPunishTypeId;
+}
 

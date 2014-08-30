@@ -11,7 +11,7 @@
 #include "CommonUtil.h"
 
 PlayerSprite* PlayerSprite::create(Player& player) {
-    return create(player.name, CommonUtil::getDiceImage(player.picId), player.winRate);
+    return create(player.name, CommonUtil::getPicture(player.picId), player.winRate);
 }
 
 PlayerSprite* PlayerSprite::create(string name, string photo, float winRate) {

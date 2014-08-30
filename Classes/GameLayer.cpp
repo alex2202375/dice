@@ -56,6 +56,9 @@ GameLayer::GameLayer()
     
     mStart = nullptr;
     mShakePhone = nullptr;
+    
+    mPunishment= nullptr;
+    mPunishFinished = nullptr;
 }
 
 GameLayer::~GameLayer() {
@@ -86,6 +89,8 @@ GameLayer::~GameLayer() {
     CommonUtil::releaseRef(mRoomMenu);
     CommonUtil::releaseRef(mStart);
     CommonUtil::releaseRef(mShakePhone);
+    CommonUtil::releaseRef(mPunishment);
+    CommonUtil::releaseRef(mPunishFinished);
 }
 
 void GameLayer::onEnter() {
@@ -184,23 +189,28 @@ void GameLayer::onPunishInfoClicked(Ref* sender) {
 }
 
 void GameLayer::onPunishTypeSelected(Ref* sender) {
-    Node * item = (Node*)sender;
-    PunishType type = (PunishType)(item->getTag());
-    setSelectedPunishType(type);
-    hidePunishInfo();
-
-    log((string(__FUNCTION__)+"Selected type:%d").c_str(), (int)type);
     
+    if (LogicalEngine::getInstance()->isRoomOwner()) {
+        Node * item = (Node*)sender;
+        PunishType type = (PunishType)(item->getTag());
+        setSelectedPunishType(type);
+        hidePunishInfo();
+        
+        LogicalEngine::getInstance()->setPunishSetting(mSelectedPunishCat, mSelectedPunishType);
+        log((string(__FUNCTION__)+"Selected type:%d").c_str(), (int)type);
+    }
 }
 
 void GameLayer::onPunishCatSelected(Ref* sender) {
-    Node * item = (Node*)sender;
-    PunishCat type = (PunishCat)(item->getTag());
-    setSelectedPunishCat(type);
-    hidePunishCat();
-    
-    log((string(__FUNCTION__)+"Selected type:%d").c_str(), (int)type);
-    
+    if (LogicalEngine::getInstance()->isRoomOwner()) {
+        Node * item = (Node*)sender;
+        PunishCat type = (PunishCat)(item->getTag());
+        setSelectedPunishCat(type);
+        hidePunishCat();
+        
+        LogicalEngine::getInstance()->setPunishSetting(mSelectedPunishCat, mSelectedPunishType);
+        log((string(__FUNCTION__)+"Selected type:%d").c_str(), (int)type);
+    }
 }
 
 void GameLayer::setDiceNumber(int num) {
@@ -211,6 +221,7 @@ void GameLayer::showDiceAnimation() {
     
     if (!mDiceRunning)
     {
+        mDice->setVisible(true);
         auto animation = Animation::create();
         for( int i=1;i<=DiceRunAnimationSize;i++)
         {
@@ -286,7 +297,7 @@ void GameLayer::showPunishInfo(PunishType selectedIndex) {
         Size punishInfoSize = punishInfoBox->getContentSize();
         Vec2 punishInfoPos = punishInfoBox->getPosition();
         
-        const string typeList[] = {PunishTypeShyStr, PunishTypeBoldStr, PunishTypeTrueWordsStr, PunishTypeRiskyStr};
+        const string typeList[] = {PunishTypeBuyStr, PunishTypeNoLimitedStr, PunishTypeBoldStr, PunishTypeShyStr, PunishTypeNaiveStr};
         
         for (int i = 0; i < sizeof(typeList)/sizeof(string); i++) {
             
@@ -303,7 +314,7 @@ void GameLayer::showPunishInfo(PunishType selectedIndex) {
             normalSprite->addChild(normalTop);
             
             auto menuItem = MenuItemSprite::create(normalSprite, selectedSprite, CC_CALLBACK_1(GameLayer::onPunishTypeSelected, this));
-            menuItem->setTag((int)(PunishTypeShy+i));
+            menuItem->setTag((int)(PunishTypeBuy+i));
             
             Vec2 pos(selectedSprite->getContentSize().width/2, selectedSprite->getContentSize().height*(i+0.5));
             menuItem->setPosition(pos);
@@ -368,7 +379,8 @@ void GameLayer::showPunishCat(PunishCat selectedIndex) {
         Size punishCatSize = punishCatBox->getContentSize();
         Vec2 punishCatPos = punishCatBox->getPosition();
         
-        const string typeList[] = {PunishCatBigStr, PunishCatSmallStr, PunishCatSameStr};
+        const string typeList[] = {PunishCatSmallStr, PunishCatBigStr, PunishCatSameMostStr,
+        PunishCatSameLeastStr};
         
         for (int i = 0; i < sizeof(typeList)/sizeof(string); i++) {
             
@@ -440,7 +452,7 @@ void GameLayer::stopDiceAnimation() {
 
 void GameLayer::onDiceAnimationFinish(float interval)
 {
-    onGetDiceNum(rand()/DiceRunAnimationSize + 1);
+    onGetDiceNum(rand()%DiceRunAnimationSize + 1);
 }
 
 bool GameLayer::onTouch(Touch* touch, Event* event) {
@@ -522,7 +534,7 @@ bool GameLayer::init()
     
     listener->onTouchEnded = [&](Touch*, Event* event) {
      };
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, mDiceCup);
+//    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, mDiceCup);
     
     auto listener2 = EventListenerTouchOneByOne::create();
     listener2->setSwallowTouches(true);
@@ -530,7 +542,7 @@ bool GameLayer::init()
     
     listener2->onTouchEnded = [&](Touch*, Event* event) {
     };
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener2, mDice);
+//    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener2, mDice);
     
     //For Shake detect
     setAccelerometerEnabled(true);
@@ -540,7 +552,7 @@ bool GameLayer::init()
 void GameLayer::onAcceleration(Acceleration* pAccelerationValue, Event* event)  {
     static Acceleration lastAcc = *pAccelerationValue;
     
-    if (mShakePhone->isVisible()) {
+    if (mShakePhone && mShakePhone->isVisible()) {
         const double dCurTimeStamp = pAccelerationValue->timestamp;
         double dX=pAccelerationValue->x - lastAcc.x;
         double dY=pAccelerationValue->y - lastAcc.y;
@@ -565,7 +577,7 @@ void GameLayer::onAcceleration(Acceleration* pAccelerationValue, Event* event)  
 }
 
 void GameLayer::removeAllPlayers() {
-    for (size_t i = 0; i < mPlayers.size(); i++) {
+    for (int i = mPlayers.size()-1; i >= 0; i--) {
         Sprite* player = mPlayers.at(i);
         player->release();
         removeChild(player);
@@ -651,22 +663,25 @@ void GameLayer::onJoinRoomMenuClicked(Ref*sender) {
 
 void  GameLayer::onCreateRoomOKClicked(const string& roomNum, const string & roomPwd) {
     mRoomCreateJoin->setVisible(false);
+    LogicalEngine::getInstance()->createRoom(atoi(roomNum.c_str()), roomPwd);
     removeAllPlayers();
-    mDice->setVisible(true);
+
 }
 
 void  GameLayer::onJoinRoomOKClicked(const string& roomNum, const string & roomPwd) {
     mRoomCreateJoin->setVisible(false);
     removeAllPlayers();
-    mDice->setVisible(true);
+    LogicalEngine::getInstance()->joinRoom(atoi(roomNum.c_str()), roomPwd);
 }
 
 void  GameLayer::onJoinRoomCancelClicked() {
     mRoomCreateJoin->setVisible(false);
+    mRoomMenu->setVisible(true);
 }
 
 void  GameLayer::onCreateRoomCancelClicked() {
     mRoomCreateJoin->setVisible(false);
+    mRoomMenu->setVisible(true);
 }
 
 void GameLayer::showRoomCreateOrJoin(bool create, bool show) {
@@ -694,6 +709,7 @@ void GameLayer::enterredRoom() {
     //Hide room create
     showRoomCreateOrJoin(true, false);
     showStart(LogicalEngine::getInstance()->isRoomOwner());
+    updatePlayerList();
 }
 
 void GameLayer::showStart(bool show) {
@@ -706,6 +722,7 @@ void GameLayer::showStart(bool show) {
         mStart = Menu::create(menuItem, nullptr);
         mStart->setPosition(Vec2::ZERO);
         mStart->retain();
+        addChild(mStart, 2);
     }
     
     mStart->setVisible(show);
@@ -715,23 +732,97 @@ void GameLayer::onStartClicked(Ref* sender) {
     LogicalEngine::getInstance()->startGame();
 }
 
+void GameLayer::onPunishFinishedClicked(Ref* sender) {
+    LogicalEngine::getInstance()->punishFinished();
+}
+
+
 void GameLayer::showPunishment() {
+    string name, punishment;
+    LogicalEngine* engine = LogicalEngine::getInstance();
+    engine->getPunishInfo(name, punishment);
+    if (!mPunishment) {
+        mPunishment = Sprite::create(PunishmentIcon);
+        mPunishment->retain();
+        mPunishStr = Label::create(punishment, PunishmentFontName, PunishmentFontSize);
+        mPunishStr->setPosition(Vec2(mPunishment->getContentSize().width/2, PunishmentLabelY));
+        mPunishment->addChild(mPunishStr);
+        mPunishment->setPosition(mDiceCup->getPosition());
+        addChild(mPunishment, 2);
+        
+        auto menuItem = MenuItemImage::create(GameStartImg, GameStartImg, CC_CALLBACK_1(GameLayer::onPunishFinishedClicked, this));
+        Size visibleSize = Director::getInstance()->getVisibleSize();
+        menuItem->setPosition(Vec2(visibleSize.width/2, menuItem->getContentSize().height));
+        mPunishFinished = Menu::create(menuItem, nullptr);
+        mPunishFinished->setPosition(Vec2::ZERO);
+        mPunishFinished->retain();
+        addChild(mPunishFinished, 2);
+        mPunishFinished->setVisible(false);
+    }
     
+    mPunishStr->setString(punishment);
+    mPunishment->setVisible(true);
+    if (engine->isRoomOwner()) {
+        mPunishFinished->setVisible(true);
+    }
+}
+
+void GameLayer::punishFinished() {
+    DiceScene* scene = CommonUtil::getParentScene(this);
+    scene->showNotifyDialog(PunishmentFinishedStr);
+    if (mPunishment) {
+        mPunishment->setVisible(false);
+    }
 }
 
 void GameLayer::updatePunishSettings() {
-    
+    LogicalEngine::getInstance()->getPunishSetting(mSelectedPunishCat, mSelectedPunishType);
 }
 
 void GameLayer::updatePlayerList() {
+    vector<Player> playerList;
+    LogicalEngine::getInstance()->getPlayerList(playerList);
     
+    //Update exist and remove none exists
+    for (int i = mPlayers.size() - 1; i >= 0 ; i--) {
+        bool found = false;
+        for (int j = 0; j < playerList.size(); j++) {
+            if (mPlayers.at(i)->getName() == playerList.at(j).name) {
+                mPlayers.at(i)->setDiceNum(playerList.at(j).diceNum);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            Sprite* player = mPlayers.at(i);
+            player->release();
+            removeChild(player);
+            mPlayers.erase(i);
+        }
+    }
+    
+    //Add new
+    for (int i = 0; i < playerList.size(); i++) {
+        bool found = false;
+        for (int j = 0 ; j < mPlayers.size(); j++) {
+            if (playerList.at(i).name == mPlayers.at(j)->getName()) {
+                found = true;
+                break;
+            }
+        }
+        
+        if (!found) {
+            addPlayer(playerList.at(i));
+        }
+    }
 }
 
 void GameLayer::showShakePhone(bool show) {
     if (!mShakePhone) {
         mShakePhone = Sprite::create(GameShakePhoneImg);
         mShakePhone->setPosition(mDiceCup->getPosition());
-        mShakePhone->setAnchorPoint(Vec2(mShakePhone->getPosition().x, mShakePhone->getPosition().y - mShakePhone->getContentSize().height/2));
+        mShakePhone->retain();
+        addChild(mShakePhone, 2);
     }
     
     mShakePhone->stopAllActions();
@@ -740,7 +831,7 @@ void GameLayer::showShakePhone(bool show) {
         
         auto action2 = MoveBy::create(GameShakePhoneActionDuration, Vec2(-GameShakePhoneActionDeltaX, 0));
         auto oneShake = Sequence::create(action, action->reverse(), action2, action2->reverse(), NULL);
-        auto wholeShake = Repeat::create(oneShake, GameShakePhoneFinishDuration/(4*GameShakePhoneActionDeltaX));
+        auto wholeShake = Repeat::create(oneShake, GameShakePhoneFinishDuration/(4*GameShakePhoneActionDuration));
         auto wholeAction = Sequence::create(wholeShake, CallFuncN::create(CC_CALLBACK_1(GameLayer::finishRollDice, this)), NULL);
         mShakePhone->runAction(wholeAction);
     }
@@ -754,10 +845,26 @@ void GameLayer::finishRollDice(Ref* sender) {
 }
 
 void GameLayer::rollDice() {
+    showStart(false);
     showShakePhone(true);
 }
 
 void GameLayer::generateNumber() {
     showDiceAnimation();
     schedule(schedule_selector(GameLayer::onDiceAnimationFinish), 0, 0, 4);
+}
+
+void GameLayer::gameFinished() {
+    DiceScene* scene = CommonUtil::getParentScene(this);
+    scene->showNotifyDialog(GameFinished);
+    mRoomMenu->setVisible(false);
+    mRoomCreateJoin->setVisible(false);
+    mStart->setVisible(false);
+    mPunishFinished->setVisible(false);
+    mDice->setVisible(false);
+    mPunishment->setVisible(false);
+    if (LogicalEngine::getInstance()->isRoomOwner()) {
+        mStart->setVisible(true);
+    }
+//    removeAllPlayers();
 }

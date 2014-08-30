@@ -14,6 +14,7 @@
 #include "DiceScene.h"
 #include "Constants.h"
 #include "Player.h"
+#include "GameLayer.h"
 
 USING_NS_CC;
 
@@ -28,13 +29,15 @@ public:
     void showPunishment();
     void updatePunishSettings();
     void updatePlayerList();
+    void punishFinished();
+    void gameFinished();
 
 protected:
     GameStatus initStatus();
 
 private:
-  GameScene();
-
+    GameScene();
+    GameLayer* mGameLayer;
 };
 
 #endif /* defined(__dice__GameScene__) */

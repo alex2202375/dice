@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <list>
+#include <vector>
 #include "CCRef.h"
 #include "DiceScene.h"
 #include "SceneCreater.h"
@@ -41,6 +42,11 @@ public:
     int getPlayerPicId();
     void setPlayerPicId(int picId);
     
+    void getPlayerList(vector<Player> & playerList);
+    void getPunishInfo(string& name, string& punishment);
+    
+    void getPunishSetting(PunishCat & cId, PunishType& pid);
+    
     /**
      * Send to server
      */
@@ -50,12 +56,13 @@ public:
     void getAuthKey(const string& name, const string& phone);
     void registerUser(const string& name, const string& password,
                       const string& phone, int picId, const string& authKey);
-    void createRoom(int roomId);
-    void joinRoom(int roomId);
+    void createRoom(int roomId, const string& pwd);
+    void joinRoom(int roomId, const string& pwd);
     void startGame();
     void sendDiceNum(int number);
+    void punishFinished();
     void getPunishSetting();
-    void setPunishSetting(int punishCat, int punishType);
+    void setPunishSetting(PunishCat punishCat, PunishType punishType);
     
     /**
      * Responses handle
@@ -80,6 +87,7 @@ public:
     virtual void onStartRollDice() override;
     virtual void onPlayerJoined(const Player& player) override;
     virtual void onPlayerLeft(const string& name) override;
+    virtual void onPunishSetting(int catId, int typeId) override;
     virtual void onPlayerDiceNum(const string& name, int num) override;
     virtual void onPunishPlayer(const string& name, const string& punish) override;
     virtual void onGameFinished() override;
@@ -97,7 +105,8 @@ public:
 private:
     LogicalEngine();
     void setCurrentScene(DiceScene* scene, SceneCreater::SceneType sceneType);
-
+    void sendSceneEvent(const string& event, void* data);
+    
 private:
     GameStatus mStatus;
     DiceScene* mCurrentScene;
@@ -112,9 +121,13 @@ private:
     string mAuthCode;
     
     int mRoomId;
-    int mPunishTypeId;
-    int mPunishCatId;
+    PunishType mPunishTypeId;
+    PunishCat mPunishCatId;
     bool mIsRoomOwner;
+    
+    vector<Player> mPlayerList;
+    string mPunishPlayerName;
+    string mPunishment;
     
     static LogicalEngine* sInstance;
     

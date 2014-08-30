@@ -6,7 +6,7 @@
 //
 //
 #include <stdio.h>
-
+#include <ctype.h>
 #include "CommonUtil.h"
 #include "Vec2.h"
 #include "Constants.h"
@@ -20,7 +20,10 @@ void CommonUtil::setPosAccordSize(Node* node)
 
 string CommonUtil::getDiceImage(int num, bool small)
 {
-    num = num%DiceRunAnimationSize + 1;
+    num = num%DiceRunAnimationSize;
+    if (num ==0) {
+        num = 6;
+    }
     char picName[100] = {0};
     string format = small ? DiceMiniImgFormat: DiceImgFormat;
     sprintf(picName, format.c_str(), num);
@@ -74,7 +77,7 @@ int CommonUtil::getPictureId(const string& pic) {
 }
 
 void CommonUtil::setValue(json_t* jsObj, const string& name, const string& value) {
-    json_t *valueJ = json_string(name.c_str());
+    json_t *valueJ = json_string(value.c_str());
     json_object_set(jsObj, name.c_str(), valueJ);
     // decref for json object
     json_decref(valueJ);
@@ -94,7 +97,7 @@ void CommonUtil::setValue(json_t* jsObj, const string& name, const double& value
     json_decref(valueJ);
 }
 
-void CommonUtil::parseArray(json_t* jsObj, const string& name, list<Player>& result) {
+void CommonUtil::parseArray(json_t* jsObj, const string& name, vector<Player>& result) {
     json_t* obj = json_object_get(jsObj, name.c_str());
     if (obj) {
         parseArray(obj, result);
@@ -104,7 +107,7 @@ void CommonUtil::parseArray(json_t* jsObj, const string& name, list<Player>& res
     }
 }
 
-void CommonUtil::parseArray(json_t* jsObj, list<Player>& result) {
+void CommonUtil::parseArray(json_t* jsObj, vector<Player>& result) {
     size_t count = json_array_size(jsObj);
     for (size_t i = 0; i < count; i++) {
         json_t * objJson = json_array_get(jsObj, i);
@@ -115,11 +118,19 @@ void CommonUtil::parseArray(json_t* jsObj, list<Player>& result) {
 }
 
 void CommonUtil::parseObj(json_t* jsObj, Player & obj) {
-    json_t* name = json_object_get(jsObj, NetJsonPlayerNameKey.c_str());
-    obj.name = name ? json_string_value(name) : NetJsonPlayerNameUnknown;
-    
-    json_t* pic = json_object_get(jsObj, NetJsonPlayerPicKey.c_str());
-    obj.picId = pic ? json_integer_value(pic) : NetJsonPlayerPicDefault;
+    json_t* user= json_object_get(jsObj, NetJsonPlayerKey.c_str());
+    user = user ? user: jsObj;
+    if (user) {
+        json_t* name = json_object_get(user, NetJsonPlayerNameKey.c_str());
+        obj.name = name ? json_string_value(name) : NetJsonPlayerNameUnknown;
+        
+        json_t* pic = json_object_get(user, NetJsonPlayerPicKey.c_str());
+        obj.picId = pic ? atoi(json_string_value(pic)) : NetJsonPlayerPicDefault;
+    }
+    else {
+        obj.name = NetJsonPlayerNameUnknown;
+        obj.picId = NetJsonPlayerPicDefault;
+    }
 }
 
 #define PARSE_VALUE(jsObj, name, value, defValue) \
@@ -160,4 +171,22 @@ void CommonUtil::releaseRef(Ref* ref) {
     if (ref) {
         ref->release();
     }
+}
+
+bool CommonUtil::isValidPhone(string phoneNum) {
+    if (phoneNum.size() != 11) {
+        return false;
+    }
+    
+    if (phoneNum.at(0) != '1') {
+        return false;
+    }
+    
+    for (size_t i = 0; i < phoneNum.size(); i++) {
+        if (!isdigit(phoneNum.at(i))) {
+            return false;
+        }
+    }
+    
+    return true;
 }

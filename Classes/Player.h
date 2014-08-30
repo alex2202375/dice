@@ -24,6 +24,7 @@ public:
     string name;
     int picId;
     float winRate;
+    int diceNum;
 };
 
 

@@ -16,16 +16,45 @@ using namespace std;
 USING_NS_CC;
 
 enum PunishType {
-    PunishTypeShy = 1,
-    PunishTypeBold = 2,
-    PunishTypeTrueWords = 3,
-    PunishTypeRisky = 4
+    /**
+     *出血买单抉择
+     */
+    PunishTypeBuy = 5,
+    /**
+     *无底线型
+     */
+    PunishTypeNoLimitted = 6,
+    /**
+     *奔放型
+     */
+    PunishTypeBold = 7,
+    /**
+     *闷骚型
+     */
+    PunishTypeShy = 8,
+    /**
+     *童真无邪型
+     */
+    PunishTypeNaive = 9
 };
 
 enum PunishCat {
+    /**
+     *最小者输
+     */
     PunishCatSmall = 1,
+    /**
+     *最大者输
+     */
     PunishCatBig = 2,
-    PunishCatSameMost = 3
+    /**
+     *重复最多者输
+     */
+    PunishCatSameMost = 3,
+    /**
+     *重复最少者输
+     */
+    PunishCatSameLeast = 4
 };
 
 
@@ -66,13 +95,14 @@ enum GameStatus {
 **/
 //Request
 const string NetReqLogin = "gate.gateHandler.loginCheck";
+//const string NetReqLogin = "gate.gateHandler.queryEntry";
 const string NetReqCanRegister = "gate.gateHandler.regcheck";
 const string NetReqRegister = "gate.gateHandler.register";
 const string NetReqGetAuthKey = "gate.gateHandler.code";
 const string NetReqCreateRoom = "connector.entryHandler.create";
 const string NetReqJoinRoom = "connector.entryHandler.enter";
-const string NetReqSetSetting = "chat.chatHandler.setgamble";
-const string NetReqGetSetting = "chat.chatHandler.listgambles";
+const string NetReqSetSetting = "chat.chatHandler.setconfig";
+const string NetReqGetSetting = "chat.chatHandler.listconfig";
 const string NetReqSendDiceNum = "chat.chatHandler.gamble";
 const string NetReqStartGame = "chat.chatHandler.startgamble";
 const string NetReqPunishFinished = "chat.chatHandler.punishment";
@@ -81,7 +111,8 @@ const string NetReqPunishFinished = "chat.chatHandler.punishment";
 const string NetEventRollDice = "onStartGamble";
 const string NetEventUserJoined = "onAdd";
 const string NetEventUserLeft = "onLeave";
-const string NetEventUserDiceNum = "onChat";
+const string NetEventPunishSetting = "onSetconfig";
+const string NetEventUserDiceNum = "onGamble";
 const string NetEventPunishPlayer = "onPunishment";
 const string NetEventGameFinished = "onFinishGamble";
 
@@ -100,30 +131,34 @@ const string NetJsonToKey = "target";
 //Register
 const string NetJsonRegisterAuthKey = "code";
 //Login
-const string NetJsonLoginRspIpKey = "ip";
+const string NetJsonLoginRspIpKey = "host";
 const string NetJsonLoginRspIpInvalid = "";
 const string NetJsonLoginRspPortKey = "port";
 const int NetJsonLoginRspPortInvalid = -1;
 //Room
 const string NetJsonRoomOwnerKey = "owner";
 const string NetJsonRoomIdKey = "rid";
+const string NetJsonRoomPwdKey = "rpwd";
 const string NetJsonRoomOwnerUnknown = "未知房主";
-const string NetJsonRoomPlayerListKey = "list";
+const string NetJsonRoomPlayerListKey = "users";
 //Player
+const string NetJsonPlayerKey = "user";
 const string NetJsonPlayerNameKey = "name";
 const string NetJsonPlayerNameUnknown = "未知名字";
 const string NetJsonPlayerPhoneKey = "phone";
-const string NetJsonPlayerPicIdKey = "pid";
-const string NetJsonPlayerPwdKey = "password";
+const string NetJsonPlayerPicIdKey = "imgurl";
+const string NetJsonPlayerPwdKey = "passwd";
 const int NetJsonPlayerPicDefault = 1;
 const string NetJsonPlayerPicKey = "pic";
 //Dice number
-const string NetJsonDiceNumberKey = "content";
+const string NetJsonDiceNumberKey = "rval";
 const int NetJsonDiceNumberDefult = 1;
 //Punish
-const string NetJsonPunishmentKey = "punish";
+const string NetJsonPunishmentKey = "msg";
 const string NetJsonPunishmentCateKey = "cid";
+const PunishCat NetJsonPunishmentCatDefault = PunishCatSmall;
 const string NetJsonPunishmentTypeKey = "pid";
+const PunishType NetJsonPunishmentTypeDefault = PunishTypeBuy;
 const string NetJsonPunishmentDefult = "未知惩罚";
 
 
@@ -156,12 +191,13 @@ const int HeadGridy = 5;
 
 //Punish category
 const string PunishCatImg = "punishCategory.png";
-const string PunishCatBgImg = "punishCatBg.png";
+const string PunishCatBgImg = "punishTypeBg.png";
 const string PunishCatSelectedImg = "infoSelected.png";
 const string PunishCatNormalImg = "infoNormal.png";
-const string PunishCatBigStr = "点数最大";
-const string PunishCatSmallStr = "点数最小";
-const string PunishCatSameStr = "相同最多";
+const string PunishCatBigStr = "最大者输";
+const string PunishCatSmallStr = "最小者输";
+const string PunishCatSameMostStr = "重复最多者输";
+const string PunishCatSameLeastStr = "重复最少者输";
 const string PunishCatFontName = DefaultFontName;
 const int PunishCatFontSize = DefaultFontSize;
 const Color3B PunishCatFontColor = DefaultFontColor;
@@ -172,10 +208,11 @@ const string PunishTypeImg = "punishType.png";
 const string PunishTypeBgImg = "punishTypeBg.png";
 const string PunishTypeSelectedImg = "infoSelected.png";
 const string PunishTypeNormalImg = "infoNormal.png";
-const string PunishTypeShyStr = "腼腆型";
-const string PunishTypeBoldStr = "豪放型";
-const string PunishTypeTrueWordsStr = "真心话";
-const string PunishTypeRiskyStr = "大冒险";
+const string PunishTypeBuyStr = "出血买单抉择";
+const string PunishTypeShyStr = "闷骚型";
+const string PunishTypeBoldStr = "奔放型";
+const string PunishTypeNoLimitedStr = "无底线型";
+const string PunishTypeNaiveStr = "童真无邪型";
 const string PunishTypeFontName = DefaultFontName;
 const int PunishTypeFontSize = DefaultFontSize;
 const Color3B PunishTypeFontColor = DefaultFontColor;
@@ -212,7 +249,7 @@ const float EditBoxHeight = 50;
 const string GameStartImg = "start.png";
 const string GameShakePhoneImg = "shakePhone.png";
 const float GameShakePhoneActionDeltaX = 5;
-const float GameShakePhoneActionDuration = 0.05;
+const float GameShakePhoneActionDuration = 0.02;
 const float GameShakePhoneFinishDuration = 5;
 //ROOM
 const string RoomCreateRoomNormalImg = "createRoomNormal.png";
@@ -240,10 +277,17 @@ const string RoomFontName = DefaultFontName;
 const int RoomFontSize = 35;
 const Color3B RoomFontColor = Color3B::GRAY;
 const int RoomEditMaxLength = 12;
+//Punishment
+const string PunishmentIcon = "punish.png";
+const string PunishmentFontName = DefaultFontName;
+const int PunishmentFontSize = 30;
+const Color3B PunishmentFontColor = Color3B::GRAY;
+const int PunishmentLabelY = 200;
+const string PunishmentFinishedStr = "当前惩罚结束";
 
 const int NotifyDefaultCloseDelay = 2;
 const string NotifyBgImg = "dialogBg.png";
-const srring NotifyFontName = DefaultFontName;
+const string NotifyFontName = DefaultFontName;
 const int NotifyFontSize = 26;
 const float NotifyShowHideDuration = 0.2f;
 
@@ -255,6 +299,16 @@ const string RegisterNoName = "请输入用户名";
 const string RegisterPwdNotSame = "两次输入的密码不一致";
 const string RegisterPhoneNotValid = "请输入正确的电话号码";
 const string RegisterNoAuthCode = "请输入验证码";
+//Login
+const string LoginNoName = "请输入用户名";
+const string LoginNoPwd = "请输入密码";
+//Timeout
+const string NetTimeOut = "连接服务器超时";
+//Game
+const string GameFinished = "本局游戏结束";
 
+
+//Cocos Event
+const string DiceEventSwithTo = "swithTo";
 
 #endif

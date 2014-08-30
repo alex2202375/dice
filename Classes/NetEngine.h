@@ -33,7 +33,7 @@ public:
 class JoinRoomRsp : public ResponseBase {
 public:
     string owner;
-    list<Player> players;
+    vector<Player> players;
 };
 
 class GetPunishSettingRsp : public ResponseBase {
@@ -64,6 +64,7 @@ public:
     virtual void onPlayerJoined(const Player& player) = 0;
     virtual void onPlayerLeft(const string& name) = 0;
     virtual void onPlayerDiceNum(const string& name, int num) = 0;
+    virtual void onPunishSetting(int catId, int typeId) = 0;
     virtual void onPunishPlayer(const string& name, const string& punishment) = 0;
     virtual void onGameFinished() = 0;
 };
@@ -80,10 +81,10 @@ public:
     void getAuthKey(const string& name, const string& phone);
     void registerUser(const string& name, const string& passwd,
                       const string& phone, int imageId, const string& authKey);
-    void createRoom(const string& name, int roomId);
+    void createRoom(const string& name, int roomId, const string& pwd);
     void getPunishSetting(const string& name, int roomId);
     void setPunishSetting(const string& name, int roomId, int punishCat, int punishType);
-    void joinRoom(const string& name, int roomId);
+    void joinRoom(const string& name, int roomId, const string& pwd);
     void sendDiceNum(const string& name, int roomId, int num);
     void startGame(const string& name, int roomId);
     void punishFinished(const string& name, int roomId);

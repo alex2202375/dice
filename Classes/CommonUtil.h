@@ -51,8 +51,8 @@ public:
     static void setValue(json_t* jsObj, const string& name, const double& value);
 
     //Parse functions
-    static void parseArray(json_t* jsObj, const string& name, list<Player>& result);
-    static void parseArray(json_t* jsObj, list<Player>& result);
+    static void parseArray(json_t* jsObj, const string& name, vector<Player>& result);
+    static void parseArray(json_t* jsObj, vector<Player>& result);
 
     static void parseObj(json_t* jsObj, Player & obj);
 

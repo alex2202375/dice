@@ -83,7 +83,7 @@ void RegisterLayer::onRegButtonClicked(Ref * caller) {
         errorStr = RegisterNoAuthCode;
     }
 
-    if (errorCode.size()) {
+    if (errorStr.size()) {
         scene->showNotifyDialog(errorStr);
     }
     else {

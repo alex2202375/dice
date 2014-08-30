@@ -29,8 +29,13 @@ NetEngine* NetEngine::getInstance() {
 
 void NetEngine::disconnectServer() {
     if (mClient) {
-        pc_client_disconnect(mClient);
+        pc_client_stop(mClient);
+        pc_client_join(mClient);
+//        pc_client_disconnect(mClient);
+//        pc_client_destroy(mClient);
+//        mClient = nullptr;
     }
+    init();
     mConnectIp = NetServerIp;
     mConnectPort = NetServerPort;
 }
@@ -65,7 +70,7 @@ bool NetEngine::connectServer() {
 }
 
 bool NetEngine::isConnected() {
-    return mClient->state == PC_ST_WORKING || mClient->state ==  PC_ST_CONNECTED;
+    return mClient && (mClient->state == PC_ST_WORKING || mClient->state ==  PC_ST_CONNECTED);
 }
 
 bool NetEngine::init() {
@@ -116,7 +121,7 @@ void NetEngine::login(const string& name, const string& passwd) {
     json_t *msg = json_object();
     CommonUtil::setValue(msg, NetJsonPlayerNameKey, name);
     CommonUtil::setValue(msg, NetJsonPlayerPwdKey, passwd);
-
+//    CommonUtil::setValue(msg, "uid", 1);
     sendRequest(NetReqLogin, msg);
 }
 
@@ -139,17 +144,19 @@ void NetEngine::registerUser(const string& name, const string& passwd,
     sendRequest(NetReqRegister, msg);
 }
 
-void NetEngine::createRoom(const string& name, int roomId) {
+void NetEngine::createRoom(const string& name, int roomId, const string& pwd) {
     json_t *msg = json_object();
     CommonUtil::setValue(msg, NetJsonPlayerNameKey, name);
     CommonUtil::setValue(msg, NetJsonRoomIdKey, roomId);
+    CommonUtil::setValue(msg, NetJsonRoomPwdKey, pwd);
     sendRequest(NetReqCreateRoom, msg);
 }
 
-void NetEngine::joinRoom(const string& name, int roomId) {
+void NetEngine::joinRoom(const string& name, int roomId, const string& pwd) {
     json_t *msg = json_object();
     CommonUtil::setValue(msg, NetJsonPlayerNameKey, name);
     CommonUtil::setValue(msg, NetJsonRoomIdKey, roomId);
+    CommonUtil::setValue(msg, NetJsonRoomPwdKey, pwd);
     sendRequest(NetReqJoinRoom, msg);
 }
 
@@ -225,6 +232,9 @@ void NetEngine::onRequestResult(pc_request_t* req, int status, json_t *resp) {
     }
     engine->setResponseField(*rsp, status, resp);
     
+    char* msgStr =json_dumps(resp, JSON_ENCODE_ANY);
+    log("onRequestResult:event:%s, data:%s", request.c_str(), msgStr);
+    delete msgStr;
 
     if (request == NetReqLogin) {
         if (rsp->result == RSP_OK) {
@@ -297,9 +307,12 @@ void NetEngine::onRequestResult(pc_request_t* req, int status, json_t *resp) {
 }
 
 void NetEngine::sendRequest(const string& route, json_t *msg) {
+    char* msgStr =json_dumps(msg, JSON_ENCODE_ANY);
+    log("sendRequest: route:%s, msg:%s", route.c_str(), msgStr);
+    free(msgStr);
     pc_request_t *request = pc_request_new();
     if (!isConnected() && !connectServer()) {
-        request->route = route.c_str();
+        request->route = strdup(route.c_str());
         request->msg = msg;
         json_t* resp = json_object();
         json_t* result = json_integer(1);
@@ -323,11 +336,14 @@ void NetEngine::onEvent(pc_client_t *client, const char *event, void *data) {
     }
     json_t* msg = (json_t*)data;
     string evt = event;
+    char* dataStr = msg ? json_dumps(msg, JSON_ENCODE_ANY): strdup("no data");
+    log("onEvent:%s, data:%s", evt.c_str(), dataStr);
+    delete(dataStr);
     if (evt == PC_EVENT_DISCONNECT) {
         engine->mHandler->onDisconnected();
         //Reset to server ip;
-        mConnectIp = NetServerIp;
-        mConnectPort = NetServerPort;
+        engine->mConnectIp = NetServerIp;
+        engine->mConnectPort = NetServerPort;
     }
     else if (evt == PC_EVENT_TIMEOUT) {
         engine->mHandler->onTimeout();
@@ -351,17 +367,23 @@ void NetEngine::onEvent(pc_client_t *client, const char *event, void *data) {
     else if (evt == NetEventUserDiceNum) {
         string name;
         int num;
-        CommonUtil::parseValue(msg, NetJsonPlayerNameKey, name, NetJsonPlayerNameUnknown);
+        CommonUtil::parseValue(msg, NetJsonFromKey, name, NetJsonPlayerNameUnknown);
         CommonUtil::parseValue(msg, NetJsonDiceNumberKey, num, NetJsonDiceNumberDefult);
         engine->mHandler->onPlayerDiceNum(name, num);
     }
     else if (evt == NetEventPunishPlayer) {
         string name, punishment;
-        CommonUtil::parseValue(msg, NetJsonPlayerNameKey, name, NetJsonPlayerNameUnknown);
+        CommonUtil::parseValue(msg, NetJsonFromKey, name, NetJsonPlayerNameUnknown);
         CommonUtil::parseValue(msg, NetJsonPunishmentKey, punishment, NetJsonPunishmentDefult);
         engine->mHandler->onPunishPlayer(name, punishment);
     }
     else if (evt == NetEventGameFinished) {
         engine->mHandler->onGameFinished();
+    }
+    else if (evt == NetEventPunishSetting) {
+        int pId, cId;
+        CommonUtil::parseValue(msg, NetJsonPunishmentCateKey, pId, (int)NetJsonPunishmentCatDefault);
+        CommonUtil::parseValue(msg, NetJsonPunishmentTypeKey, cId, (int)NetJsonPunishmentTypeDefault);
+        engine->mHandler->onPunishSetting(cId, pId);
     }
 }

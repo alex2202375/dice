@@ -63,6 +63,7 @@
 		C3282C4219A4CBE2009FD328 /* hd in Resources */ = {isa = PBXBuildFile; fileRef = C3282C4119A4CBE2009FD328 /* hd */; };
 		C39044C719AB72E300803668 /* DiceScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C39044C319AB72E300803668 /* DiceScene.cpp */; };
 		C39044C819AB72E300803668 /* SceneCreater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C39044C519AB72E300803668 /* SceneCreater.cpp */; };
+		C3B82BFA19B0F8380076D8C0 /* xhd in Resources */ = {isa = PBXBuildFile; fileRef = C3B82BF919B0F8380076D8C0 /* xhd */; };
 		C3DE3DC21995C54D00EB0A2A /* LoadingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DBC1995C54D00EB0A2A /* LoadingLayer.cpp */; };
 		C3DE3DC31995C54D00EB0A2A /* InitBackgroundLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DBE1995C54D00EB0A2A /* InitBackgroundLayer.cpp */; };
 		C3DE3DC41995C54D00EB0A2A /* LoginLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DC01995C54D00EB0A2A /* LoginLayer.cpp */; };
@@ -78,7 +79,6 @@
 		C3DE3E0119990C5B00EB0A2A /* GameBackgroundLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3DFF19990C5B00EB0A2A /* GameBackgroundLayer.cpp */; };
 		C3DE3E101999140B00EB0A2A /* GameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DE3E0E1999140B00EB0A2A /* GameLayer.cpp */; };
 		C3E776C1199E6A9B0009F0C3 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = C3E776BF199E6A9B0009F0C3 /* fonts */; };
-		C3E776C2199E6A9B0009F0C3 /* xhd in Resources */ = {isa = PBXBuildFile; fileRef = C3E776C0199E6A9B0009F0C3 /* xhd */; };
 		C3E7776419A2570F0009F0C3 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = C3E7772B19A2570F0009F0C3 /* .travis.yml */; };
 		C3E7776519A2570F0009F0C3 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E7772D19A2570F0009F0C3 /* dump.c */; };
 		C3E7776619A2570F0009F0C3 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E7772E19A2570F0009F0C3 /* error.c */; };
@@ -302,6 +302,7 @@
 		C39044C419AB72E300803668 /* DiceScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiceScene.h; path = ../Classes/DiceScene.h; sourceTree = "<group>"; };
 		C39044C519AB72E300803668 /* SceneCreater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneCreater.cpp; path = ../Classes/SceneCreater.cpp; sourceTree = "<group>"; };
 		C39044C619AB72E300803668 /* SceneCreater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneCreater.h; path = ../Classes/SceneCreater.h; sourceTree = "<group>"; };
+		C3B82BF919B0F8380076D8C0 /* xhd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = xhd; sourceTree = "<group>"; };
 		C3DE3DBC1995C54D00EB0A2A /* LoadingLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LoadingLayer.cpp; path = ../Classes/LoadingLayer.cpp; sourceTree = "<group>"; };
 		C3DE3DBD1995C54D00EB0A2A /* LoadingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingLayer.h; path = ../Classes/LoadingLayer.h; sourceTree = "<group>"; };
 		C3DE3DBE1995C54D00EB0A2A /* InitBackgroundLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InitBackgroundLayer.cpp; path = ../Classes/InitBackgroundLayer.cpp; sourceTree = "<group>"; };
@@ -332,7 +333,6 @@
 		C3DE3E0F1999140B00EB0A2A /* GameLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLayer.h; sourceTree = "<group>"; };
 		C3DE3E83199E2C6100EB0A2A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C3E776BF199E6A9B0009F0C3 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
-		C3E776C0199E6A9B0009F0C3 /* xhd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = xhd; sourceTree = "<group>"; };
 		C3E7772B19A2570F0009F0C3 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		C3E7772D19A2570F0009F0C3 /* dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dump.c; sourceTree = "<group>"; };
 		C3E7772E19A2570F0009F0C3 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
@@ -579,9 +579,9 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C3B82BF919B0F8380076D8C0 /* xhd */,
 				C3282C4119A4CBE2009FD328 /* hd */,
 				C3E776BF199E6A9B0009F0C3 /* fonts */,
-				C3E776C0199E6A9B0009F0C3 /* xhd */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -984,6 +984,7 @@
 				C3282C4219A4CBE2009FD328 /* hd in Resources */,
 				C3E7776B19A2570F0009F0C3 /* Makefile.am in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
+				C3B82BFA19B0F8380076D8C0 /* xhd in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				C3E7776419A2570F0009F0C3 /* .travis.yml in Resources */,
 				C3E7777219A2570F0009F0C3 /* .mailmap in Resources */,
@@ -991,7 +992,6 @@
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
-				C3E776C2199E6A9B0009F0C3 /* xhd in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				C3E776C1199E6A9B0009F0C3 /* fonts in Resources */,

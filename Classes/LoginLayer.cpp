@@ -15,6 +15,7 @@
 #include "GameScene.h"
 #include "RegisterScene.h"
 #include "LogicalEngine.h"
+#include "CommonUtil.h"
 
 
 //void LoginLayer::menuCloseCallback(Ref* pSender)
@@ -48,7 +49,20 @@ void LoginLayer::onEnter() {
 
 void LoginLayer::onLoginClicked(Ref* caller) {
     log(__FUNCTION__);
-    GameScene * scene = GameScene::create();
+    
+    string name = mNameEdit->getText();
+    string pwd = mPasswordEdit->getText();
+    DiceScene* scene = CommonUtil::getParentScene(this);
+    if (!name.size()) {
+        scene->showNotifyDialog(LoginNoName);
+        return;
+    }
+    
+    if (!pwd.size()) {
+        scene->showNotifyDialog(LoginNoPwd);
+        return;
+    }
+    
     LogicalEngine* engine = LogicalEngine::getInstance();
     engine->login(mNameEdit->getText(), mPasswordEdit->getText(), true);
 }

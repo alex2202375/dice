@@ -40,6 +40,8 @@ public:
     void updatePlayerList();
     void showStart(bool show);
     void rollDice();
+    void punishFinished();
+    void gameFinished();
     
     void onSelfInfoClicked(Ref* sender);
     void onPunishInfoClicked(Ref* sender);
@@ -98,6 +100,7 @@ private:
     bool onTouch(Touch* touch, Event* event);
     
     void onStartClicked(Ref* sender);
+    void onPunishFinishedClicked(Ref* sender);
     
     void showShakePhone(bool show);
     void finishRollDice(Ref* sender);
@@ -142,6 +145,10 @@ private:
     Menu* mStart;
     
     Sprite* mShakePhone;
+    
+    Sprite* mPunishment;
+    Label* mPunishStr;
+    Menu* mPunishFinished;
  };
 
 

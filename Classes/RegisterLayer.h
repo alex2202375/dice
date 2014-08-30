@@ -19,6 +19,7 @@ USING_NS_CC_EXT;
 class RegisterLayer: public Layer{
 public:
     CREATE_FUNC(RegisterLayer);
+    virtual ~RegisterLayer();
     virtual bool init() override;
     virtual void onEnter() override;
     

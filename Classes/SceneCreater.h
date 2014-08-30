@@ -8,8 +8,7 @@
 #ifndef SCENECREATER_H_
 #define SCENECREATER_H_
 
-#include "DiceScene.h"
-
+#include <string>
 using namespace std;
 
 class DiceScene;
